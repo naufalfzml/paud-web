@@ -15,6 +15,8 @@ export default {
         'tentang-paud' : '#f1f4ed',
         'artikel-berita' : '#557875',
         'ready-join' : '#FFE1E1',
+        'login' : '#DCF3FF',
+        'register' : '#EEFFD9',
         background: "var(--background)",
         foreground: "var(--foreground)",
       },

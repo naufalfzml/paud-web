@@ -21,7 +21,7 @@ export default function Navbar() {
       className={`fixed left-1/2 transform -translate-x-1/2 z-50 transition-all duration-500 ease-in-out
  ${
         isScrolled
-          ? "bg-white/90 shadow-md rounded-full px-6 py-2 w-[90%] max-w-5xl backdrop-blur-md top-4"
+          ? "bg-white/90 shadow-md rounded-full px-6 w-[90%] max-w-5xl backdrop-blur-md top-4"
           : "bg-white w-full px-0 py-4"
       }`}
     >
@@ -31,13 +31,13 @@ export default function Navbar() {
             <img src="/images/logo-paud.png" alt="Logo PAUD" />
           </div>
           <div>
-            <h1 className="text-xl font-bold text-gray-800">PAUD Cahya India</h1>
+            <h1 className="text-xl font-bold text-gray-800">PAUD Cahya Indria</h1>
             <p className="text-sm font-semibold text-gray-600">Cerdas Cermat Ceria!</p>
           </div>
         </div>
 
         <nav className="hidden md:flex items-center space-x-6">
-          <Link href="#" className="text-gray-600 font-medium hover:text-blue-600 flex items-center space-x-1">
+          <Link href="/" className="text-gray-600 font-medium hover:text-blue-600 flex items-center space-x-1">
             <span>🏠</span><span>Beranda</span>
           </Link>
           <Link href="#" className="text-gray-600 font-medium hover:text-blue-600 flex items-center space-x-1">
@@ -78,7 +78,7 @@ export default function Navbar() {
             )}
           </div>
 
-          <Link href="/login" className="bg-blue-600 font-medium text-white px-6 py-1 rounded-2xl hover:bg-belajar">
+          <Link href="/auth/login" className="bg-blue-600 font-medium text-white px-6 py-1 rounded-2xl hover:bg-belajar">
             Login
           </Link>
         </nav>

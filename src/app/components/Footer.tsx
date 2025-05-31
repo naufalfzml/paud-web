@@ -14,7 +14,7 @@ export default function Footer() {
                     <img src="/images/logo-paud.png" alt="" />
                     </div>
                     <div>
-                    <h3 className="font-bold">PAUD Cahya India</h3>
+                    <h3 className="font-bold">PAUD Cahya Indria</h3>
                     <p className="text-sm text-gray-400">Cerdas Cermat Ceria!</p>
                     </div>
                 </div>

@@ -51,7 +51,6 @@ const PAUDWebsite = () => {
               </div>
             </div>
             <div className="absolute bottom-4 right-4">
-              {/* <MessageCircle className="w-8 h-8 text-green-500" /> */}
             </div>
           </div>
         </div>
@@ -62,7 +61,7 @@ const PAUDWebsite = () => {
         <div className="max-w-6xl mx-auto px-4 text-center">
           <h2 className="text-5xl font-medium text-gray-800 mb-6">Tentang PAUD</h2>
           <p className="text-gray-600 max-w-3xl mx-auto leading-relaxed text-2xl mt-16">
-            PAUD Cahya India is dedicated to providing a nurturing environment where children can explore, discover, and develop a love for learning through play-based educational experiences.
+            PAUD Cahya Indria is dedicated to providing a nurturing environment where children can explore, discover, and develop a love for learning through play-based educational experiences.
           </p>
         </div>
         <div className="max-w-6xl mx-auto px-4 mt-16">
