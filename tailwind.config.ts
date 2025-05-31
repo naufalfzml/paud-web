@@ -9,9 +9,18 @@ export default {
   theme: {
     extend: {
       colors: {
+        'header' : '#d9ecff',
+        'card-belajar' : '#d5e7f9',
+        'belajar' : '#0000ff',
+        'tentang-paud' : '#f1f4ed',
+        'artikel-berita' : '#557875',
+        'ready-join' : '#FFE1E1',
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        'fredoka': ['var(--font-fredoka)', 'cursive'],
+      }
     },
   },
   plugins: [],
