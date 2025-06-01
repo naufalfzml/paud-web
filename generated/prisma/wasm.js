@@ -157,6 +157,7 @@ exports.Prisma.LaporanScalarFieldEnum = {
 
 exports.Prisma.PendaftarPesertaDidikScalarFieldEnum = {
   id: 'id',
+  userId: 'userId',
   fullName: 'fullName',
   alamat: 'alamat',
   ttl: 'ttl',
@@ -167,6 +168,7 @@ exports.Prisma.PendaftarPesertaDidikScalarFieldEnum = {
 
 exports.Prisma.PendaftarTenagaPendidikScalarFieldEnum = {
   id: 'id',
+  userId: 'userId',
   fullName: 'fullName',
   alamat: 'alamat',
   noHp: 'noHp',

@@ -26,13 +26,15 @@ enum StatusPendaftaran {
 }
 
 model User {
-  id          String        @id @default(uuid())
-  email       String        @unique
-  name        String
-  role        Role          @default(USER)
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  KritikSaran KritikSaran[]
+  id                      String                    @id @default(uuid())
+  email                   String                    @unique
+  name                    String
+  role                    Role                      @default(USER)
+  createdAt               DateTime                  @default(now())
+  updatedAt               DateTime                  @updatedAt
+  KritikSaran             KritikSaran[]
+  PendaftarPesertaDidik   PendaftarPesertaDidik[]
+  PendaftarTenagaPendidik PendaftarTenagaPendidik[]
 }
 
 model ArtikelBerita {
@@ -64,6 +66,8 @@ model Laporan {
 
 model PendaftarPesertaDidik {
   id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
   fullName  String
   alamat    String
   ttl       DateTime
@@ -74,6 +78,8 @@ model PendaftarPesertaDidik {
 
 model PendaftarTenagaPendidik {
   id         String            @id @default(uuid())
+  userId     String
+  user       User              @relation(fields: [userId], references: [id])
   fullName   String
   alamat     String
   noHp       String

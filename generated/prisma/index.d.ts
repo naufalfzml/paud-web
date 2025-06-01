@@ -1537,10 +1537,14 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     KritikSaran: number
+    PendaftarPesertaDidik: number
+    PendaftarTenagaPendidik: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     KritikSaran?: boolean | UserCountOutputTypeCountKritikSaranArgs
+    PendaftarPesertaDidik?: boolean | UserCountOutputTypeCountPendaftarPesertaDidikArgs
+    PendaftarTenagaPendidik?: boolean | UserCountOutputTypeCountPendaftarTenagaPendidikArgs
   }
 
   // Custom InputTypes
@@ -1559,6 +1563,20 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountKritikSaranArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: KritikSaranWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountPendaftarPesertaDidikArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PendaftarPesertaDidikWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountPendaftarTenagaPendidikArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PendaftarTenagaPendidikWhereInput
   }
 
 
@@ -1739,6 +1757,8 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     KritikSaran?: boolean | User$KritikSaranArgs<ExtArgs>
+    PendaftarPesertaDidik?: boolean | User$PendaftarPesertaDidikArgs<ExtArgs>
+    PendaftarTenagaPendidik?: boolean | User$PendaftarTenagaPendidikArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1772,6 +1792,8 @@ export namespace Prisma {
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "name" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     KritikSaran?: boolean | User$KritikSaranArgs<ExtArgs>
+    PendaftarPesertaDidik?: boolean | User$PendaftarPesertaDidikArgs<ExtArgs>
+    PendaftarTenagaPendidik?: boolean | User$PendaftarTenagaPendidikArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1781,6 +1803,8 @@ export namespace Prisma {
     name: "User"
     objects: {
       KritikSaran: Prisma.$KritikSaranPayload<ExtArgs>[]
+      PendaftarPesertaDidik: Prisma.$PendaftarPesertaDidikPayload<ExtArgs>[]
+      PendaftarTenagaPendidik: Prisma.$PendaftarTenagaPendidikPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2184,6 +2208,8 @@ export namespace Prisma {
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     KritikSaran<T extends User$KritikSaranArgs<ExtArgs> = {}>(args?: Subset<T, User$KritikSaranArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$KritikSaranPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    PendaftarPesertaDidik<T extends User$PendaftarPesertaDidikArgs<ExtArgs> = {}>(args?: Subset<T, User$PendaftarPesertaDidikArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PendaftarPesertaDidikPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    PendaftarTenagaPendidik<T extends User$PendaftarTenagaPendidikArgs<ExtArgs> = {}>(args?: Subset<T, User$PendaftarTenagaPendidikArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PendaftarTenagaPendidikPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2628,6 +2654,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: KritikSaranScalarFieldEnum | KritikSaranScalarFieldEnum[]
+  }
+
+  /**
+   * User.PendaftarPesertaDidik
+   */
+  export type User$PendaftarPesertaDidikArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PendaftarPesertaDidik
+     */
+    select?: PendaftarPesertaDidikSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PendaftarPesertaDidik
+     */
+    omit?: PendaftarPesertaDidikOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PendaftarPesertaDidikInclude<ExtArgs> | null
+    where?: PendaftarPesertaDidikWhereInput
+    orderBy?: PendaftarPesertaDidikOrderByWithRelationInput | PendaftarPesertaDidikOrderByWithRelationInput[]
+    cursor?: PendaftarPesertaDidikWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PendaftarPesertaDidikScalarFieldEnum | PendaftarPesertaDidikScalarFieldEnum[]
+  }
+
+  /**
+   * User.PendaftarTenagaPendidik
+   */
+  export type User$PendaftarTenagaPendidikArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PendaftarTenagaPendidik
+     */
+    select?: PendaftarTenagaPendidikSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PendaftarTenagaPendidik
+     */
+    omit?: PendaftarTenagaPendidikOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PendaftarTenagaPendidikInclude<ExtArgs> | null
+    where?: PendaftarTenagaPendidikWhereInput
+    orderBy?: PendaftarTenagaPendidikOrderByWithRelationInput | PendaftarTenagaPendidikOrderByWithRelationInput[]
+    cursor?: PendaftarTenagaPendidikWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PendaftarTenagaPendidikScalarFieldEnum | PendaftarTenagaPendidikScalarFieldEnum[]
   }
 
   /**
@@ -5735,6 +5809,7 @@ export namespace Prisma {
 
   export type PendaftarPesertaDidikMinAggregateOutputType = {
     id: string | null
+    userId: string | null
     fullName: string | null
     alamat: string | null
     ttl: Date | null
@@ -5745,6 +5820,7 @@ export namespace Prisma {
 
   export type PendaftarPesertaDidikMaxAggregateOutputType = {
     id: string | null
+    userId: string | null
     fullName: string | null
     alamat: string | null
     ttl: Date | null
@@ -5755,6 +5831,7 @@ export namespace Prisma {
 
   export type PendaftarPesertaDidikCountAggregateOutputType = {
     id: number
+    userId: number
     fullName: number
     alamat: number
     ttl: number
@@ -5767,6 +5844,7 @@ export namespace Prisma {
 
   export type PendaftarPesertaDidikMinAggregateInputType = {
     id?: true
+    userId?: true
     fullName?: true
     alamat?: true
     ttl?: true
@@ -5777,6 +5855,7 @@ export namespace Prisma {
 
   export type PendaftarPesertaDidikMaxAggregateInputType = {
     id?: true
+    userId?: true
     fullName?: true
     alamat?: true
     ttl?: true
@@ -5787,6 +5866,7 @@ export namespace Prisma {
 
   export type PendaftarPesertaDidikCountAggregateInputType = {
     id?: true
+    userId?: true
     fullName?: true
     alamat?: true
     ttl?: true
@@ -5870,6 +5950,7 @@ export namespace Prisma {
 
   export type PendaftarPesertaDidikGroupByOutputType = {
     id: string
+    userId: string
     fullName: string
     alamat: string
     ttl: Date
@@ -5897,36 +5978,43 @@ export namespace Prisma {
 
   export type PendaftarPesertaDidikSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    userId?: boolean
     fullName?: boolean
     alamat?: boolean
     ttl?: boolean
     namaWali?: boolean
     noHpWali?: boolean
     createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["pendaftarPesertaDidik"]>
 
   export type PendaftarPesertaDidikSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    userId?: boolean
     fullName?: boolean
     alamat?: boolean
     ttl?: boolean
     namaWali?: boolean
     noHpWali?: boolean
     createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["pendaftarPesertaDidik"]>
 
   export type PendaftarPesertaDidikSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    userId?: boolean
     fullName?: boolean
     alamat?: boolean
     ttl?: boolean
     namaWali?: boolean
     noHpWali?: boolean
     createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["pendaftarPesertaDidik"]>
 
   export type PendaftarPesertaDidikSelectScalar = {
     id?: boolean
+    userId?: boolean
     fullName?: boolean
     alamat?: boolean
     ttl?: boolean
@@ -5935,13 +6023,25 @@ export namespace Prisma {
     createdAt?: boolean
   }
 
-  export type PendaftarPesertaDidikOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fullName" | "alamat" | "ttl" | "namaWali" | "noHpWali" | "createdAt", ExtArgs["result"]["pendaftarPesertaDidik"]>
+  export type PendaftarPesertaDidikOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "fullName" | "alamat" | "ttl" | "namaWali" | "noHpWali" | "createdAt", ExtArgs["result"]["pendaftarPesertaDidik"]>
+  export type PendaftarPesertaDidikInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type PendaftarPesertaDidikIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type PendaftarPesertaDidikIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
 
   export type $PendaftarPesertaDidikPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "PendaftarPesertaDidik"
-    objects: {}
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      userId: string
       fullName: string
       alamat: string
       ttl: Date
@@ -6342,6 +6442,7 @@ export namespace Prisma {
    */
   export interface Prisma__PendaftarPesertaDidikClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6372,6 +6473,7 @@ export namespace Prisma {
    */
   interface PendaftarPesertaDidikFieldRefs {
     readonly id: FieldRef<"PendaftarPesertaDidik", 'String'>
+    readonly userId: FieldRef<"PendaftarPesertaDidik", 'String'>
     readonly fullName: FieldRef<"PendaftarPesertaDidik", 'String'>
     readonly alamat: FieldRef<"PendaftarPesertaDidik", 'String'>
     readonly ttl: FieldRef<"PendaftarPesertaDidik", 'DateTime'>
@@ -6395,6 +6497,10 @@ export namespace Prisma {
      */
     omit?: PendaftarPesertaDidikOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PendaftarPesertaDidikInclude<ExtArgs> | null
+    /**
      * Filter, which PendaftarPesertaDidik to fetch.
      */
     where: PendaftarPesertaDidikWhereUniqueInput
@@ -6413,6 +6519,10 @@ export namespace Prisma {
      */
     omit?: PendaftarPesertaDidikOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PendaftarPesertaDidikInclude<ExtArgs> | null
+    /**
      * Filter, which PendaftarPesertaDidik to fetch.
      */
     where: PendaftarPesertaDidikWhereUniqueInput
@@ -6430,6 +6540,10 @@ export namespace Prisma {
      * Omit specific fields from the PendaftarPesertaDidik
      */
     omit?: PendaftarPesertaDidikOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PendaftarPesertaDidikInclude<ExtArgs> | null
     /**
      * Filter, which PendaftarPesertaDidik to fetch.
      */
@@ -6479,6 +6593,10 @@ export namespace Prisma {
      */
     omit?: PendaftarPesertaDidikOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PendaftarPesertaDidikInclude<ExtArgs> | null
+    /**
      * Filter, which PendaftarPesertaDidik to fetch.
      */
     where?: PendaftarPesertaDidikWhereInput
@@ -6527,6 +6645,10 @@ export namespace Prisma {
      */
     omit?: PendaftarPesertaDidikOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PendaftarPesertaDidikInclude<ExtArgs> | null
+    /**
      * Filter, which PendaftarPesertaDidiks to fetch.
      */
     where?: PendaftarPesertaDidikWhereInput
@@ -6570,6 +6692,10 @@ export namespace Prisma {
      */
     omit?: PendaftarPesertaDidikOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PendaftarPesertaDidikInclude<ExtArgs> | null
+    /**
      * The data needed to create a PendaftarPesertaDidik.
      */
     data: XOR<PendaftarPesertaDidikCreateInput, PendaftarPesertaDidikUncheckedCreateInput>
@@ -6603,6 +6729,10 @@ export namespace Prisma {
      */
     data: PendaftarPesertaDidikCreateManyInput | PendaftarPesertaDidikCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PendaftarPesertaDidikIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -6617,6 +6747,10 @@ export namespace Prisma {
      * Omit specific fields from the PendaftarPesertaDidik
      */
     omit?: PendaftarPesertaDidikOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PendaftarPesertaDidikInclude<ExtArgs> | null
     /**
      * The data needed to update a PendaftarPesertaDidik.
      */
@@ -6669,6 +6803,10 @@ export namespace Prisma {
      * Limit how many PendaftarPesertaDidiks to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PendaftarPesertaDidikIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -6683,6 +6821,10 @@ export namespace Prisma {
      * Omit specific fields from the PendaftarPesertaDidik
      */
     omit?: PendaftarPesertaDidikOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PendaftarPesertaDidikInclude<ExtArgs> | null
     /**
      * The filter to search for the PendaftarPesertaDidik to update in case it exists.
      */
@@ -6709,6 +6851,10 @@ export namespace Prisma {
      * Omit specific fields from the PendaftarPesertaDidik
      */
     omit?: PendaftarPesertaDidikOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PendaftarPesertaDidikInclude<ExtArgs> | null
     /**
      * Filter which PendaftarPesertaDidik to delete.
      */
@@ -6741,6 +6887,10 @@ export namespace Prisma {
      * Omit specific fields from the PendaftarPesertaDidik
      */
     omit?: PendaftarPesertaDidikOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PendaftarPesertaDidikInclude<ExtArgs> | null
   }
 
 
@@ -6756,6 +6906,7 @@ export namespace Prisma {
 
   export type PendaftarTenagaPendidikMinAggregateOutputType = {
     id: string | null
+    userId: string | null
     fullName: string | null
     alamat: string | null
     noHp: string | null
@@ -6768,6 +6919,7 @@ export namespace Prisma {
 
   export type PendaftarTenagaPendidikMaxAggregateOutputType = {
     id: string | null
+    userId: string | null
     fullName: string | null
     alamat: string | null
     noHp: string | null
@@ -6780,6 +6932,7 @@ export namespace Prisma {
 
   export type PendaftarTenagaPendidikCountAggregateOutputType = {
     id: number
+    userId: number
     fullName: number
     alamat: number
     noHp: number
@@ -6794,6 +6947,7 @@ export namespace Prisma {
 
   export type PendaftarTenagaPendidikMinAggregateInputType = {
     id?: true
+    userId?: true
     fullName?: true
     alamat?: true
     noHp?: true
@@ -6806,6 +6960,7 @@ export namespace Prisma {
 
   export type PendaftarTenagaPendidikMaxAggregateInputType = {
     id?: true
+    userId?: true
     fullName?: true
     alamat?: true
     noHp?: true
@@ -6818,6 +6973,7 @@ export namespace Prisma {
 
   export type PendaftarTenagaPendidikCountAggregateInputType = {
     id?: true
+    userId?: true
     fullName?: true
     alamat?: true
     noHp?: true
@@ -6903,6 +7059,7 @@ export namespace Prisma {
 
   export type PendaftarTenagaPendidikGroupByOutputType = {
     id: string
+    userId: string
     fullName: string
     alamat: string
     noHp: string
@@ -6932,6 +7089,7 @@ export namespace Prisma {
 
   export type PendaftarTenagaPendidikSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    userId?: boolean
     fullName?: boolean
     alamat?: boolean
     noHp?: boolean
@@ -6940,10 +7098,12 @@ export namespace Prisma {
     pengalaman?: boolean
     status?: boolean
     createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["pendaftarTenagaPendidik"]>
 
   export type PendaftarTenagaPendidikSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    userId?: boolean
     fullName?: boolean
     alamat?: boolean
     noHp?: boolean
@@ -6952,10 +7112,12 @@ export namespace Prisma {
     pengalaman?: boolean
     status?: boolean
     createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["pendaftarTenagaPendidik"]>
 
   export type PendaftarTenagaPendidikSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    userId?: boolean
     fullName?: boolean
     alamat?: boolean
     noHp?: boolean
@@ -6964,10 +7126,12 @@ export namespace Prisma {
     pengalaman?: boolean
     status?: boolean
     createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["pendaftarTenagaPendidik"]>
 
   export type PendaftarTenagaPendidikSelectScalar = {
     id?: boolean
+    userId?: boolean
     fullName?: boolean
     alamat?: boolean
     noHp?: boolean
@@ -6978,13 +7142,25 @@ export namespace Prisma {
     createdAt?: boolean
   }
 
-  export type PendaftarTenagaPendidikOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fullName" | "alamat" | "noHp" | "email" | "pendidikan" | "pengalaman" | "status" | "createdAt", ExtArgs["result"]["pendaftarTenagaPendidik"]>
+  export type PendaftarTenagaPendidikOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "fullName" | "alamat" | "noHp" | "email" | "pendidikan" | "pengalaman" | "status" | "createdAt", ExtArgs["result"]["pendaftarTenagaPendidik"]>
+  export type PendaftarTenagaPendidikInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type PendaftarTenagaPendidikIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type PendaftarTenagaPendidikIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
 
   export type $PendaftarTenagaPendidikPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "PendaftarTenagaPendidik"
-    objects: {}
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      userId: string
       fullName: string
       alamat: string
       noHp: string
@@ -7387,6 +7563,7 @@ export namespace Prisma {
    */
   export interface Prisma__PendaftarTenagaPendidikClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7417,6 +7594,7 @@ export namespace Prisma {
    */
   interface PendaftarTenagaPendidikFieldRefs {
     readonly id: FieldRef<"PendaftarTenagaPendidik", 'String'>
+    readonly userId: FieldRef<"PendaftarTenagaPendidik", 'String'>
     readonly fullName: FieldRef<"PendaftarTenagaPendidik", 'String'>
     readonly alamat: FieldRef<"PendaftarTenagaPendidik", 'String'>
     readonly noHp: FieldRef<"PendaftarTenagaPendidik", 'String'>
@@ -7442,6 +7620,10 @@ export namespace Prisma {
      */
     omit?: PendaftarTenagaPendidikOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PendaftarTenagaPendidikInclude<ExtArgs> | null
+    /**
      * Filter, which PendaftarTenagaPendidik to fetch.
      */
     where: PendaftarTenagaPendidikWhereUniqueInput
@@ -7460,6 +7642,10 @@ export namespace Prisma {
      */
     omit?: PendaftarTenagaPendidikOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PendaftarTenagaPendidikInclude<ExtArgs> | null
+    /**
      * Filter, which PendaftarTenagaPendidik to fetch.
      */
     where: PendaftarTenagaPendidikWhereUniqueInput
@@ -7477,6 +7663,10 @@ export namespace Prisma {
      * Omit specific fields from the PendaftarTenagaPendidik
      */
     omit?: PendaftarTenagaPendidikOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PendaftarTenagaPendidikInclude<ExtArgs> | null
     /**
      * Filter, which PendaftarTenagaPendidik to fetch.
      */
@@ -7526,6 +7716,10 @@ export namespace Prisma {
      */
     omit?: PendaftarTenagaPendidikOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PendaftarTenagaPendidikInclude<ExtArgs> | null
+    /**
      * Filter, which PendaftarTenagaPendidik to fetch.
      */
     where?: PendaftarTenagaPendidikWhereInput
@@ -7574,6 +7768,10 @@ export namespace Prisma {
      */
     omit?: PendaftarTenagaPendidikOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PendaftarTenagaPendidikInclude<ExtArgs> | null
+    /**
      * Filter, which PendaftarTenagaPendidiks to fetch.
      */
     where?: PendaftarTenagaPendidikWhereInput
@@ -7617,6 +7815,10 @@ export namespace Prisma {
      */
     omit?: PendaftarTenagaPendidikOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PendaftarTenagaPendidikInclude<ExtArgs> | null
+    /**
      * The data needed to create a PendaftarTenagaPendidik.
      */
     data: XOR<PendaftarTenagaPendidikCreateInput, PendaftarTenagaPendidikUncheckedCreateInput>
@@ -7650,6 +7852,10 @@ export namespace Prisma {
      */
     data: PendaftarTenagaPendidikCreateManyInput | PendaftarTenagaPendidikCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PendaftarTenagaPendidikIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -7664,6 +7870,10 @@ export namespace Prisma {
      * Omit specific fields from the PendaftarTenagaPendidik
      */
     omit?: PendaftarTenagaPendidikOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PendaftarTenagaPendidikInclude<ExtArgs> | null
     /**
      * The data needed to update a PendaftarTenagaPendidik.
      */
@@ -7716,6 +7926,10 @@ export namespace Prisma {
      * Limit how many PendaftarTenagaPendidiks to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PendaftarTenagaPendidikIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -7730,6 +7944,10 @@ export namespace Prisma {
      * Omit specific fields from the PendaftarTenagaPendidik
      */
     omit?: PendaftarTenagaPendidikOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PendaftarTenagaPendidikInclude<ExtArgs> | null
     /**
      * The filter to search for the PendaftarTenagaPendidik to update in case it exists.
      */
@@ -7756,6 +7974,10 @@ export namespace Prisma {
      * Omit specific fields from the PendaftarTenagaPendidik
      */
     omit?: PendaftarTenagaPendidikOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PendaftarTenagaPendidikInclude<ExtArgs> | null
     /**
      * Filter which PendaftarTenagaPendidik to delete.
      */
@@ -7788,6 +8010,10 @@ export namespace Prisma {
      * Omit specific fields from the PendaftarTenagaPendidik
      */
     omit?: PendaftarTenagaPendidikOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PendaftarTenagaPendidikInclude<ExtArgs> | null
   }
 
 
@@ -9961,6 +10187,7 @@ export namespace Prisma {
 
   export const PendaftarPesertaDidikScalarFieldEnum: {
     id: 'id',
+    userId: 'userId',
     fullName: 'fullName',
     alamat: 'alamat',
     ttl: 'ttl',
@@ -9974,6 +10201,7 @@ export namespace Prisma {
 
   export const PendaftarTenagaPendidikScalarFieldEnum: {
     id: 'id',
+    userId: 'userId',
     fullName: 'fullName',
     alamat: 'alamat',
     noHp: 'noHp',
@@ -10138,6 +10366,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     KritikSaran?: KritikSaranListRelationFilter
+    PendaftarPesertaDidik?: PendaftarPesertaDidikListRelationFilter
+    PendaftarTenagaPendidik?: PendaftarTenagaPendidikListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -10148,6 +10378,8 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     KritikSaran?: KritikSaranOrderByRelationAggregateInput
+    PendaftarPesertaDidik?: PendaftarPesertaDidikOrderByRelationAggregateInput
+    PendaftarTenagaPendidik?: PendaftarTenagaPendidikOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -10161,6 +10393,8 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     KritikSaran?: KritikSaranListRelationFilter
+    PendaftarPesertaDidik?: PendaftarPesertaDidikListRelationFilter
+    PendaftarTenagaPendidik?: PendaftarTenagaPendidikListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -10361,22 +10595,26 @@ export namespace Prisma {
     OR?: PendaftarPesertaDidikWhereInput[]
     NOT?: PendaftarPesertaDidikWhereInput | PendaftarPesertaDidikWhereInput[]
     id?: StringFilter<"PendaftarPesertaDidik"> | string
+    userId?: StringFilter<"PendaftarPesertaDidik"> | string
     fullName?: StringFilter<"PendaftarPesertaDidik"> | string
     alamat?: StringFilter<"PendaftarPesertaDidik"> | string
     ttl?: DateTimeFilter<"PendaftarPesertaDidik"> | Date | string
     namaWali?: StringFilter<"PendaftarPesertaDidik"> | string
     noHpWali?: StringFilter<"PendaftarPesertaDidik"> | string
     createdAt?: DateTimeFilter<"PendaftarPesertaDidik"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type PendaftarPesertaDidikOrderByWithRelationInput = {
     id?: SortOrder
+    userId?: SortOrder
     fullName?: SortOrder
     alamat?: SortOrder
     ttl?: SortOrder
     namaWali?: SortOrder
     noHpWali?: SortOrder
     createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
   }
 
   export type PendaftarPesertaDidikWhereUniqueInput = Prisma.AtLeast<{
@@ -10384,16 +10622,19 @@ export namespace Prisma {
     AND?: PendaftarPesertaDidikWhereInput | PendaftarPesertaDidikWhereInput[]
     OR?: PendaftarPesertaDidikWhereInput[]
     NOT?: PendaftarPesertaDidikWhereInput | PendaftarPesertaDidikWhereInput[]
+    userId?: StringFilter<"PendaftarPesertaDidik"> | string
     fullName?: StringFilter<"PendaftarPesertaDidik"> | string
     alamat?: StringFilter<"PendaftarPesertaDidik"> | string
     ttl?: DateTimeFilter<"PendaftarPesertaDidik"> | Date | string
     namaWali?: StringFilter<"PendaftarPesertaDidik"> | string
     noHpWali?: StringFilter<"PendaftarPesertaDidik"> | string
     createdAt?: DateTimeFilter<"PendaftarPesertaDidik"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
   export type PendaftarPesertaDidikOrderByWithAggregationInput = {
     id?: SortOrder
+    userId?: SortOrder
     fullName?: SortOrder
     alamat?: SortOrder
     ttl?: SortOrder
@@ -10410,6 +10651,7 @@ export namespace Prisma {
     OR?: PendaftarPesertaDidikScalarWhereWithAggregatesInput[]
     NOT?: PendaftarPesertaDidikScalarWhereWithAggregatesInput | PendaftarPesertaDidikScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"PendaftarPesertaDidik"> | string
+    userId?: StringWithAggregatesFilter<"PendaftarPesertaDidik"> | string
     fullName?: StringWithAggregatesFilter<"PendaftarPesertaDidik"> | string
     alamat?: StringWithAggregatesFilter<"PendaftarPesertaDidik"> | string
     ttl?: DateTimeWithAggregatesFilter<"PendaftarPesertaDidik"> | Date | string
@@ -10423,6 +10665,7 @@ export namespace Prisma {
     OR?: PendaftarTenagaPendidikWhereInput[]
     NOT?: PendaftarTenagaPendidikWhereInput | PendaftarTenagaPendidikWhereInput[]
     id?: StringFilter<"PendaftarTenagaPendidik"> | string
+    userId?: StringFilter<"PendaftarTenagaPendidik"> | string
     fullName?: StringFilter<"PendaftarTenagaPendidik"> | string
     alamat?: StringFilter<"PendaftarTenagaPendidik"> | string
     noHp?: StringFilter<"PendaftarTenagaPendidik"> | string
@@ -10431,10 +10674,12 @@ export namespace Prisma {
     pengalaman?: StringNullableFilter<"PendaftarTenagaPendidik"> | string | null
     status?: EnumStatusPendaftaranFilter<"PendaftarTenagaPendidik"> | $Enums.StatusPendaftaran
     createdAt?: DateTimeFilter<"PendaftarTenagaPendidik"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type PendaftarTenagaPendidikOrderByWithRelationInput = {
     id?: SortOrder
+    userId?: SortOrder
     fullName?: SortOrder
     alamat?: SortOrder
     noHp?: SortOrder
@@ -10443,6 +10688,7 @@ export namespace Prisma {
     pengalaman?: SortOrderInput | SortOrder
     status?: SortOrder
     createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
   }
 
   export type PendaftarTenagaPendidikWhereUniqueInput = Prisma.AtLeast<{
@@ -10451,6 +10697,7 @@ export namespace Prisma {
     AND?: PendaftarTenagaPendidikWhereInput | PendaftarTenagaPendidikWhereInput[]
     OR?: PendaftarTenagaPendidikWhereInput[]
     NOT?: PendaftarTenagaPendidikWhereInput | PendaftarTenagaPendidikWhereInput[]
+    userId?: StringFilter<"PendaftarTenagaPendidik"> | string
     fullName?: StringFilter<"PendaftarTenagaPendidik"> | string
     alamat?: StringFilter<"PendaftarTenagaPendidik"> | string
     noHp?: StringFilter<"PendaftarTenagaPendidik"> | string
@@ -10458,10 +10705,12 @@ export namespace Prisma {
     pengalaman?: StringNullableFilter<"PendaftarTenagaPendidik"> | string | null
     status?: EnumStatusPendaftaranFilter<"PendaftarTenagaPendidik"> | $Enums.StatusPendaftaran
     createdAt?: DateTimeFilter<"PendaftarTenagaPendidik"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "email">
 
   export type PendaftarTenagaPendidikOrderByWithAggregationInput = {
     id?: SortOrder
+    userId?: SortOrder
     fullName?: SortOrder
     alamat?: SortOrder
     noHp?: SortOrder
@@ -10480,6 +10729,7 @@ export namespace Prisma {
     OR?: PendaftarTenagaPendidikScalarWhereWithAggregatesInput[]
     NOT?: PendaftarTenagaPendidikScalarWhereWithAggregatesInput | PendaftarTenagaPendidikScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"PendaftarTenagaPendidik"> | string
+    userId?: StringWithAggregatesFilter<"PendaftarTenagaPendidik"> | string
     fullName?: StringWithAggregatesFilter<"PendaftarTenagaPendidik"> | string
     alamat?: StringWithAggregatesFilter<"PendaftarTenagaPendidik"> | string
     noHp?: StringWithAggregatesFilter<"PendaftarTenagaPendidik"> | string
@@ -10647,6 +10897,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     KritikSaran?: KritikSaranCreateNestedManyWithoutUserInput
+    PendaftarPesertaDidik?: PendaftarPesertaDidikCreateNestedManyWithoutUserInput
+    PendaftarTenagaPendidik?: PendaftarTenagaPendidikCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -10657,6 +10909,8 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     KritikSaran?: KritikSaranUncheckedCreateNestedManyWithoutUserInput
+    PendaftarPesertaDidik?: PendaftarPesertaDidikUncheckedCreateNestedManyWithoutUserInput
+    PendaftarTenagaPendidik?: PendaftarTenagaPendidikUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -10667,6 +10921,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     KritikSaran?: KritikSaranUpdateManyWithoutUserNestedInput
+    PendaftarPesertaDidik?: PendaftarPesertaDidikUpdateManyWithoutUserNestedInput
+    PendaftarTenagaPendidik?: PendaftarTenagaPendidikUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -10677,6 +10933,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     KritikSaran?: KritikSaranUncheckedUpdateManyWithoutUserNestedInput
+    PendaftarPesertaDidik?: PendaftarPesertaDidikUncheckedUpdateManyWithoutUserNestedInput
+    PendaftarTenagaPendidik?: PendaftarTenagaPendidikUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -10895,10 +11153,12 @@ export namespace Prisma {
     namaWali: string
     noHpWali: string
     createdAt?: Date | string
+    user: UserCreateNestedOneWithoutPendaftarPesertaDidikInput
   }
 
   export type PendaftarPesertaDidikUncheckedCreateInput = {
     id?: string
+    userId: string
     fullName: string
     alamat: string
     ttl: Date | string
@@ -10915,10 +11175,12 @@ export namespace Prisma {
     namaWali?: StringFieldUpdateOperationsInput | string
     noHpWali?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutPendaftarPesertaDidikNestedInput
   }
 
   export type PendaftarPesertaDidikUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     alamat?: StringFieldUpdateOperationsInput | string
     ttl?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10929,6 +11191,7 @@ export namespace Prisma {
 
   export type PendaftarPesertaDidikCreateManyInput = {
     id?: string
+    userId: string
     fullName: string
     alamat: string
     ttl: Date | string
@@ -10949,6 +11212,7 @@ export namespace Prisma {
 
   export type PendaftarPesertaDidikUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     alamat?: StringFieldUpdateOperationsInput | string
     ttl?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10967,10 +11231,12 @@ export namespace Prisma {
     pengalaman?: string | null
     status?: $Enums.StatusPendaftaran
     createdAt?: Date | string
+    user: UserCreateNestedOneWithoutPendaftarTenagaPendidikInput
   }
 
   export type PendaftarTenagaPendidikUncheckedCreateInput = {
     id?: string
+    userId: string
     fullName: string
     alamat: string
     noHp: string
@@ -10991,10 +11257,12 @@ export namespace Prisma {
     pengalaman?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumStatusPendaftaranFieldUpdateOperationsInput | $Enums.StatusPendaftaran
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutPendaftarTenagaPendidikNestedInput
   }
 
   export type PendaftarTenagaPendidikUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     alamat?: StringFieldUpdateOperationsInput | string
     noHp?: StringFieldUpdateOperationsInput | string
@@ -11007,6 +11275,7 @@ export namespace Prisma {
 
   export type PendaftarTenagaPendidikCreateManyInput = {
     id?: string
+    userId: string
     fullName: string
     alamat: string
     noHp: string
@@ -11031,6 +11300,7 @@ export namespace Prisma {
 
   export type PendaftarTenagaPendidikUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
     fullName?: StringFieldUpdateOperationsInput | string
     alamat?: StringFieldUpdateOperationsInput | string
     noHp?: StringFieldUpdateOperationsInput | string
@@ -11255,7 +11525,27 @@ export namespace Prisma {
     none?: KritikSaranWhereInput
   }
 
+  export type PendaftarPesertaDidikListRelationFilter = {
+    every?: PendaftarPesertaDidikWhereInput
+    some?: PendaftarPesertaDidikWhereInput
+    none?: PendaftarPesertaDidikWhereInput
+  }
+
+  export type PendaftarTenagaPendidikListRelationFilter = {
+    every?: PendaftarTenagaPendidikWhereInput
+    some?: PendaftarTenagaPendidikWhereInput
+    none?: PendaftarTenagaPendidikWhereInput
+  }
+
   export type KritikSaranOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PendaftarPesertaDidikOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PendaftarTenagaPendidikOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -11426,6 +11716,7 @@ export namespace Prisma {
 
   export type PendaftarPesertaDidikCountOrderByAggregateInput = {
     id?: SortOrder
+    userId?: SortOrder
     fullName?: SortOrder
     alamat?: SortOrder
     ttl?: SortOrder
@@ -11436,6 +11727,7 @@ export namespace Prisma {
 
   export type PendaftarPesertaDidikMaxOrderByAggregateInput = {
     id?: SortOrder
+    userId?: SortOrder
     fullName?: SortOrder
     alamat?: SortOrder
     ttl?: SortOrder
@@ -11446,6 +11738,7 @@ export namespace Prisma {
 
   export type PendaftarPesertaDidikMinOrderByAggregateInput = {
     id?: SortOrder
+    userId?: SortOrder
     fullName?: SortOrder
     alamat?: SortOrder
     ttl?: SortOrder
@@ -11483,6 +11776,7 @@ export namespace Prisma {
 
   export type PendaftarTenagaPendidikCountOrderByAggregateInput = {
     id?: SortOrder
+    userId?: SortOrder
     fullName?: SortOrder
     alamat?: SortOrder
     noHp?: SortOrder
@@ -11495,6 +11789,7 @@ export namespace Prisma {
 
   export type PendaftarTenagaPendidikMaxOrderByAggregateInput = {
     id?: SortOrder
+    userId?: SortOrder
     fullName?: SortOrder
     alamat?: SortOrder
     noHp?: SortOrder
@@ -11507,6 +11802,7 @@ export namespace Prisma {
 
   export type PendaftarTenagaPendidikMinOrderByAggregateInput = {
     id?: SortOrder
+    userId?: SortOrder
     fullName?: SortOrder
     alamat?: SortOrder
     noHp?: SortOrder
@@ -11627,11 +11923,39 @@ export namespace Prisma {
     connect?: KritikSaranWhereUniqueInput | KritikSaranWhereUniqueInput[]
   }
 
+  export type PendaftarPesertaDidikCreateNestedManyWithoutUserInput = {
+    create?: XOR<PendaftarPesertaDidikCreateWithoutUserInput, PendaftarPesertaDidikUncheckedCreateWithoutUserInput> | PendaftarPesertaDidikCreateWithoutUserInput[] | PendaftarPesertaDidikUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PendaftarPesertaDidikCreateOrConnectWithoutUserInput | PendaftarPesertaDidikCreateOrConnectWithoutUserInput[]
+    createMany?: PendaftarPesertaDidikCreateManyUserInputEnvelope
+    connect?: PendaftarPesertaDidikWhereUniqueInput | PendaftarPesertaDidikWhereUniqueInput[]
+  }
+
+  export type PendaftarTenagaPendidikCreateNestedManyWithoutUserInput = {
+    create?: XOR<PendaftarTenagaPendidikCreateWithoutUserInput, PendaftarTenagaPendidikUncheckedCreateWithoutUserInput> | PendaftarTenagaPendidikCreateWithoutUserInput[] | PendaftarTenagaPendidikUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PendaftarTenagaPendidikCreateOrConnectWithoutUserInput | PendaftarTenagaPendidikCreateOrConnectWithoutUserInput[]
+    createMany?: PendaftarTenagaPendidikCreateManyUserInputEnvelope
+    connect?: PendaftarTenagaPendidikWhereUniqueInput | PendaftarTenagaPendidikWhereUniqueInput[]
+  }
+
   export type KritikSaranUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<KritikSaranCreateWithoutUserInput, KritikSaranUncheckedCreateWithoutUserInput> | KritikSaranCreateWithoutUserInput[] | KritikSaranUncheckedCreateWithoutUserInput[]
     connectOrCreate?: KritikSaranCreateOrConnectWithoutUserInput | KritikSaranCreateOrConnectWithoutUserInput[]
     createMany?: KritikSaranCreateManyUserInputEnvelope
     connect?: KritikSaranWhereUniqueInput | KritikSaranWhereUniqueInput[]
+  }
+
+  export type PendaftarPesertaDidikUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<PendaftarPesertaDidikCreateWithoutUserInput, PendaftarPesertaDidikUncheckedCreateWithoutUserInput> | PendaftarPesertaDidikCreateWithoutUserInput[] | PendaftarPesertaDidikUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PendaftarPesertaDidikCreateOrConnectWithoutUserInput | PendaftarPesertaDidikCreateOrConnectWithoutUserInput[]
+    createMany?: PendaftarPesertaDidikCreateManyUserInputEnvelope
+    connect?: PendaftarPesertaDidikWhereUniqueInput | PendaftarPesertaDidikWhereUniqueInput[]
+  }
+
+  export type PendaftarTenagaPendidikUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<PendaftarTenagaPendidikCreateWithoutUserInput, PendaftarTenagaPendidikUncheckedCreateWithoutUserInput> | PendaftarTenagaPendidikCreateWithoutUserInput[] | PendaftarTenagaPendidikUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PendaftarTenagaPendidikCreateOrConnectWithoutUserInput | PendaftarTenagaPendidikCreateOrConnectWithoutUserInput[]
+    createMany?: PendaftarTenagaPendidikCreateManyUserInputEnvelope
+    connect?: PendaftarTenagaPendidikWhereUniqueInput | PendaftarTenagaPendidikWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -11660,6 +11984,34 @@ export namespace Prisma {
     deleteMany?: KritikSaranScalarWhereInput | KritikSaranScalarWhereInput[]
   }
 
+  export type PendaftarPesertaDidikUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PendaftarPesertaDidikCreateWithoutUserInput, PendaftarPesertaDidikUncheckedCreateWithoutUserInput> | PendaftarPesertaDidikCreateWithoutUserInput[] | PendaftarPesertaDidikUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PendaftarPesertaDidikCreateOrConnectWithoutUserInput | PendaftarPesertaDidikCreateOrConnectWithoutUserInput[]
+    upsert?: PendaftarPesertaDidikUpsertWithWhereUniqueWithoutUserInput | PendaftarPesertaDidikUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PendaftarPesertaDidikCreateManyUserInputEnvelope
+    set?: PendaftarPesertaDidikWhereUniqueInput | PendaftarPesertaDidikWhereUniqueInput[]
+    disconnect?: PendaftarPesertaDidikWhereUniqueInput | PendaftarPesertaDidikWhereUniqueInput[]
+    delete?: PendaftarPesertaDidikWhereUniqueInput | PendaftarPesertaDidikWhereUniqueInput[]
+    connect?: PendaftarPesertaDidikWhereUniqueInput | PendaftarPesertaDidikWhereUniqueInput[]
+    update?: PendaftarPesertaDidikUpdateWithWhereUniqueWithoutUserInput | PendaftarPesertaDidikUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PendaftarPesertaDidikUpdateManyWithWhereWithoutUserInput | PendaftarPesertaDidikUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PendaftarPesertaDidikScalarWhereInput | PendaftarPesertaDidikScalarWhereInput[]
+  }
+
+  export type PendaftarTenagaPendidikUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PendaftarTenagaPendidikCreateWithoutUserInput, PendaftarTenagaPendidikUncheckedCreateWithoutUserInput> | PendaftarTenagaPendidikCreateWithoutUserInput[] | PendaftarTenagaPendidikUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PendaftarTenagaPendidikCreateOrConnectWithoutUserInput | PendaftarTenagaPendidikCreateOrConnectWithoutUserInput[]
+    upsert?: PendaftarTenagaPendidikUpsertWithWhereUniqueWithoutUserInput | PendaftarTenagaPendidikUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PendaftarTenagaPendidikCreateManyUserInputEnvelope
+    set?: PendaftarTenagaPendidikWhereUniqueInput | PendaftarTenagaPendidikWhereUniqueInput[]
+    disconnect?: PendaftarTenagaPendidikWhereUniqueInput | PendaftarTenagaPendidikWhereUniqueInput[]
+    delete?: PendaftarTenagaPendidikWhereUniqueInput | PendaftarTenagaPendidikWhereUniqueInput[]
+    connect?: PendaftarTenagaPendidikWhereUniqueInput | PendaftarTenagaPendidikWhereUniqueInput[]
+    update?: PendaftarTenagaPendidikUpdateWithWhereUniqueWithoutUserInput | PendaftarTenagaPendidikUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PendaftarTenagaPendidikUpdateManyWithWhereWithoutUserInput | PendaftarTenagaPendidikUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PendaftarTenagaPendidikScalarWhereInput | PendaftarTenagaPendidikScalarWhereInput[]
+  }
+
   export type KritikSaranUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<KritikSaranCreateWithoutUserInput, KritikSaranUncheckedCreateWithoutUserInput> | KritikSaranCreateWithoutUserInput[] | KritikSaranUncheckedCreateWithoutUserInput[]
     connectOrCreate?: KritikSaranCreateOrConnectWithoutUserInput | KritikSaranCreateOrConnectWithoutUserInput[]
@@ -11672,6 +12024,34 @@ export namespace Prisma {
     update?: KritikSaranUpdateWithWhereUniqueWithoutUserInput | KritikSaranUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: KritikSaranUpdateManyWithWhereWithoutUserInput | KritikSaranUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: KritikSaranScalarWhereInput | KritikSaranScalarWhereInput[]
+  }
+
+  export type PendaftarPesertaDidikUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PendaftarPesertaDidikCreateWithoutUserInput, PendaftarPesertaDidikUncheckedCreateWithoutUserInput> | PendaftarPesertaDidikCreateWithoutUserInput[] | PendaftarPesertaDidikUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PendaftarPesertaDidikCreateOrConnectWithoutUserInput | PendaftarPesertaDidikCreateOrConnectWithoutUserInput[]
+    upsert?: PendaftarPesertaDidikUpsertWithWhereUniqueWithoutUserInput | PendaftarPesertaDidikUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PendaftarPesertaDidikCreateManyUserInputEnvelope
+    set?: PendaftarPesertaDidikWhereUniqueInput | PendaftarPesertaDidikWhereUniqueInput[]
+    disconnect?: PendaftarPesertaDidikWhereUniqueInput | PendaftarPesertaDidikWhereUniqueInput[]
+    delete?: PendaftarPesertaDidikWhereUniqueInput | PendaftarPesertaDidikWhereUniqueInput[]
+    connect?: PendaftarPesertaDidikWhereUniqueInput | PendaftarPesertaDidikWhereUniqueInput[]
+    update?: PendaftarPesertaDidikUpdateWithWhereUniqueWithoutUserInput | PendaftarPesertaDidikUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PendaftarPesertaDidikUpdateManyWithWhereWithoutUserInput | PendaftarPesertaDidikUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PendaftarPesertaDidikScalarWhereInput | PendaftarPesertaDidikScalarWhereInput[]
+  }
+
+  export type PendaftarTenagaPendidikUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PendaftarTenagaPendidikCreateWithoutUserInput, PendaftarTenagaPendidikUncheckedCreateWithoutUserInput> | PendaftarTenagaPendidikCreateWithoutUserInput[] | PendaftarTenagaPendidikUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PendaftarTenagaPendidikCreateOrConnectWithoutUserInput | PendaftarTenagaPendidikCreateOrConnectWithoutUserInput[]
+    upsert?: PendaftarTenagaPendidikUpsertWithWhereUniqueWithoutUserInput | PendaftarTenagaPendidikUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PendaftarTenagaPendidikCreateManyUserInputEnvelope
+    set?: PendaftarTenagaPendidikWhereUniqueInput | PendaftarTenagaPendidikWhereUniqueInput[]
+    disconnect?: PendaftarTenagaPendidikWhereUniqueInput | PendaftarTenagaPendidikWhereUniqueInput[]
+    delete?: PendaftarTenagaPendidikWhereUniqueInput | PendaftarTenagaPendidikWhereUniqueInput[]
+    connect?: PendaftarTenagaPendidikWhereUniqueInput | PendaftarTenagaPendidikWhereUniqueInput[]
+    update?: PendaftarTenagaPendidikUpdateWithWhereUniqueWithoutUserInput | PendaftarTenagaPendidikUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PendaftarTenagaPendidikUpdateManyWithWhereWithoutUserInput | PendaftarTenagaPendidikUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PendaftarTenagaPendidikScalarWhereInput | PendaftarTenagaPendidikScalarWhereInput[]
   }
 
   export type BoolFieldUpdateOperationsInput = {
@@ -11692,12 +12072,40 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutKritikSaranInput, UserUpdateWithoutKritikSaranInput>, UserUncheckedUpdateWithoutKritikSaranInput>
   }
 
+  export type UserCreateNestedOneWithoutPendaftarPesertaDidikInput = {
+    create?: XOR<UserCreateWithoutPendaftarPesertaDidikInput, UserUncheckedCreateWithoutPendaftarPesertaDidikInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPendaftarPesertaDidikInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutPendaftarPesertaDidikNestedInput = {
+    create?: XOR<UserCreateWithoutPendaftarPesertaDidikInput, UserUncheckedCreateWithoutPendaftarPesertaDidikInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPendaftarPesertaDidikInput
+    upsert?: UserUpsertWithoutPendaftarPesertaDidikInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPendaftarPesertaDidikInput, UserUpdateWithoutPendaftarPesertaDidikInput>, UserUncheckedUpdateWithoutPendaftarPesertaDidikInput>
+  }
+
+  export type UserCreateNestedOneWithoutPendaftarTenagaPendidikInput = {
+    create?: XOR<UserCreateWithoutPendaftarTenagaPendidikInput, UserUncheckedCreateWithoutPendaftarTenagaPendidikInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPendaftarTenagaPendidikInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
   }
 
   export type EnumStatusPendaftaranFieldUpdateOperationsInput = {
     set?: $Enums.StatusPendaftaran
+  }
+
+  export type UserUpdateOneRequiredWithoutPendaftarTenagaPendidikNestedInput = {
+    create?: XOR<UserCreateWithoutPendaftarTenagaPendidikInput, UserUncheckedCreateWithoutPendaftarTenagaPendidikInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPendaftarTenagaPendidikInput
+    upsert?: UserUpsertWithoutPendaftarTenagaPendidikInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPendaftarTenagaPendidikInput, UserUpdateWithoutPendaftarTenagaPendidikInput>, UserUncheckedUpdateWithoutPendaftarTenagaPendidikInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -11880,6 +12288,70 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type PendaftarPesertaDidikCreateWithoutUserInput = {
+    id?: string
+    fullName: string
+    alamat: string
+    ttl: Date | string
+    namaWali: string
+    noHpWali: string
+    createdAt?: Date | string
+  }
+
+  export type PendaftarPesertaDidikUncheckedCreateWithoutUserInput = {
+    id?: string
+    fullName: string
+    alamat: string
+    ttl: Date | string
+    namaWali: string
+    noHpWali: string
+    createdAt?: Date | string
+  }
+
+  export type PendaftarPesertaDidikCreateOrConnectWithoutUserInput = {
+    where: PendaftarPesertaDidikWhereUniqueInput
+    create: XOR<PendaftarPesertaDidikCreateWithoutUserInput, PendaftarPesertaDidikUncheckedCreateWithoutUserInput>
+  }
+
+  export type PendaftarPesertaDidikCreateManyUserInputEnvelope = {
+    data: PendaftarPesertaDidikCreateManyUserInput | PendaftarPesertaDidikCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PendaftarTenagaPendidikCreateWithoutUserInput = {
+    id?: string
+    fullName: string
+    alamat: string
+    noHp: string
+    email: string
+    pendidikan: string
+    pengalaman?: string | null
+    status?: $Enums.StatusPendaftaran
+    createdAt?: Date | string
+  }
+
+  export type PendaftarTenagaPendidikUncheckedCreateWithoutUserInput = {
+    id?: string
+    fullName: string
+    alamat: string
+    noHp: string
+    email: string
+    pendidikan: string
+    pengalaman?: string | null
+    status?: $Enums.StatusPendaftaran
+    createdAt?: Date | string
+  }
+
+  export type PendaftarTenagaPendidikCreateOrConnectWithoutUserInput = {
+    where: PendaftarTenagaPendidikWhereUniqueInput
+    create: XOR<PendaftarTenagaPendidikCreateWithoutUserInput, PendaftarTenagaPendidikUncheckedCreateWithoutUserInput>
+  }
+
+  export type PendaftarTenagaPendidikCreateManyUserInputEnvelope = {
+    data: PendaftarTenagaPendidikCreateManyUserInput | PendaftarTenagaPendidikCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type KritikSaranUpsertWithWhereUniqueWithoutUserInput = {
     where: KritikSaranWhereUniqueInput
     update: XOR<KritikSaranUpdateWithoutUserInput, KritikSaranUncheckedUpdateWithoutUserInput>
@@ -11907,6 +12379,68 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"KritikSaran"> | Date | string
   }
 
+  export type PendaftarPesertaDidikUpsertWithWhereUniqueWithoutUserInput = {
+    where: PendaftarPesertaDidikWhereUniqueInput
+    update: XOR<PendaftarPesertaDidikUpdateWithoutUserInput, PendaftarPesertaDidikUncheckedUpdateWithoutUserInput>
+    create: XOR<PendaftarPesertaDidikCreateWithoutUserInput, PendaftarPesertaDidikUncheckedCreateWithoutUserInput>
+  }
+
+  export type PendaftarPesertaDidikUpdateWithWhereUniqueWithoutUserInput = {
+    where: PendaftarPesertaDidikWhereUniqueInput
+    data: XOR<PendaftarPesertaDidikUpdateWithoutUserInput, PendaftarPesertaDidikUncheckedUpdateWithoutUserInput>
+  }
+
+  export type PendaftarPesertaDidikUpdateManyWithWhereWithoutUserInput = {
+    where: PendaftarPesertaDidikScalarWhereInput
+    data: XOR<PendaftarPesertaDidikUpdateManyMutationInput, PendaftarPesertaDidikUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type PendaftarPesertaDidikScalarWhereInput = {
+    AND?: PendaftarPesertaDidikScalarWhereInput | PendaftarPesertaDidikScalarWhereInput[]
+    OR?: PendaftarPesertaDidikScalarWhereInput[]
+    NOT?: PendaftarPesertaDidikScalarWhereInput | PendaftarPesertaDidikScalarWhereInput[]
+    id?: StringFilter<"PendaftarPesertaDidik"> | string
+    userId?: StringFilter<"PendaftarPesertaDidik"> | string
+    fullName?: StringFilter<"PendaftarPesertaDidik"> | string
+    alamat?: StringFilter<"PendaftarPesertaDidik"> | string
+    ttl?: DateTimeFilter<"PendaftarPesertaDidik"> | Date | string
+    namaWali?: StringFilter<"PendaftarPesertaDidik"> | string
+    noHpWali?: StringFilter<"PendaftarPesertaDidik"> | string
+    createdAt?: DateTimeFilter<"PendaftarPesertaDidik"> | Date | string
+  }
+
+  export type PendaftarTenagaPendidikUpsertWithWhereUniqueWithoutUserInput = {
+    where: PendaftarTenagaPendidikWhereUniqueInput
+    update: XOR<PendaftarTenagaPendidikUpdateWithoutUserInput, PendaftarTenagaPendidikUncheckedUpdateWithoutUserInput>
+    create: XOR<PendaftarTenagaPendidikCreateWithoutUserInput, PendaftarTenagaPendidikUncheckedCreateWithoutUserInput>
+  }
+
+  export type PendaftarTenagaPendidikUpdateWithWhereUniqueWithoutUserInput = {
+    where: PendaftarTenagaPendidikWhereUniqueInput
+    data: XOR<PendaftarTenagaPendidikUpdateWithoutUserInput, PendaftarTenagaPendidikUncheckedUpdateWithoutUserInput>
+  }
+
+  export type PendaftarTenagaPendidikUpdateManyWithWhereWithoutUserInput = {
+    where: PendaftarTenagaPendidikScalarWhereInput
+    data: XOR<PendaftarTenagaPendidikUpdateManyMutationInput, PendaftarTenagaPendidikUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type PendaftarTenagaPendidikScalarWhereInput = {
+    AND?: PendaftarTenagaPendidikScalarWhereInput | PendaftarTenagaPendidikScalarWhereInput[]
+    OR?: PendaftarTenagaPendidikScalarWhereInput[]
+    NOT?: PendaftarTenagaPendidikScalarWhereInput | PendaftarTenagaPendidikScalarWhereInput[]
+    id?: StringFilter<"PendaftarTenagaPendidik"> | string
+    userId?: StringFilter<"PendaftarTenagaPendidik"> | string
+    fullName?: StringFilter<"PendaftarTenagaPendidik"> | string
+    alamat?: StringFilter<"PendaftarTenagaPendidik"> | string
+    noHp?: StringFilter<"PendaftarTenagaPendidik"> | string
+    email?: StringFilter<"PendaftarTenagaPendidik"> | string
+    pendidikan?: StringFilter<"PendaftarTenagaPendidik"> | string
+    pengalaman?: StringNullableFilter<"PendaftarTenagaPendidik"> | string | null
+    status?: EnumStatusPendaftaranFilter<"PendaftarTenagaPendidik"> | $Enums.StatusPendaftaran
+    createdAt?: DateTimeFilter<"PendaftarTenagaPendidik"> | Date | string
+  }
+
   export type UserCreateWithoutKritikSaranInput = {
     id?: string
     email: string
@@ -11914,6 +12448,8 @@ export namespace Prisma {
     role?: $Enums.Role
     createdAt?: Date | string
     updatedAt?: Date | string
+    PendaftarPesertaDidik?: PendaftarPesertaDidikCreateNestedManyWithoutUserInput
+    PendaftarTenagaPendidik?: PendaftarTenagaPendidikCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutKritikSaranInput = {
@@ -11923,6 +12459,8 @@ export namespace Prisma {
     role?: $Enums.Role
     createdAt?: Date | string
     updatedAt?: Date | string
+    PendaftarPesertaDidik?: PendaftarPesertaDidikUncheckedCreateNestedManyWithoutUserInput
+    PendaftarTenagaPendidik?: PendaftarTenagaPendidikUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutKritikSaranInput = {
@@ -11948,6 +12486,8 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    PendaftarPesertaDidik?: PendaftarPesertaDidikUpdateManyWithoutUserNestedInput
+    PendaftarTenagaPendidik?: PendaftarTenagaPendidikUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutKritikSaranInput = {
@@ -11957,6 +12497,128 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    PendaftarPesertaDidik?: PendaftarPesertaDidikUncheckedUpdateManyWithoutUserNestedInput
+    PendaftarTenagaPendidik?: PendaftarTenagaPendidikUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutPendaftarPesertaDidikInput = {
+    id?: string
+    email: string
+    name: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    KritikSaran?: KritikSaranCreateNestedManyWithoutUserInput
+    PendaftarTenagaPendidik?: PendaftarTenagaPendidikCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutPendaftarPesertaDidikInput = {
+    id?: string
+    email: string
+    name: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    KritikSaran?: KritikSaranUncheckedCreateNestedManyWithoutUserInput
+    PendaftarTenagaPendidik?: PendaftarTenagaPendidikUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutPendaftarPesertaDidikInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutPendaftarPesertaDidikInput, UserUncheckedCreateWithoutPendaftarPesertaDidikInput>
+  }
+
+  export type UserUpsertWithoutPendaftarPesertaDidikInput = {
+    update: XOR<UserUpdateWithoutPendaftarPesertaDidikInput, UserUncheckedUpdateWithoutPendaftarPesertaDidikInput>
+    create: XOR<UserCreateWithoutPendaftarPesertaDidikInput, UserUncheckedCreateWithoutPendaftarPesertaDidikInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutPendaftarPesertaDidikInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutPendaftarPesertaDidikInput, UserUncheckedUpdateWithoutPendaftarPesertaDidikInput>
+  }
+
+  export type UserUpdateWithoutPendaftarPesertaDidikInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    KritikSaran?: KritikSaranUpdateManyWithoutUserNestedInput
+    PendaftarTenagaPendidik?: PendaftarTenagaPendidikUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutPendaftarPesertaDidikInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    KritikSaran?: KritikSaranUncheckedUpdateManyWithoutUserNestedInput
+    PendaftarTenagaPendidik?: PendaftarTenagaPendidikUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutPendaftarTenagaPendidikInput = {
+    id?: string
+    email: string
+    name: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    KritikSaran?: KritikSaranCreateNestedManyWithoutUserInput
+    PendaftarPesertaDidik?: PendaftarPesertaDidikCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutPendaftarTenagaPendidikInput = {
+    id?: string
+    email: string
+    name: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    KritikSaran?: KritikSaranUncheckedCreateNestedManyWithoutUserInput
+    PendaftarPesertaDidik?: PendaftarPesertaDidikUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutPendaftarTenagaPendidikInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutPendaftarTenagaPendidikInput, UserUncheckedCreateWithoutPendaftarTenagaPendidikInput>
+  }
+
+  export type UserUpsertWithoutPendaftarTenagaPendidikInput = {
+    update: XOR<UserUpdateWithoutPendaftarTenagaPendidikInput, UserUncheckedUpdateWithoutPendaftarTenagaPendidikInput>
+    create: XOR<UserCreateWithoutPendaftarTenagaPendidikInput, UserUncheckedCreateWithoutPendaftarTenagaPendidikInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutPendaftarTenagaPendidikInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutPendaftarTenagaPendidikInput, UserUncheckedUpdateWithoutPendaftarTenagaPendidikInput>
+  }
+
+  export type UserUpdateWithoutPendaftarTenagaPendidikInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    KritikSaran?: KritikSaranUpdateManyWithoutUserNestedInput
+    PendaftarPesertaDidik?: PendaftarPesertaDidikUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutPendaftarTenagaPendidikInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    KritikSaran?: KritikSaranUncheckedUpdateManyWithoutUserNestedInput
+    PendaftarPesertaDidik?: PendaftarPesertaDidikUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type KritikSaranCreateManyUserInput = {
@@ -11964,6 +12626,28 @@ export namespace Prisma {
     content: string
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type PendaftarPesertaDidikCreateManyUserInput = {
+    id?: string
+    fullName: string
+    alamat: string
+    ttl: Date | string
+    namaWali: string
+    noHpWali: string
+    createdAt?: Date | string
+  }
+
+  export type PendaftarTenagaPendidikCreateManyUserInput = {
+    id?: string
+    fullName: string
+    alamat: string
+    noHp: string
+    email: string
+    pendidikan: string
+    pengalaman?: string | null
+    status?: $Enums.StatusPendaftaran
+    createdAt?: Date | string
   }
 
   export type KritikSaranUpdateWithoutUserInput = {
@@ -11985,6 +12669,72 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PendaftarPesertaDidikUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    alamat?: StringFieldUpdateOperationsInput | string
+    ttl?: DateTimeFieldUpdateOperationsInput | Date | string
+    namaWali?: StringFieldUpdateOperationsInput | string
+    noHpWali?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PendaftarPesertaDidikUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    alamat?: StringFieldUpdateOperationsInput | string
+    ttl?: DateTimeFieldUpdateOperationsInput | Date | string
+    namaWali?: StringFieldUpdateOperationsInput | string
+    noHpWali?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PendaftarPesertaDidikUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    alamat?: StringFieldUpdateOperationsInput | string
+    ttl?: DateTimeFieldUpdateOperationsInput | Date | string
+    namaWali?: StringFieldUpdateOperationsInput | string
+    noHpWali?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PendaftarTenagaPendidikUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    alamat?: StringFieldUpdateOperationsInput | string
+    noHp?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    pendidikan?: StringFieldUpdateOperationsInput | string
+    pengalaman?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumStatusPendaftaranFieldUpdateOperationsInput | $Enums.StatusPendaftaran
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PendaftarTenagaPendidikUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    alamat?: StringFieldUpdateOperationsInput | string
+    noHp?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    pendidikan?: StringFieldUpdateOperationsInput | string
+    pengalaman?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumStatusPendaftaranFieldUpdateOperationsInput | $Enums.StatusPendaftaran
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PendaftarTenagaPendidikUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    alamat?: StringFieldUpdateOperationsInput | string
+    noHp?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    pendidikan?: StringFieldUpdateOperationsInput | string
+    pengalaman?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumStatusPendaftaranFieldUpdateOperationsInput | $Enums.StatusPendaftaran
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 
