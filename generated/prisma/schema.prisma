@@ -29,6 +29,7 @@ model User {
   id                      String                    @id @default(uuid())
   email                   String                    @unique
   name                    String
+  password                String
   role                    Role                      @default(USER)
   createdAt               DateTime                  @default(now())
   updatedAt               DateTime                  @updatedAt
@@ -49,8 +50,8 @@ model ArtikelBerita {
 
 model KritikSaran {
   id        String   @id @default(uuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id])
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
   content   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -66,8 +67,8 @@ model Laporan {
 
 model PendaftarPesertaDidik {
   id        String   @id @default(uuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id])
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
   fullName  String
   alamat    String
   ttl       DateTime
@@ -78,8 +79,8 @@ model PendaftarPesertaDidik {
 
 model PendaftarTenagaPendidik {
   id         String            @id @default(uuid())
-  userId     String
-  user       User              @relation(fields: [userId], references: [id])
+  userId     String?
+  user       User?             @relation(fields: [userId], references: [id])
   fullName   String
   alamat     String
   noHp       String
