@@ -12,7 +12,6 @@ export async function POST(req: Request) {
       password,
       options: {
         data: {name}, // nama akan disimpan di metadata user Supabase
-
       },
     })
 

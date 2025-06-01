@@ -5,7 +5,7 @@ import Footer from '@/app/components/Footer';
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen flex flex-col font-fredoka bg-cover bg-no-repeat" style={{ backgroundImage: "url('/bg-login.svg')" }}>
+    <div className="min-h-screen flex flex-col font-fredoka bg-cover bg-no-repeat" style={{ backgroundImage: "url('/bg-login.jpg')" }}>
       <Navbar />
 
       <div className="flex flex-1">

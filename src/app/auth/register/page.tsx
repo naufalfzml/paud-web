@@ -5,7 +5,7 @@ import Footer from '@/app/components/Footer';
 
 export default function RegisterPage() {
   return (
-    <div className="min-h-screen flex flex-col font-fredoka bg-cover bg-no-repeat" style={{ backgroundImage: "url('/bg-regist.svg')" }}>
+    <div className="min-h-screen flex flex-col font-fredoka bg-cover bg-no-repeat" style={{ backgroundImage: "url('/bg-regist.jpg')" }}>
       <Navbar />
 
       <div className="flex flex-1">
