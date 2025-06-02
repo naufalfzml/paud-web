@@ -117,11 +117,7 @@ export default function RegisterForm() {
             onChange={(e) => setRememberMe(e.target.checked)}
             className="w-4 h-4 text-orange-500 border-gray-300 rounded focus:ring-orange-500"
           />
-          <span className="ml-2 text-sm text-gray-600">Ingat saya</span>
         </label>
-        <a href="#" className="text-sm text-orange-500 hover:text-orange-600 font-medium">
-          Lupa kata sandi
-        </a>
       </div>
 
       <button
