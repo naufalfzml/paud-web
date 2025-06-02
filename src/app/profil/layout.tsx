@@ -1,14 +1,12 @@
 import type { Metadata } from "next";
 import { Fredoka } from "next/font/google";
-import '@/app/globals.css'
+import "../globals.css";
 
 const fredoka = Fredoka({ 
   weight: ['300', '400', '500', '600', '700'],
   subsets: ['latin'],
-  variable: '--font-fredoka',
-  display: 'block'
+  variable: '--font-fredoka'
 })
-
 
 export const metadata: Metadata = {
   title: "Create Next App",
