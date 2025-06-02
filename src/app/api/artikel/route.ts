@@ -23,8 +23,16 @@ function validateEnvironmentVariables() {
   return { supabaseUrl, supabaseKey };
 }
 
+
+
 // Inisialisasi Supabase client dengan error handling
 let supabase: any = null;
+
+const { supabaseUrl, supabaseKey } = validateEnvironmentVariables();
+if (supabaseUrl && supabaseKey) {
+  supabase = createClient(supabaseUrl, supabaseKey);
+}
+
 
 // Interface untuk artikel
 interface Artikel {
@@ -87,7 +95,7 @@ export async function GET(request: NextRequest) {
     console.log('GET request - ID:', id, 'Published:', isPublished);
 
     let query = supabase
-      .from('artikel')
+      .from('ArtikelBerita')
       .select('*')
       .order('createdAt', { ascending: false });
 
