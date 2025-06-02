@@ -113,14 +113,6 @@ export default function Navbar() {
           </Link>
 
           <Link
-            href="/program"
-            className={`${getLinkStyle("/program")} flex items-center space-x-1`}
-          >
-            <span>📋</span>
-            <span>Program</span>
-          </Link>
-
-          <Link
             href="/profil"
             className={`${getLinkStyle("/profil")} flex items-center space-x-1`}
           >

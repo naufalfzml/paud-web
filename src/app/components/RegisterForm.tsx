@@ -109,17 +109,6 @@ export default function RegisterForm() {
         </div>
       </div>
 
-      <div className="flex items-center justify-between">
-        <label className="flex items-center">
-          <input
-            type="checkbox"
-            checked={rememberMe}
-            onChange={(e) => setRememberMe(e.target.checked)}
-            className="w-4 h-4 text-orange-500 border-gray-300 rounded focus:ring-orange-500"
-          />
-        </label>
-      </div>
-
       <button
         type="submit"
         disabled={loading}
