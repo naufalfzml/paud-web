@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
 import "@/app/globals.css";
 
@@ -12,6 +13,7 @@ export default function RegisterForm() {
   const [rememberMe, setRememberMe] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,6 +38,7 @@ export default function RegisterForm() {
       if (!res.ok) {
         setMessage(data.message || "Gagal mendaftar");
       } else {
+        router.push("/auth/login?success=1");
         setMessage("Berhasil mendaftar! Silakan cek email Anda untuk verifikasi.");
         // Reset form
         setNama("");

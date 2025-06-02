@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import React, { useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
 import "@/app/globals.css";
 
@@ -12,6 +12,14 @@ export default function LoginForm() {
   const [rememberMe, setRememberMe] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const [successMessage, setSuccessMessage] = useState("");
+
+  useEffect(() => {
+    if(searchParams.get("success") == "1") {
+      setSuccessMessage("Pendaftaran berhasil! Silakan login.");
+    }
+  }, [searchParams]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,6 +49,13 @@ export default function LoginForm() {
   };
 
   return (
+    <>
+      {successMessage && (
+        <div className="p-3 mb-4 text-green-700 bg-green-100 rounded-lg border border-green-400 text-center font-medium">
+          {successMessage}
+        </div>
+      )}
+
     <form onSubmit={handleSubmit} className="space-y-6">
       <div>
         <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
@@ -133,5 +148,6 @@ export default function LoginForm() {
         </a>
       </p>
     </form>
+    </>
   );
 }
