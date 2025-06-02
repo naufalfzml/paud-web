@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Fredoka } from "next/font/google";
+import { AuthProvider } from '@/lib/AuthContext';
 import "./globals.css";
 
 const fredoka = Fredoka({ 
@@ -16,15 +17,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body
-        className={`${fredoka.variable} antialiased`}
-      >
-        {children}
+      <body className={`${fredoka.variable} antialiased`}>
+        <AuthProvider>
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );
