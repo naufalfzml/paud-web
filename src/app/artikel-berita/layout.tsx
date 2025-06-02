@@ -5,7 +5,8 @@ import "../globals.css";
 const fredoka = Fredoka({ 
   weight: ['300', '400', '500', '600', '700'],
   subsets: ['latin'],
-  variable: '--font-fredoka'
+  variable: '--font-fredoka',
+  display: 'block'
 })
 
 export const metadata: Metadata = {
@@ -19,12 +20,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${fredoka.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
+    <>{children}</>
   );
 }

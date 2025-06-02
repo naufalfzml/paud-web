@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@prisma/extension-accelerate": "^2.0.1",
-    "@supabase/supabase-js": "^2.49.8",
+    "@supabase/supabase-js": "^2.49.9",
     "bcrypt": "^6.0.0",
     "embla-carousel-react": "^8.6.0",
     "lucide-react": "^0.511.0",
