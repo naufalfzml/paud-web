@@ -7,9 +7,7 @@ export default function Artikel() {
   return (
     <div className="min-h-screen flex flex-col font-fredoka bg-cover bg-no-repeat" style={{ backgroundImage: "url('/bg-login.jpg')" }}>
       <Navbar />
-
       <ProfilPage></ProfilPage>
-
       <Footer />
     </div>
   );

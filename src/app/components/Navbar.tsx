@@ -218,6 +218,7 @@ export default function Navbar() {
                     <span>Akun</span>
                   </Link>
                   
+                  <a href="/">
                   <button
                     onClick={() => {
                       handleLogout();
@@ -228,6 +229,7 @@ export default function Navbar() {
                     <span>🚪</span>
                     <span>Logout</span>
                   </button>
+                  </a>
                 </div>
               )}
             </div>

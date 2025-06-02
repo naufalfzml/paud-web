@@ -218,8 +218,7 @@ const FacilitiesSection = () => {
 // Main Profile Page Component
 const ProfilPage = () => {
   return (
-    <div className="min-h-screen font-fredoka bg-gradient-to-b from-purple-100 to-blue-100">
-      <Navbar />
+    <div className="min-h-screen font-fredoka bg-gradient-to-br from-blue-50 to-purple-50">
       <div className="pt-16">
         <div id="home">
           <HeroSection />
@@ -237,7 +236,6 @@ const ProfilPage = () => {
           <FacilitiesSection />
         </div>
       </div>
-      <Footer />
     </div>
   );
 };
