@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from "./components/Navbar"
 import Footer from "./components/Footer"
+import ArtikelCard from './components/ArtikelCard';
 
 const PAUDWebsite = () => {
   return (
@@ -98,9 +99,11 @@ const PAUDWebsite = () => {
           </div>
 
           <div className="text-center mt-16">
-            <button className="bg-gray-800 text-white px-6 py-3 rounded-2xl hover:bg-gray-700 transition-transform duration-300 hover:scale-110 cursor-pointer">
-              Pelajari Lebih Lanjut
-            </button>
+            <a href="/profil">
+              <button className="bg-gray-800 text-white px-6 py-3 rounded-2xl hover:bg-gray-700 transition-transform duration-300 hover:scale-110 cursor-pointer">
+                Pelajari Lebih Lanjut
+              </button>
+            </a>
           </div>
         </div>
       </section>
@@ -109,45 +112,16 @@ const PAUDWebsite = () => {
       <section className="py-16 bg-artikel-berita text-white">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-5xl font-medium text-center mb-12">Artikel & Berita</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
-            <div className="bg-white rounded-xl p-6 text-gray-800">
-              <div className="text-sm text-gray-500 mb-2">13 April 2024</div>
-              <h3 className="text-xl font-bold mb-3">Berita 1</h3>
-              <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                Age-appropriate activities designed to stimulate cognitive development in young minds.
-              </p>
-              <a href="#" className="text-blue-600 text-sm font-semibold hover:underline">
-                Read more
-              </a>
-            </div>
-
-            <div className="bg-white rounded-xl p-6 text-gray-800">
-              <div className="text-sm text-gray-500 mb-2">13 April 2024</div>
-              <h3 className="text-xl font-bold mb-3">Artikel 1</h3>
-              <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                Age-appropriate activities designed to stimulate cognitive development in young minds.
-              </p>
-              <a href="#" className="text-blue-600 text-sm font-semibold hover:underline">
-                Read more
-              </a>
-            </div>
-
-            <div className="bg-white rounded-xl p-6 text-gray-800">
-              <div className="text-sm text-gray-500 mb-2">13 April 2024</div>
-              <h3 className="text-xl font-bold mb-3">Berita 2</h3>
-              <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                Age-appropriate activities designed to stimulate cognitive development in young minds.
-              </p>
-              <a href="#" className="text-blue-600 text-sm font-semibold hover:underline">
-                Read more
-              </a>
-            </div>
+          <div className="mt-0">
+            <ArtikelCard />
           </div>
 
           <div className="text-center mt-12">
-            <button className="bg-white text-teal-600 px-6 py-3 rounded-2xl hover:bg-gray-100 font-medium transition-transform duration-300 hover:scale-110 cursor-pointer">
-              Lihat Selengkapnya
-            </button>
+            <a href="/artikel-berita">
+              <button className="bg-white text-teal-600 px-6 py-3 rounded-2xl hover:bg-gray-100 font-medium transition-transform duration-300 hover:scale-110 cursor-pointer">
+                Lihat Selengkapnya
+              </button>
+            </a>
           </div>
         </div>
       </section>

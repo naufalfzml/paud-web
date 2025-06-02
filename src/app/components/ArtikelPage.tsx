@@ -17,7 +17,7 @@ interface Artikel {
   author: string;
 }
 
-const ArtikelCard = () => {
+const ArtikelPage = () => {
   const [artikels, setArtikels] = useState<Artikel[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -84,11 +84,19 @@ const ArtikelCard = () => {
   // Loading state
   if (loading) {
     return (
+      <section className="bg-card-belajar py-16 pt-40">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-gray-800 mb-4">Artikel Terbaru</h2>
+            <p className="text-gray-600">Temukan artikel-artikel menarik seputar pendidikan anak usia dini</p>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[...Array(3)].map((_, index) => (
+            {[...Array(6)].map((_, index) => (
               <LoadingSkeleton key={index} />
             ))}
           </div>
+        </div>
+      </section>
     );
   }
 
@@ -120,12 +128,23 @@ const ArtikelCard = () => {
   }
 
   return (
-    <section className="bg-none">
+    <section className="bg-card-belajar py-16 pt-40">
       <div className="max-w-6xl mx-auto px-4">
+        {/* Header Section */}
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-semibold text-gray-800 mb-4">
+            Artikel Terbaru
+          </h2>
+          <p className="text-gray-600 max-w-2xl mx-auto">
+            Temukan artikel-artikel menarik seputar kegiatan PAUD Cahya Indria
+            dan artikel lainnya!
+          </p>
+        </div>
+
         {/* Articles Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {artikels.length === 0 ? (
-            <div className="col-span-full text-center">
+            <div className="col-span-full text-center py-12">
               <div className="bg-gray-50 rounded-lg p-8 max-w-md mx-auto">
                 <svg className="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -135,8 +154,8 @@ const ArtikelCard = () => {
               </div>
             </div>
           ) : (
-            artikels.slice(0,3).map((artikel) => (
-              <article key={artikel.id} className="max-w-sm bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+            artikels.map((artikel) => (
+              <article key={artikel.id} className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
                 <Link href={`/artikel/${artikel.id}`}>
                   <div className="relative overflow-hidden rounded-t-lg">
                     <Image
@@ -214,9 +233,18 @@ const ArtikelCard = () => {
             ))
           )}
         </div>
+
+        {/* Load More Button (optional - for pagination) */}
+        {artikels.length > 0 && (
+          <div className="text-center mt-12">
+            <button className="bg-white hover:bg-gray-50 text-gray-700 font-medium py-3 px-6 border border-gray-300 rounded-lg transition-colors">
+              Muat Artikel Lainnya
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );
 };
 
-export default ArtikelCard;
+export default ArtikelPage;
