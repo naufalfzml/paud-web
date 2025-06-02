@@ -7,6 +7,7 @@ import Link from "next/link";
 export default function Navbar() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname(); // Hook untuk mendapatkan path saat ini
 
   useEffect(() => {
     const handleScroll = () => {
