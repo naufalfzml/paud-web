@@ -37,14 +37,11 @@ export async function POST(req: Request) {
       );
     }
 
-    // Optional: Tambahkan token ke cookie (kalau pakai auth persistensi manual)
-    // const accessToken = signInData.session?.access_token;
-
-    const response =  NextResponse.json(
+    const response = NextResponse.json(
       { 
         user: signInData.user,
         message: "Login berhasil",
-        success : true, 
+        success: true, 
         redirectTo: "/"
       },
       { status: 200 }
@@ -53,9 +50,13 @@ export async function POST(req: Request) {
     if (signInData.session) {
         response.cookies.set('supabase-auth', signInData.session.access_token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV == 'production',
-        })
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'strict',
+            maxAge: signInData.session.expires_in
+        });
     }
+
+    return response;
 
   } catch (error) {
     console.error("Terjadi error saat login:", error);
