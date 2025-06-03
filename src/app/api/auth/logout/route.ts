@@ -1,9 +1,28 @@
-import { NextResponse } from "next/server";
+import { supabase } from "@/lib/supabase";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST() {
+export async function POST(req: NextRequest) {
   try {
+    // Ambil token dari cookie untuk logout dari Supabase
+    const token = req.cookies.get('supabase-auth')?.value;
+
+    if(token) {
+      try {
+        // Set token untuk session saat ini
+        await supabase.auth.setSession({
+          access_token: token,
+          refresh_token: ''
+        });
+
+        await supabase.auth.signOut();
+        console.log("Logged out from Supabase");
+      } catch (supabaseError) {
+        console.warn("Supabase logout warning:", supabaseError);
+      }
+    }
+
     const response = NextResponse.json(
-      { message: "Logout berhasil" },
+      { message: "Logout berhasil", success: true },
       { status: 200 }
     );
 
@@ -11,17 +30,37 @@ export async function POST() {
     response.cookies.set('supabase-auth', '', {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      sameSite: 'lax',
       maxAge: 0, // Expired immediately
-      path: '/'
+      path: '/',
+      expires: new Date(0)
     });
 
+    response.cookies.delete('supabase-auth');
+
+    console.log("Auth cookie cleared successfully");
+
     return response;
+
   } catch (error) {
     console.error("Logout error:", error);
-    return NextResponse.json(
-      { message: "Terjadi kesalahan saat logout" },
-      { status: 500 }
+
+    const response = NextResponse.json(
+      { message: "Logout berhasil (dengan peringatan)", success: true },
+      { status : 200}
     );
+
+    response.cookies.set('supabase-auth', '', {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 0,
+      path: '/',
+      expires: new Date(0)
+    })
+
+    response.cookies.delete('supabase-auth');
+
+    return response;
   }
 }
