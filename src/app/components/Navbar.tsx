@@ -140,8 +140,8 @@ export default function Navbar() {
               }}
               className={`font-medium flex items-center space-x-1 focus:outline-none px-3 py-2 rounded-lg transition-all duration-200 ${
                 pathname === "/daftar-peserta" || pathname === "/daftar-tenaga"
-                  ? "text-blue-600 font-semibold bg-blue-50"
-                  : "text-gray-600 hover:text-blue-600 hover:bg-gray-50"
+                  ? "text-black font-semibold bg-blue-50"
+                  : "text-gray-600 hover:text-black hover:bg-gray-50"
               }`}
             >
               <UserRoundPlus></UserRoundPlus>
@@ -154,7 +154,7 @@ export default function Navbar() {
                   href="/daftar-peserta"
                   className={`block px-4 py-2 text-sm hover:bg-gray-100 transition-colors ${
                     isActive("/daftar-peserta")
-                      ? "bg-blue-50 text-blue-600 font-medium"
+                      ? "bg-blue-50 text-black font-medium"
                       : "text-gray-700"
                   }`}
                   onClick={() => setDropdownOpen(false)}
