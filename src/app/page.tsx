@@ -96,7 +96,7 @@ const PAUDWebsite = () => {
               <h3 className="text-xl font-bold text-gray-800 mb-3">Tujuan</h3>
               <ul className="list-disc text-gray-600 text-md leading-relaxed text-left ml-4">
                 <li>Mewujudkan anak yang bertaqwa dan berakhlaqul karimah</li>
-                <li>Mendidik anak agar menjadi generasi yang berkualitas berguna bagi agama,nusa,dan bangsa</li>
+                <li>Mendidik anak agar menjadi generasi yang berkualitas berguna bagi agama, nusa, dan bangsa</li>
                 <li>Mengembangkan kreatifitas ketrampilan anak didik untuk mengekspresikan diri dalam berkarya seni</li>
                 <li>Mengembangkan bakat minat dan kemampuan sehingga anak berkembang secara optimal dan mampu beraktualisasi diri</li>
               </ul>
@@ -133,8 +133,8 @@ const PAUDWebsite = () => {
 
       {/* CTA Section */}
       <section className="py-16 bg-ready-join">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-5xl font-medium text-gray-800 mb-6">Ready to Join Our School?</h2>
+        <div className="max-w-5xl mx-auto px-4 text-center">
+          <h2 className="text-5xl font-medium text-gray-800 mb-6">Siap bergabung dengan PAUD Cahya Indria?</h2>
           <p className="text-gray-600 mb-8 leading-relaxed">
             Daftarkan anak Anda hari ini dan berikan mereka landasan pendidikan yang kuat untuk masa mendatang.
           </p>

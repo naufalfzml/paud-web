@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Clock, User } from "lucide-react";
+import ArtikelCard from "./ArtikelCard";
 
 // Komponen Card
 const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
@@ -156,11 +157,14 @@ const ReadArtikel = ({ artikel }: ArtikelProps) => {
           </div>
         </article>
 
-        {/* Recommended Section
+
+
+        {/* //TODO: EDIT DAN SESUAIKAN INI, ATAU BIKIN COMPONENTS BARU UNTUK TAMPILKAN CARD ARTIKEL REKOMEN */}
         <section>
           <h2 className="text-2xl font-bold text-gray-900 mb-6">Recommended Content</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {explorationCards.map((card, index) => (
+          <div className="grid gap-6">
+            <ArtikelCard></ArtikelCard>
+            {/* {explorationCards.map((card, index) => (
               <Card
                 key={index}
                 className="overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer group"
@@ -193,9 +197,9 @@ const ReadArtikel = ({ artikel }: ArtikelProps) => {
                   <CardDescription>{card.description}</CardDescription>
                 </CardContent>
               </Card>
-            ))}
+            ))} */}
           </div>
-        </section> */}
+        </section>
       </main>
     </div>
   );
