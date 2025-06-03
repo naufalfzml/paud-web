@@ -21,7 +21,7 @@ const HeroSection = () => {
           Tentang PAUD
         </h1>
         <p className="text-xl text-gray-600 animate-fade-in animation-delay-200">
-          Tagline 12 kata Tagline 12 kata Tagline 12 kata Tagline 12 kata
+          Cerdas, Cermat, Ceria!
         </p>
       </div>
     </section>
@@ -193,7 +193,7 @@ const OrganizationalStructure = () => {
 
 
   return (
-    <section className="py-16 px-6 bg-gradient-to-r from-purple-500 to-blue-500">
+    <section className="py-16 px-6 bg-gradient-to-r from-purple-500 to-blue-500" id="struktur-kepengurusan">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-4xl font-semibold text-center text-white mb-12 animate-fade-in">
           STRUKTUR KEPENGURUSAN
@@ -215,7 +215,7 @@ const FacilitiesSection = () => {
   ];
 
   return (
-    <section className="py-16 px-6 bg-gradient-to-r from-blue-400 to-cyan-400">
+    <section className="py-16 px-6 bg-gradient-to-r from-blue-400 to-cyan-400" id="fasilitas">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-4xl font-semibold text-center text-white mb-12 animate-fade-in">
           FASILITAS PAUD

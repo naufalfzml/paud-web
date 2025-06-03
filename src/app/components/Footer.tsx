@@ -36,10 +36,10 @@ export default function Footer() {
                 <div>
                 <h4 className="font-bold mb-4">Informasi</h4>
                 <ul className="space-y-2 text-sm text-gray-400">
-                    <li><a href="#" className="hover:text-white">Tentang Kami</a></li>
-                    <li><a href="#" className="hover:text-white">Fasilitas</a></li>
-                    <li><a href="#" className="hover:text-white">Guru</a></li>
-                    <li><a href="#" className="hover:text-white">Kontak</a></li>
+                    <li><a href="/profil" className="hover:text-white">Tentang Kami</a></li>
+                    <li><a href="/profil#fasilitas" className="hover:text-white">Fasilitas</a></li>
+                    <li><a href="/profil#struktur-kepengurusan" className="hover:text-white">Guru</a></li>
+                    <li><a href="/" className="hover:text-white">Kontak</a></li>
                 </ul>
                 </div>
                 
