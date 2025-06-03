@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
-import { useAuth } from "@/lib/AuthContext"; // Sesuaikan path
+import { useAuth } from "@/lib/AuthContext";
 import { House, Info, Newspaper, UserRoundPlus } from "lucide-react";
 
 export default function Navbar() {
@@ -122,8 +122,8 @@ export default function Navbar() {
           </Link>
 
           <Link
-            href="/artikel-berita"
-            className={`${getLinkStyle("/artikel-berita")} flex items-center space-x-1`}
+            href="/artikel"
+            className={`${getLinkStyle("/artikel")} flex items-center space-x-1`}
           >
             <Newspaper></Newspaper>
             <span>Artikel</span>

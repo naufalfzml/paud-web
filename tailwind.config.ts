@@ -13,7 +13,7 @@ export default {
         'card-belajar' : '#d5e7f9',
         'belajar' : '#0000ff',
         'tentang-paud' : '#f1f4ed',
-        'artikel-berita' : '#557875',
+        'artikel' : '#557875',
         'ready-join' : '#FFE1E1',
         'login' : '#DCF3FF',
         'register' : '#EEFFD9',

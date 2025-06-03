@@ -23,8 +23,6 @@ function validateEnvironmentVariables() {
   return { supabaseUrl, supabaseKey };
 }
 
-
-
 // Inisialisasi Supabase client dengan error handling
 let supabase: any = null;
 
@@ -33,10 +31,9 @@ if (supabaseUrl && supabaseKey) {
   supabase = createClient(supabaseUrl, supabaseKey);
 }
 
-
 // Interface untuk artikel
 interface Artikel {
-  id?: number;
+  id?: string; // ID Supabase ada - nya
   judul: string;
   content: string;
   imageUrl?: string;
@@ -74,6 +71,9 @@ function handleSupabaseError(error: any, operation: string) {
   return errorResponse;
 }
 
+// Konstanta untuk nama tabel
+const TABLE_NAME = 'ArtikelBerita'; 
+
 // GET - Mengambil semua artikel atau artikel berdasarkan ID
 export async function GET(request: NextRequest) {
   try {
@@ -95,20 +95,21 @@ export async function GET(request: NextRequest) {
     console.log('GET request - ID:', id, 'Published:', isPublished);
 
     let query = supabase
-      .from('ArtikelBerita')
+      .from(TABLE_NAME)
       .select('*')
       .order('createdAt', { ascending: false });
 
     // Filter berdasarkan ID jika ada
     if (id) {
-      const numericId = parseInt(id);
-      if (isNaN(numericId)) {
+      // Validate UUID format Regex
+      const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+      if (!uuidPattern.test(id)) {
         return NextResponse.json(
-          { error: 'ID artikel harus berupa angka' } as ErrorResponse,
+          { error: 'Format ID artikel tidak valid' } as ErrorResponse,
           { status: 400 }
         );
       }
-      query = query.eq('id', numericId);
+      query = query.eq('id', id);
     }
 
     // Filter hanya artikel yang dipublikasi jika parameter published=true
@@ -195,7 +196,7 @@ export async function POST(request: NextRequest) {
     console.log('Creating article with data:', { ...artikelData, content: artikelData.content.substring(0, 100) + '...' });
 
     const { data, error } = await supabase
-      .from('artikel')
+      .from(TABLE_NAME)
       .insert([artikelData])
       .select()
       .single();
@@ -254,16 +255,17 @@ export async function PUT(request: NextRequest) {
       );
     }
 
-    const numericId = parseInt(id);
-    if (isNaN(numericId)) {
+    // Validate UUID format
+    const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+    if (!uuidPattern.test(id)) {
       return NextResponse.json(
-        { error: 'ID artikel harus berupa angka' } as ErrorResponse,
+        { error: 'Format ID artikel tidak valid' } as ErrorResponse,
         { status: 400 }
       );
     }
 
     const body: Partial<Artikel> = await request.json();
-    console.log('PUT request - ID:', numericId, 'Body keys:', Object.keys(body));
+    console.log('PUT request - ID:', id, 'Body keys:', Object.keys(body));
 
     const updateData = {
       ...body,
@@ -275,9 +277,9 @@ export async function PUT(request: NextRequest) {
     delete updateData.createdAt;
 
     const { data, error } = await supabase
-      .from('artikel')
+      .from(TABLE_NAME)
       .update(updateData)
-      .eq('id', numericId)
+      .eq('id', id)
       .select()
       .single();
 
@@ -342,20 +344,21 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
-    const numericId = parseInt(id);
-    if (isNaN(numericId)) {
+    // Validate UUID RegEx ID dari Supabase
+    const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+    if (!uuidPattern.test(id)) {
       return NextResponse.json(
-        { error: 'ID artikel harus berupa angka' } as ErrorResponse,
+        { error: 'Format ID artikel tidak valid' } as ErrorResponse,
         { status: 400 }
       );
     }
 
-    console.log('DELETE request - ID:', numericId);
+    console.log('DELETE request - ID:', id);
 
     const { error } = await supabase
-      .from('artikel')
+      .from(TABLE_NAME)
       .delete()
-      .eq('id', numericId);
+      .eq('id', id);
 
     if (error) {
       console.error('Error deleting artikel:', error);
@@ -365,7 +368,7 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
-    console.log('Article deleted successfully:', numericId);
+    console.log('Article deleted successfully:', id);
     return NextResponse.json(
       { message: 'Artikel berhasil dihapus' },
       { status: 200 }
