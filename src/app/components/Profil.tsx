@@ -17,7 +17,7 @@ const HeroSection = () => {
   return (
     <section className="relative py-20 px-6 text-center bg-gradient-to-br from-blue-50 to-purple-50">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-5xl font-bold text-gray-800 mb-4 animate-fade-in">
+        <h1 className="text-5xl font-semibold text-gray-800 mb-4 animate-fade-in">
           Tentang PAUD
         </h1>
         <p className="text-xl text-gray-600 animate-fade-in animation-delay-200">
@@ -36,14 +36,14 @@ const AboutSection = () => {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="space-y-4 animate-fade-in">
             <p className="text-gray-700 leading-relaxed">
-              PAUD Calisya Indira diberikan untuk anak usia 3-6 tahun, yaitu
+              PAUD Cahya Indria diberikan untuk anak usia 3-6 tahun, yaitu
               masa yang memberikan kontribusi berupa bentuk-bentuk yang akan
               menjadi dasar bagi tahap perkembangan selanjutnya. Dalam proses
               tersebut diperlukan rangsangan-rangsangan yang tepat agar potensi
               anak dapat berkembang secara optimal.
             </p>
             <p className="text-gray-700 leading-relaxed">
-              Program pembelajaran di PAUD Calisya Indira direncanakan dengan
+              Program pembelajaran di PAUD Cahya Indria direncanakan dengan
               pendekatan yang komprehensif dan bermakna berdasarkan kecerdasan
               majemuk yang ada dalam diri anak dengan menggunakan pendekatan
               holistik sehingga terciptanya anak yang berkarakter, kreatif,
@@ -74,20 +74,31 @@ const VisionMissionSection = () => {
   return (
     <section className="py-16 px-6 ">
       <div className="max-w-4xl mx-auto">
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 gap-8 mb-10">
           <div className="bg-white/70 backdrop-blur-sm rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 animate-fade-in">
-            <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">VISI</h2>
-            <p className="text-purple-800 text-center font-semibold px-4">
-                - Menyiapkan calon generasi yang bertaqwa, sehat, cerdas, dan berbudi luhur
-              </p>
+            <h2 className="text-3xl font-medium text-center text-gray-800 mb-6 tracking-widest">VISI</h2>
+            <p className="text-black text-center font-normal px-4 leading-7 text-lg">Menyiapkan calon generasi yang bertaqwa, sehat, cerdas, dan berbudi luhur</p>
           </div>
           
           <div className="bg-white/70 backdrop-blur-sm rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 animate-fade-in animation-delay-200">
-            <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">MISI</h2>
-            <p className="text-blue-800 text-center font-semibold px-4">- Mempraktikkan dasar-dasar keimanan</p>
-            <p className="text-blue-800 text-center font-semibold px-4">- Melatih kebersamaan</p>
-            <p className="text-blue-800 text-center font-semibold px-4">- Bermain dengan pengetahuan</p>
-            <p className="text-blue-800 text-center font-semibold px-4">- Mencintai budaya dan lingkungan</p>
+            <h2 className="text-3xl font-medium text-center text-gray-800 mb-6 tracking-widest">MISI</h2>
+            <ul className="text-left leading-7 text-lg text-black font-normal list-disc ml-4">
+              <li>Mempraktikkan dasar-dasar keimanan</li>
+              <li>Melatih kebersamaan</li>
+              <li>Bermain dengan pengetahuan</li>
+              <li>Mencintai budaya dan lingkungan</li>
+            </ul>
+          </div>
+        </div>
+        <div className="flex justify-center">
+          <div className="bg-white/70 backdrop-blur-sm rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 animate-fade-in">
+            <h2 className="text-3xl font-medium text-center text-gray-800 mb-6 tracking-wide">TUJUAN</h2>
+            <ul className="text-left leading-7 text-lg text-black font-normal list-disc ml-4">
+                <li>Mewujudkan anak yang bertaqwa dan berakhlaqul karimah</li>
+                <li>Mendidik anak agar menjadi generasi yang berkualitas berguna bagi agama,nusa,dan bangsa</li>
+                <li>Mengembangkan kreatifitas ketrampilan anak didik untuk mengekspresikan diri dalam berkarya seni</li>
+                <li>Mengembangkan bakat minat dan kemampuan sehingga anak berkembang secara optimal dan mampu beraktualisasi diri</li>
+            </ul>
           </div>
         </div>
       </div>

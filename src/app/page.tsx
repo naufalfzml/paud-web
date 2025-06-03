@@ -72,8 +72,8 @@ const PAUDWebsite = () => {
                 <img src="/images/visi.png" alt="" />
               </div>
               <h3 className="text-xl font-bold text-gray-800 mb-3">Visi</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                Age-appropriate activities designed to stimulate cognitive development in young minds.
+              <p className="text-gray-600 text-md leading-relaxed text-center">
+                Menyiapkan calon generasi yang bertaqwa, sehat, cerdas, dan berbudi luhur
               </p>
             </div>
 
@@ -82,19 +82,24 @@ const PAUDWebsite = () => {
                   <img src="/images/misi.png" alt="" />
               </div>
               <h3 className="text-xl font-bold text-gray-800 mb-3">Misi</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                Age-appropriate activities designed to stimulate cognitive development in young minds.
-              </p>
+              <ul className="list-disc text-gray-600 text-md leading-relaxed text-left ml-4">
+                <li>Mempraktekkan dasar-dasar keimanan</li>
+                <li>Bermain dengan pengetahuan</li>
+                <li>Melatih kebersamaan</li>
+                <li>Mencintai budaya lingkungan</li>
+              </ul>
             </div>
 
             <div className="bg-white rounded-xl p-8 text-center shadow-sm">
               <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                {/* <BookOpen className="w-8 h-8 text-purple-600" /> */}
               </div>
-              <h3 className="text-xl font-bold text-gray-800 mb-3">Early Learning</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
-                Age-appropriate activities designed to stimulate cognitive development in young minds.
-              </p>
+              <h3 className="text-xl font-bold text-gray-800 mb-3">Tujuan</h3>
+              <ul className="list-disc text-gray-600 text-md leading-relaxed text-left ml-4">
+                <li>Mewujudkan anak yang bertaqwa dan berakhlaqul karimah</li>
+                <li>Mendidik anak agar menjadi generasi yang berkualitas berguna bagi agama,nusa,dan bangsa</li>
+                <li>Mengembangkan kreatifitas ketrampilan anak didik untuk mengekspresikan diri dalam berkarya seni</li>
+                <li>Mengembangkan bakat minat dan kemampuan sehingga anak berkembang secara optimal dan mampu beraktualisasi diri</li>
+              </ul>
             </div>
           </div>
 

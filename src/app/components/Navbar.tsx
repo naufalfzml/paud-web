@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/lib/AuthContext"; // Sesuaikan path
+import { House, Info, Newspaper, UserRoundPlus } from "lucide-react";
 
 export default function Navbar() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -52,8 +53,8 @@ export default function Navbar() {
   // Function untuk mendapatkan style link
   const getLinkStyle = (path: string) => {
     return isActive(path)
-      ? "text-blue-600 font-semibold bg-blue-50 px-3 py-2 rounded-lg"
-      : "text-gray-600 font-medium hover:text-blue-600 px-3 py-2 rounded-lg hover:bg-gray-50 transition-all duration-200";
+      ? "text-black font-medium px-3 py-2 rounded-lg bg-gray-100"
+      : "text-gray-600 font-medium hover:text-black px-3 py-2 rounded-lg transition-all duration-200";
   };
 
   const handleLogout = async () => {
@@ -86,14 +87,14 @@ export default function Navbar() {
             : "bg-white w-full px-0 py-4"
         }`}
     >
-      <div className="max-w-6xl mx-auto py-4 flex items-center justify-between">
+      <div className="max-w-6xl mx-auto py-2 flex items-center justify-between">
         <Link href="/">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 flex items-center justify-center">
               <img src="/images/logo-paud.png" alt="Logo PAUD" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-gray-800">
+              <h1 className="text-xl font-semibold text-gray-800">
                 PAUD Cahya Indria
               </h1>
               <p className="text-sm font-semibold text-gray-600">
@@ -108,7 +109,7 @@ export default function Navbar() {
             href="/"
             className={`${getLinkStyle("/")} flex items-center space-x-1`}
           >
-            <span>🏠</span>
+            <House></House>
             <span>Beranda</span>
           </Link>
 
@@ -116,7 +117,7 @@ export default function Navbar() {
             href="/profil"
             className={`${getLinkStyle("/profil")} flex items-center space-x-1`}
           >
-            <span>ℹ️</span>
+            <Info></Info>
             <span>Profil</span>
           </Link>
 
@@ -124,7 +125,7 @@ export default function Navbar() {
             href="/artikel-berita"
             className={`${getLinkStyle("/artikel-berita")} flex items-center space-x-1`}
           >
-            <span>📰</span>
+            <Newspaper></Newspaper>
             <span>Artikel</span>
           </Link>
 
@@ -139,11 +140,11 @@ export default function Navbar() {
               }}
               className={`font-medium flex items-center space-x-1 focus:outline-none px-3 py-2 rounded-lg transition-all duration-200 ${
                 pathname === "/daftar-peserta" || pathname === "/daftar-tenaga"
-                  ? "text-blue-600 font-semibold bg-blue-50"
-                  : "text-gray-600 hover:text-blue-600 hover:bg-gray-50"
+                  ? "text-black font-semibold bg-blue-50"
+                  : "text-gray-600 hover:text-black hover:bg-gray-50"
               }`}
             >
-              <span>👤</span>
+              <UserRoundPlus></UserRoundPlus>
               <span>Daftar</span>
               <span className={`text-xs transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`}>▼</span>
             </button>
@@ -153,7 +154,7 @@ export default function Navbar() {
                   href="/daftar-peserta"
                   className={`block px-4 py-2 text-sm hover:bg-gray-100 transition-colors ${
                     isActive("/daftar-peserta")
-                      ? "bg-blue-50 text-blue-600 font-medium"
+                      ? "bg-blue-50 text-black font-medium"
                       : "text-gray-700"
                   }`}
                   onClick={() => setDropdownOpen(false)}
