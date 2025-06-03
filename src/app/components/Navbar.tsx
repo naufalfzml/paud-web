@@ -80,12 +80,14 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed left-1/2 transform -translate-x-1/2 z-50 transition-all duration-500 ease-in-out
-        ${
-          isScrolled
-            ? "bg-white/90 shadow-md rounded-full px-6 w-[90%] max-w-5xl backdrop-blur-md top-4"
-            : "bg-white w-full px-0 py-4"
-        }`}
+      className="fixed left-1/2 transform -translate-x-1/2 z-50 bg-white shadow-md"
+      style={{
+        transition: 'all 0.5s ease-in-out',
+        width: isScrolled ? '60%' : '100%',
+        top: isScrolled ? '1rem' : '0px',
+        padding: isScrolled ? '0.5rem 1.5rem' : '1rem 0',
+        borderRadius: isScrolled ? '9999px' : '0px',
+      }}
     >
       <div className="max-w-6xl mx-auto py-2 flex items-center justify-between">
         <Link href="/">
@@ -212,7 +214,7 @@ export default function Navbar() {
                   
                   <Link
                     href="/profile-settings"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center space-x-2 transition-colors"
+                    className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center space-x-2 transition-colors"
                     onClick={() => setUserDropdownOpen(false)}
                   >
                     <span>👤</span>

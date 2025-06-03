@@ -156,7 +156,7 @@ const ReadArtikel = ({ artikel }: ArtikelProps) => {
           </div>
         </article>
 
-        {/* Recommended Section */}
+        {/* Recommended Section
         <section>
           <h2 className="text-2xl font-bold text-gray-900 mb-6">Recommended Content</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -195,7 +195,7 @@ const ReadArtikel = ({ artikel }: ArtikelProps) => {
               </Card>
             ))}
           </div>
-        </section>
+        </section> */}
       </main>
     </div>
   );
