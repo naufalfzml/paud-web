@@ -22,7 +22,7 @@ const Breadcrumb = () => {
 
   return (
     <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-6">
-      <Link href="/" className="flex items-center hover:text-primary-600 transition-colors">
+      <Link href="/admin-page/dashboard" className="flex items-center hover:text-primary-600 transition-colors">
         <Home className="w-4 h-4 mr-1" />
         Dashboard
       </Link>
