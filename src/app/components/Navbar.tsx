@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/lib/AuthContext";
-import { House, Info, Newspaper, UserRoundPlus } from "lucide-react";
+import { House, Info, Newspaper, UserRoundPlus, LogOut, CircleUserRound } from "lucide-react";
 
 export default function Navbar() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -246,7 +246,7 @@ export default function Navbar() {
                     className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center space-x-2 transition-colors"
                     onClick={() => setUserDropdownOpen(false)}
                   >
-                    <span>👤</span>
+                    <CircleUserRound></CircleUserRound>
                     <span>Akun</span>
                   </Link>
                   
@@ -258,7 +258,7 @@ export default function Navbar() {
                     }}
                     className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 flex items-center space-x-2 transition-colors"
                   >
-                    <span>🚪</span>
+                    <LogOut></LogOut>
                     <span>Logout</span>
                   </button>
                   </a>
