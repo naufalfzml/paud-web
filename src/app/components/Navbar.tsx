@@ -85,7 +85,7 @@ export default function Navbar() {
         transition: 'all 0.5s ease-in-out',
         width: isScrolled ? '60%' : '100%',
         top: isScrolled ? '1rem' : '0px',
-        padding: isScrolled ? '0.5rem 1.5rem' : '1rem 0',
+        padding: isScrolled ? '0.25rem 1.5rem' : '1rem 0',
         borderRadius: isScrolled ? '9999px' : '0px',
       }}
     >
