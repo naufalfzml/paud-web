@@ -1,43 +1,69 @@
-'use client';
+"use client";
 
 import React from "react";
 import { Clock, User } from "lucide-react";
 import ArtikelCard from "./ArtikelCard";
+import ArtikelRecommendation from "./ArtikelRecommendation";
 
 // Komponen Card
-const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
-    <div ref={ref} className={`rounded-lg border bg-white text-gray-900 shadow-sm ${className || ''}`} {...props} />
-  )
-);
+const Card = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={`rounded-lg border bg-white text-gray-900 shadow-sm ${
+      className || ""
+    }`}
+    {...props}
+  />
+));
 Card.displayName = "Card";
 
-const CardHeader = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
-    <div ref={ref} className={`flex flex-col space-y-1.5 p-6 ${className || ''}`} {...props} />
-  )
-);
+const CardHeader = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={`flex flex-col space-y-1.5 p-6 ${className || ""}`}
+    {...props}
+  />
+));
 CardHeader.displayName = "CardHeader";
 
-const CardTitle = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
-  ({ className, ...props }, ref) => (
-    <h3 ref={ref} className={`text-2xl font-semibold leading-none tracking-tight ${className || ''}`} {...props} />
-  )
-);
+const CardTitle = React.forwardRef<
+  HTMLHeadingElement,
+  React.HTMLAttributes<HTMLHeadingElement>
+>(({ className, ...props }, ref) => (
+  <h3
+    ref={ref}
+    className={`text-2xl font-semibold leading-none tracking-tight ${
+      className || ""
+    }`}
+    {...props}
+  />
+));
 CardTitle.displayName = "CardTitle";
 
-const CardDescription = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(
-  ({ className, ...props }, ref) => (
-    <p ref={ref} className={`text-sm text-gray-600 ${className || ''}`} {...props} />
-  )
-);
+const CardDescription = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLParagraphElement>
+>(({ className, ...props }, ref) => (
+  <p
+    ref={ref}
+    className={`text-sm text-gray-600 ${className || ""}`}
+    {...props}
+  />
+));
 CardDescription.displayName = "CardDescription";
 
-const CardContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
-    <div ref={ref} className={`p-6 pt-0 ${className || ''}`} {...props} />
-  )
-);
+const CardContent = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div ref={ref} className={`p-6 pt-0 ${className || ""}`} {...props} />
+));
 CardContent.displayName = "CardContent";
 
 // Badge Component
@@ -50,11 +76,16 @@ function Badge({ className, variant = "default", ...props }: BadgeProps) {
   const variantClasses = {
     default: "border-transparent bg-blue-600 text-white hover:bg-blue-700",
     secondary: "border-transparent bg-gray-600 text-white hover:bg-gray-700",
-    outline: "text-gray-900 border-gray-300"
+    outline: "text-gray-900 border-gray-300",
   };
 
   return (
-    <div className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors ${variantClasses[variant]} ${className || ''}`} {...props} />
+    <div
+      className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors ${
+        variantClasses[variant]
+      } ${className || ""}`}
+      {...props}
+    />
   );
 }
 
@@ -65,17 +96,22 @@ const Separator = React.forwardRef<
     orientation?: "horizontal" | "vertical";
     decorative?: boolean;
   }
->(({ className, orientation = "horizontal", decorative = true, ...props }, ref) => (
-  <div
-    ref={ref}
-    role={decorative ? "none" : "separator"}
-    aria-orientation={orientation}
-    className={`shrink-0 bg-gray-200 ${
-      orientation === "horizontal" ? "h-[1px] w-full" : "h-full w-[1px]"
-    } ${className || ''}`}
-    {...props}
-  />
-));
+>(
+  (
+    { className, orientation = "horizontal", decorative = true, ...props },
+    ref
+  ) => (
+    <div
+      ref={ref}
+      role={decorative ? "none" : "separator"}
+      aria-orientation={orientation}
+      className={`shrink-0 bg-gray-200 ${
+        orientation === "horizontal" ? "h-[1px] w-full" : "h-full w-[1px]"
+      } ${className || ""}`}
+      {...props}
+    />
+  )
+);
 Separator.displayName = "Separator";
 
 // Props Type
@@ -94,22 +130,28 @@ const ReadArtikel = ({ artikel }: ArtikelProps) => {
   const explorationCards = [
     {
       title: "Lure Exploration",
-      description: "Exploring the mysteries of cosmic phenomena and their impact on our understanding of the universe.",
-      image: "https://images.unsplash.com/photo-1446776877081-d282a0f896e2?w=400&h=300&fit=crop",
-      badge: "Featured"
+      description:
+        "Exploring the mysteries of cosmic phenomena and their impact on our understanding of the universe.",
+      image:
+        "https://images.unsplash.com/photo-1446776877081-d282a0f896e2?w=400&h=300&fit=crop",
+      badge: "Featured",
     },
     {
       title: "Nature Exploration",
-      description: "Discovering the wonders of natural cosmic events and their scientific implications.",
-      image: "https://images.unsplash.com/photo-1502134249126-9f3755a50d78?w=400&h=300&fit=crop",
-      badge: "Popular"
+      description:
+        "Discovering the wonders of natural cosmic events and their scientific implications.",
+      image:
+        "https://images.unsplash.com/photo-1502134249126-9f3755a50d78?w=400&h=300&fit=crop",
+      badge: "Popular",
     },
     {
       title: "Stellar Journey",
-      description: "Journey through the cosmos and uncover the secrets of stellar formations.",
-      image: "https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=400&h=300&fit=crop",
-      badge: "New"
-    }
+      description:
+        "Journey through the cosmos and uncover the secrets of stellar formations.",
+      image:
+        "https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=400&h=300&fit=crop",
+      badge: "New",
+    },
   ];
 
   return (
@@ -117,7 +159,9 @@ const ReadArtikel = ({ artikel }: ArtikelProps) => {
       {/* Header */}
       <header className="bg-white">
         <div className="max-w-4xl mx-auto px-6 py-8">
-          <h1 className="text-3xl font-bold text-gray-900 text-center">{artikel.judul}</h1>
+          <h1 className="text-3xl font-bold text-gray-900 text-center">
+            {artikel.judul}
+          </h1>
 
           <Separator className="my-6" />
 
@@ -129,7 +173,9 @@ const ReadArtikel = ({ artikel }: ArtikelProps) => {
             <Separator orientation="vertical" className="h-4" />
             <div className="flex items-center gap-2">
               <Clock size={16} />
-              <span>{new Date(artikel.createdAt).toLocaleDateString("id-ID")}</span>
+              <span>
+                {new Date(artikel.createdAt).toLocaleDateString("id-ID")}
+              </span>
             </div>
           </div>
 
@@ -157,13 +203,13 @@ const ReadArtikel = ({ artikel }: ArtikelProps) => {
           </div>
         </article>
 
-
-
         {/* //TODO: EDIT DAN SESUAIKAN INI, ATAU BIKIN COMPONENTS BARU UNTUK TAMPILKAN CARD ARTIKEL REKOMEN */}
         <section>
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Recommended Content</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">
+            Recommended Content
+          </h2>
           <div className="grid gap-6">
-            <ArtikelCard></ArtikelCard>
+            <ArtikelRecommendation></ArtikelRecommendation>
             {/* {explorationCards.map((card, index) => (
               <Card
                 key={index}

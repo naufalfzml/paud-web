@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from "./components/Navbar"
 import Footer from "./components/Footer"
 import ArtikelCard from './components/ArtikelCard';
+import { Lightbulb, HandHeart, LocateFixed} from "lucide-react";
 
 const PAUDWebsite = () => {
   return (
@@ -68,8 +69,8 @@ const PAUDWebsite = () => {
         <div className="max-w-6xl mx-auto px-4 mt-16">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-white rounded-xl p-8 text-center shadow-sm">
-              <div className="w-16 h-16  rounded-full flex items-center justify-center mx-auto mb-4">
-                <img src="/images/visi.png" alt="" />
+              <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Lightbulb color='#000000' size={50}></Lightbulb>
               </div>
               <h3 className="text-xl font-bold text-gray-800 mb-3">Visi</h3>
               <p className="text-gray-600 text-md leading-relaxed text-center">
@@ -79,7 +80,7 @@ const PAUDWebsite = () => {
 
             <div className="bg-white rounded-xl p-8 text-center shadow-sm">
               <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <img src="/images/misi.png" alt="" />
+                  <LocateFixed color='#000000' size={50}></LocateFixed>
               </div>
               <h3 className="text-xl font-bold text-gray-800 mb-3">Misi</h3>
               <ul className="list-disc text-gray-600 text-md leading-relaxed text-left ml-4">
@@ -91,7 +92,8 @@ const PAUDWebsite = () => {
             </div>
 
             <div className="bg-white rounded-xl p-8 text-center shadow-sm">
-              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <HandHeart color='#000000' size={50}></HandHeart>
               </div>
               <h3 className="text-xl font-bold text-gray-800 mb-3">Tujuan</h3>
               <ul className="list-disc text-gray-600 text-md leading-relaxed text-left ml-4">
