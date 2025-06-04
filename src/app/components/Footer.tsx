@@ -7,7 +7,7 @@ export default function Footer() {
     return (
         <footer className="bg-gray-800 text-white py-12">
             <div className="max-w-6xl mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
                 <div>
                 <div className="flex items-center space-x-3 mb-4">
                     <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
@@ -41,6 +41,14 @@ export default function Footer() {
                     <li><a href="/profil#struktur-kepengurusan" className="hover:text-white">Guru</a></li>
                     <li><a href="/" className="hover:text-white">Kontak</a></li>
                 </ul>
+                </div>
+                
+                <div>
+                <h4 className="font-bold mb-4">Kontak</h4>
+                <div className="space-y-2 text-sm text-gray-400">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.9934753857888!2d110.63395907460557!3d-6.891382793107693!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e70eb415d6f098b%3A0x5c4e32f69a1d71de!2sPAUD%20Cahya%20Indria%20Demak!5e0!3m2!1sen!2sid!4v1749001100690!5m2!1sen!2sid" width="600" height="450" className="w-full h-full rounded-md" allowFullScreen
+                    loading="lazy" referrerPolicy="no-referrer-when-downgrade" style={{ border:0}}></iframe>
+                </div>
                 </div>
                 
                 <div>
