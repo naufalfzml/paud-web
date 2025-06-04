@@ -46,17 +46,17 @@ export default function Footer() {
                 <div>
                 <h4 className="font-bold mb-4">Kontak</h4>
                 <div className="space-y-2 text-sm text-gray-400">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.9934753857888!2d110.63395907460557!3d-6.891382793107693!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e70eb415d6f098b%3A0x5c4e32f69a1d71de!2sPAUD%20Cahya%20Indria%20Demak!5e0!3m2!1sen!2sid!4v1749001100690!5m2!1sen!2sid" width="600" height="450" className="w-full h-full rounded-md" allowFullScreen
-                    loading="lazy" referrerPolicy="no-referrer-when-downgrade" style={{ border:0}}></iframe>
+                    <p>📍 Jl. Patimura No.19, Petengan Selatan, Bintoro, Kec. Demak, Kabupaten Demak, Jawa Tengah, 59511</p>
+                    <p>📞 (0291) 685547 / 081227477048</p>
+                    <p>✉️ tkcahyaindria@gmail.com</p>
                 </div>
                 </div>
                 
                 <div>
-                <h4 className="font-bold mb-4">Kontak</h4>
+                <h4 className="font-bold mb-4">Lokasi</h4>
                 <div className="space-y-2 text-sm text-gray-400">
-                    <p>📍 Jl. Patimura No.19, Petengan Selatan, Bintoro, Kec. Demak, Kabupaten Demak, Jawa Tengah, 59511</p>
-                    <p>📞 (0291) 685547 / 081227477048</p>
-                    <p>✉️ tkcahyaindria@gmail.com</p>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.9934753857888!2d110.63395907460557!3d-6.891382793107693!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e70eb415d6f098b%3A0x5c4e32f69a1d71de!2sPAUD%20Cahya%20Indria%20Demak!5e0!3m2!1sen!2sid!4v1749001100690!5m2!1sen!2sid" width="600" height="450" className="w-full h-full rounded-md" allowFullScreen
+                    loading="lazy" referrerPolicy="no-referrer-when-downgrade" style={{ border:0}}></iframe>
                 </div>
                 </div>
             </div>

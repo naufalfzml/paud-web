@@ -7,7 +7,7 @@ const ProfileSettings = () => {
   const [profileImage, setProfileImage] = useState(
     "/lovable-uploads/00bb05eb-200b-4f8f-bf50-85b58a2d2818.png"
   );
-  const [tab, setTab] = useState<"user-info" | "billing">("user-info");
+  const [tab, setTab] = useState<"user-info" | "change-pass">("user-info");
   const [formData, setFormData] = useState({
     fullName: "",
     username: "",
@@ -15,8 +15,8 @@ const ProfileSettings = () => {
     confirmEmail: "",
     password: "",
     confirmPassword: "",
+    address: "",
     whatsApp: "",
-    twitterUsername: "",
   });
 
   const { user, loading, logout } = useAuth();
@@ -28,14 +28,17 @@ const ProfileSettings = () => {
     }));
   };
 
+  // ← Perbaikan fungsi getUserAddress
+  const getUserAddress = () => {
+    if (!user) return "";
+    const address = user.user_metadata?.address;
+    return address || ""; // ← Pastikan return string
+  };
+
   const getUserDisplayName = () => {
     if (!user) return "";
-
-    // Coba ambil dari user_metadata terlebih dahulu
     const fullName = user.user_metadata?.name;
     if (fullName) return fullName;
-
-    // Kalau tidak ada, gunakan bagian email sebelum @
     return user.email.split("@")[0];
   };
 
@@ -52,6 +55,9 @@ const ProfileSettings = () => {
 
   const handleUpdateInfo = () => {
     console.log("Updating profile info:", formData);
+    // Tambahkan debug log untuk cek data user
+    console.log("Current user data:", user);
+    console.log("User address:", getUserAddress());
   };
 
   return (
@@ -62,12 +68,12 @@ const ProfileSettings = () => {
           <div className="mb-6">
             <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4 border-gray-100">
               <img
-                src={"https://assets.pikiran-rakyat.com/crop/0x0:0x0/360x203/webp/photo/2025/05/12/2446866993.jpg"}
+                src="https://assets.pikiran-rakyat.com/crop/0x0:0x0/360x203/webp/photo/2025/05/12/2446866993.jpg"
                 alt="Profile"
                 className="w-full h-full object-cover"
               />
             </div>
-            <h2 className="text-2xl font- text-gray-900 mb-1">
+            <h2 className="text-2xl font-bold text-gray-900 mb-1">
               {getUserDisplayName()}
             </h2>
             <div className="pt-2 relative">
@@ -94,7 +100,6 @@ const ProfileSettings = () => {
                 <span className="font-semibold">1 MB</span>
               </p>
             </div>
-
             <div className="flex items-center justify-center text-gray-600 text-sm gap-2">
               <span>Ambil dari CreatedAt</span>
             </div>
@@ -102,21 +107,20 @@ const ProfileSettings = () => {
         </div>
 
         {/* Main Panel */}
-        <div className="lg:col-span-2 bg-white shadow-lg rounded-lg  p-8">
-          <div className="flex flex-row items-center place-content-between max-w-7xl">
+        <div className="lg:col-span-2 bg-white shadow-lg rounded-lg p-8">
+          <div className="flex flex-row items-center justify-between max-w-7xl">
             <h1 className="text-2xl font-bold text-gray-900 mb-6">
               Edit Profile
             </h1>
             <a
               href="/"
-              className="inline-block text-blue-600 hover:underline bg "
+              className="inline-block text-blue-600 hover:underline"
             >
               ← Back to Home
             </a>
           </div>
 
           {/* Tabs */}
-
           <div className="pt-0 mt-0 mb-6">
             <div className="grid grid-cols-2 max-w-md gap-2">
               <button
@@ -130,14 +134,14 @@ const ProfileSettings = () => {
                 User Info
               </button>
               <button
-                onClick={() => setTab("billing")}
+                onClick={() => setTab("change-pass")}
                 className={`px-4 py-2 rounded ${
-                  tab === "billing"
+                  tab === "change-pass"
                     ? "bg-blue-500 text-white"
                     : "bg-gray-100 text-gray-700"
                 }`}
               >
-                Billing Information
+                Change Password
               </button>
             </div>
           </div>
@@ -161,8 +165,8 @@ const ProfileSettings = () => {
                       handleInputChange("fullName", e.target.value)
                     }
                     className="w-full mt-1 p-2 border rounded-md border-gray-300 text-gray-500
-             focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:text-black
-             transition duration-200"
+                      focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:text-black
+                      transition duration-200"
                   />
                 </div>
               </div>
@@ -176,13 +180,12 @@ const ProfileSettings = () => {
                     Email Address
                   </label>
                   <input
+                    disabled
                     id="email"
                     type="email"
-                    value={user?.email}
+                    value={user?.email || ""}
                     onChange={(e) => handleInputChange("email", e.target.value)}
-                    className="w-full mt-1 p-2 border rounded-md border-gray-300 text-gray-500
-             focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:text-black
-             transition duration-200"
+                    className="w-full mt-1 p-2 border rounded-md border-gray-300 text-black"
                   />
                 </div>
               </div>
@@ -190,30 +193,26 @@ const ProfileSettings = () => {
               <div className="grid grid-cols-1 gap-6">
                 <div>
                   <label
-                    htmlFor="password"
+                    htmlFor="address"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    Password
+                    Address
                   </label>
                   <input
-                    id="password"
-                    type="password"
-                    value={""}
+                    id="address"
+                    type="text"
+                    value={getUserAddress()}
                     onChange={(e) =>
-                      handleInputChange("password", e.target.value)
+                      handleInputChange("address", e.target.value)
                     }
-                    className="w-full mt-1 p-2 border rounded-md border-gray-300 text-gray-400
-             focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:text-black
-             transition duration-200"
-                    placeholder="********"
+                    className="w-full mt-1 p-2 border rounded-md border-gray-300 text-gray-500
+                      focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:text-black
+                      transition duration-200"
+                    placeholder="Masukkan alamat Anda"
                   />
                 </div>
               </div>
-              
-
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">
-                Social Profile
-              </h3>
+            
               <div className="grid grid-cols-1 gap-6">
                 <div>
                   <label
@@ -230,13 +229,12 @@ const ProfileSettings = () => {
                       handleInputChange("whatsApp", e.target.value)
                     }
                     className="w-full mt-1 p-2 border rounded-md border-gray-300 text-gray-400
-        focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:text-black
-        transition duration-200"
+                      focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500
+                      focus:text-black transition duration-200"
                     placeholder="+62xxx-xxxx-xxxx"
                   />
                 </div>
               </div>
-              
               
               <div className="pt-6">
                 <button
@@ -249,13 +247,25 @@ const ProfileSettings = () => {
               </div>
             </form>
           ) : (
-            <div className="text-center py-12">
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
-                Billing Information
-              </h3>
-              <p className="text-gray-500">
-                Billing settings and payment methods will be available here.
-              </p>
+            <div>
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Password
+              </label>
+              <input
+                id="password"
+                type="password"
+                value=""
+                onChange={(e) =>
+                  handleInputChange("password", e.target.value)
+                }
+                className="w-full mt-1 p-2 border rounded-md border-gray-300 text-gray-400
+                  focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:text-black
+                  transition duration-200"
+                placeholder="********"
+              />
             </div>
           )}
         </div>

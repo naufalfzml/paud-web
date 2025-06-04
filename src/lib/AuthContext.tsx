@@ -7,7 +7,8 @@ interface User {
   email: string;
   user_metadata?: {
     name?: string;
-    full_name?: string;
+    address?: string,
+    no_hp?: string
   };
 }
 
