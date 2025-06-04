@@ -1,25 +1,32 @@
-"use client";
+'use client';
 
 import { useAuth } from "@/lib/AuthContext";
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 
 const ProfileSettings = () => {
-  const [profileImage, setProfileImage] = useState(
-    "/lovable-uploads/00bb05eb-200b-4f8f-bf50-85b58a2d2818.png"
-  );
-  const [tab, setTab] = useState<"user-info" | "change-pass">("user-info");
+  const { user } = useAuth();
   const [formData, setFormData] = useState({
     fullName: "",
-    username: "",
-    email: "",
-    confirmEmail: "",
-    password: "",
-    confirmPassword: "",
     address: "",
     whatsApp: "",
   });
+  const [tab, setTab] = useState<"user-info" | "change-pass">("user-info");
 
-  const { user, loading, logout } = useAuth();
+  useEffect(() => {
+    if (user?.id) {
+      fetch(`/api/user?id=${user.id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data) {
+            setFormData({
+              fullName: data.name || "",
+              address: data.address || "",
+              whatsApp: data.no_hp || "",
+            });
+          }
+        });
+    }
+  }, [user]);
 
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({
@@ -28,36 +35,33 @@ const ProfileSettings = () => {
     }));
   };
 
-  // ← Perbaikan fungsi getUserAddress
-  const getUserAddress = () => {
-    if (!user) return "";
-    const address = user.user_metadata?.address;
-    return address || ""; // ← Pastikan return string
-  };
+  const handleUpdateInfo = async () => {
+    const res = await fetch('/api/user', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: user?.id,
+        full_name: formData.fullName,
+        address: formData.address,
+        no_hp: formData.whatsApp,
+      }),
+    });
 
-  const getUserDisplayName = () => {
-    if (!user) return "";
-    const fullName = user.user_metadata?.name;
-    if (fullName) return fullName;
-    return user.email.split("@")[0];
-  };
-
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setProfileImage(e.target?.result as string);
-      };
-      reader.readAsDataURL(file);
+    const result = await res.json();
+    if (result.success) {
+      alert('Data berhasil diperbarui!');
+    } else {
+      alert('Gagal memperbarui data.');
     }
   };
 
-  const handleUpdateInfo = () => {
-    console.log("Updating profile info:", formData);
-    // Tambahkan debug log untuk cek data user
-    console.log("Current user data:", user);
-    console.log("User address:", getUserAddress());
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      alert("Image upload belum diimplementasikan.");
+    }
   };
 
   return (
@@ -74,7 +78,7 @@ const ProfileSettings = () => {
               />
             </div>
             <h2 className="text-2xl font-bold text-gray-900 mb-1">
-              {getUserDisplayName()}
+              {formData.fullName || "username"}
             </h2>
             <div className="pt-2 relative">
               <input
@@ -100,9 +104,6 @@ const ProfileSettings = () => {
                 <span className="font-semibold">1 MB</span>
               </p>
             </div>
-            <div className="flex items-center justify-center text-gray-600 text-sm gap-2">
-              <span>Ambil dari CreatedAt</span>
-            </div>
           </div>
         </div>
 
@@ -112,10 +113,7 @@ const ProfileSettings = () => {
             <h1 className="text-2xl font-bold text-gray-900 mb-6">
               Edit Profile
             </h1>
-            <a
-              href="/"
-              className="inline-block text-blue-600 hover:underline"
-            >
+            <a href="/" className="inline-block text-blue-600 hover:underline">
               ← Back to Home
             </a>
           </div>
@@ -160,7 +158,7 @@ const ProfileSettings = () => {
                   <input
                     id="fullName"
                     type="text"
-                    value={getUserDisplayName()}
+                    value={formData.fullName}
                     onChange={(e) =>
                       handleInputChange("fullName", e.target.value)
                     }
@@ -184,7 +182,6 @@ const ProfileSettings = () => {
                     id="email"
                     type="email"
                     value={user?.email || ""}
-                    onChange={(e) => handleInputChange("email", e.target.value)}
                     className="w-full mt-1 p-2 border rounded-md border-gray-300 text-black"
                   />
                 </div>
@@ -201,7 +198,7 @@ const ProfileSettings = () => {
                   <input
                     id="address"
                     type="text"
-                    value={getUserAddress()}
+                    value={formData.address}
                     onChange={(e) =>
                       handleInputChange("address", e.target.value)
                     }
@@ -212,7 +209,7 @@ const ProfileSettings = () => {
                   />
                 </div>
               </div>
-            
+
               <div className="grid grid-cols-1 gap-6">
                 <div>
                   <label
@@ -235,7 +232,7 @@ const ProfileSettings = () => {
                   />
                 </div>
               </div>
-              
+
               <div className="pt-6">
                 <button
                   type="button"

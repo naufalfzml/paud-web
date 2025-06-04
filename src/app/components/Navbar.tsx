@@ -78,6 +78,35 @@ export default function Navbar() {
     return user.email.split('@')[0];
   };
 
+  const [formData, setFormData] = useState({
+    fullName: "",
+    address: "",
+    whatsApp: "",
+  });
+
+  useEffect(() => {
+    if (user?.id) {
+      fetch(`/api/user?id=${user.id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data) {
+            setFormData({
+              fullName: data.name || "",
+              address: data.address || "",
+              whatsApp: data.no_hp || "",
+            });
+          }
+        });
+    }
+  }, [user]);
+
+  const handleInputChange = (field: string, value: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
+
   return (
     <header
       className="fixed left-1/2 transform -translate-x-1/2 z-50 bg-white shadow-md"
@@ -195,9 +224,9 @@ export default function Navbar() {
                 className="bg-blue-600 font-medium text-white px-4 py-2 rounded-2xl hover:bg-blue-700 ml-4 flex items-center space-x-2 focus:outline-none transition-colors"
               >
                 <span className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-xs">
-                  {getUserDisplayName().charAt(0).toUpperCase()}
+                  {formData.fullName.charAt(0).toUpperCase()}
                 </span>
-                <span className="max-w-24 truncate">{getUserDisplayName()}</span>
+                <span className="max-w-24 truncate">{formData.fullName}</span>
                 <span className={`text-xs transition-transform duration-200 ${userDropdownOpen ? 'rotate-180' : ''}`}>▼</span>
               </button>
               
@@ -205,7 +234,7 @@ export default function Navbar() {
                 <div className="absolute bg-white border shadow-lg rounded-md mt-2 w-48 right-0 z-[60]">
                   <div className="px-4 py-2 border-b bg-gray-50">
                     <p className="text-sm font-medium text-gray-900 truncate">
-                      {getUserDisplayName()}
+                     {formData.fullName}
                     </p>
                     <p className="text-xs text-gray-500 truncate">
                       {user.email}
