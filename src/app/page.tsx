@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from "./components/Navbar"
 import Footer from "./components/Footer"
 import ArtikelCard from './components/ArtikelCard';
+import FormKritikSaran from './components/KritikSaran';
 import { Lightbulb, HandHeart, LocateFixed} from "lucide-react";
 
 const PAUDWebsite = () => {
@@ -140,11 +141,15 @@ const PAUDWebsite = () => {
           <p className="text-gray-600 mb-8 leading-relaxed">
             Daftarkan anak Anda hari ini dan berikan mereka landasan pendidikan yang kuat untuk masa mendatang.
           </p>
-          <button className="bg-pink-500 text-white px-8 py-3 rounded-2xl hover:bg-pink-600 font-medium transition-transform duration-300 hover:scale-110 cursor-pointer">
-            Daftar Sekarang
-          </button>
+          <a href="/daftar-pd">
+            <button className="bg-pink-500 text-white px-8 py-3 rounded-2xl hover:bg-pink-600 font-medium transition-transform duration-300 hover:scale-110 cursor-pointer">
+              Daftar Sekarang
+            </button>
+          </a>
         </div>
       </section>
+      
+      <FormKritikSaran></FormKritikSaran>
 
       {/* Footer */}
       <Footer></Footer>        

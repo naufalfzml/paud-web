@@ -193,7 +193,7 @@ export default function Navbar() {
                   Daftar Peserta Didik
                 </Link>
                 <Link
-                  href="/daftar-tenaga"
+                  href="/daftar-tendik"
                   className={`block px-4 py-2 text-sm hover:bg-gray-100 transition-colors ${
                     isActive("/daftar-tenaga")
                       ? "bg-blue-50 text-blue-600 font-medium"
