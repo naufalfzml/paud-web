@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from "./components/Navbar"
 import Footer from "./components/Footer"
 import ArtikelCard from './components/ArtikelCard';
+import FormKritikSaran from './components/KritikSaran';
 import { Lightbulb, HandHeart, LocateFixed} from "lucide-react";
 
 const PAUDWebsite = () => {
@@ -145,6 +146,8 @@ const PAUDWebsite = () => {
           </button>
         </div>
       </section>
+      
+      <FormKritikSaran></FormKritikSaran>
 
       {/* Footer */}
       <Footer></Footer>        
