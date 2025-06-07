@@ -4,7 +4,7 @@ import { NextRequest } from "next/server";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { fullName, alamat, ttl, namaWali, noHpWali, userId, jenis_kelamin } = body;
+    const { fullName, alamat, ttl, noHp, userId, email, jenis_kelamin, pendidikan_terakhir, alasan_melamar } = body;
 
     if (!userId) {
       return new Response(JSON.stringify({ error: 'User tidak terautentikasi' }), {
@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Validasi data
-    if (!fullName || !alamat || !ttl || !namaWali || !noHpWali || !jenis_kelamin) {
+    if (!fullName || !alamat || !ttl || !noHp || !email || !jenis_kelamin || !pendidikan_terakhir || !alasan_melamar) {
       return new Response(JSON.stringify({ error: 'Semua field harus diisi' }), {
         status: 400,
         headers: { 'Content-Type': 'application/json' }
@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
     }
 
     const phoneRegex = /^[0-9+\-\s()]+$/;
-    if (!phoneRegex.test(noHpWali)) {
+    if (!phoneRegex.test(noHp)) {
       return new Response(JSON.stringify({ error: 'Format nomor HP tidak valid' }), {
         status: 400,
         headers: { 'Content-Type': 'application/json' }
@@ -36,9 +36,9 @@ export async function POST(req: NextRequest) {
     );
 
     const { data, error } = await supabase
-      .from('PendaftarPesertaDidik')
+      .from('PendaftarTenagaPendidik')
       .insert([
-        { fullName, alamat, ttl, namaWali, noHpWali, userId }
+        { fullName, alamat, ttl, noHp, userId, email, jenis_kelamin, pendidikan_terakhir, alasan_melamar }
       ])
       .select();
 

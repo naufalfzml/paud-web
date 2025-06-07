@@ -10,15 +10,19 @@ export default function FormPendaftaran() {
     fullName: '',
     alamat: '',
     ttl: '',
-    namaWali: '',
-    noHpWali: ''
+    email: '',
+    noHp: '',
+    jenis_kelamin: '',
+    pendidikan_terakhir: '',
+    alasan_melamar: ''
   });
 
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState('');
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -39,7 +43,7 @@ export default function FormPendaftaran() {
         hasUser: !!user 
       });
 
-      const response = await fetch('/api/peserta-didik', {
+      const response = await fetch('/api/tenaga-pendidik', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -59,11 +63,14 @@ export default function FormPendaftaran() {
         setMessage('Pendaftaran berhasil!');
         setMessageType('success');
         setFormData({
-          fullName: '',
-          alamat: '',
-          ttl: '',
-          namaWali: '',
-          noHpWali: ''
+        fullName: '',
+        alamat: '',
+        ttl: '',
+        email: '',
+        noHp: '',
+        jenis_kelamin: '',
+        pendidikan_terakhir: '',
+        alasan_melamar: ''
         });
       } else {
         setMessage(result.error || 'Terjadi kesalahan');
@@ -132,22 +139,6 @@ export default function FormPendaftaran() {
         </div>
 
         <div>
-          <label htmlFor="alamat" className="block text-sm font-medium text-gray-700 mb-1">
-            Alamat
-          </label>
-          <textarea
-            id="alamat"
-            name="alamat"
-            value={formData.alamat}
-            onChange={handleChange}
-            required
-            rows={3}
-            className="text-black w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-vertical"
-            placeholder="Masukkan alamat lengkap"
-          />
-        </div>
-
-        <div>
           <label htmlFor="ttl" className="block text-sm font-medium text-gray-700 mb-1">
             Tempat, Tanggal Lahir
           </label>
@@ -164,34 +155,106 @@ export default function FormPendaftaran() {
         </div>
 
         <div>
+          <label htmlFor="alamat" className="block text-sm font-medium text-gray-700 mb-1">
+            Alamat
+          </label>
+          <textarea
+            id="alamat"
+            name="alamat"
+            value={formData.alamat}
+            onChange={handleChange}
+            required
+            rows={2}
+            className="text-black w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-vertical"
+            placeholder="Masukkan alamat lengkap"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="jenis_kelamin" className="block text-sm font-medium text-gray-700 mb-1">
+            Jenis Kelamin
+          </label>
+            <select
+                id="jenis_kelamin"
+                name="jenis_kelamin"
+                value={formData.jenis_kelamin}
+                onChange={handleChange} 
+                required
+                className="text-black w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                >
+                <option value="">-- Pilih Jenis Kelamin --</option>
+                <option value="Laki-laki">Laki-laki</option>
+                <option value="Perempuan">Perempuan</option>
+
+            </select>
+        </div>
+
+        <div>
           <label htmlFor="namaWali" className="block text-sm font-medium text-gray-700 mb-1">
-            Nama Wali
+            Pendidikan Terakhir
+          </label>
+            <select
+                id="pendidikan_terakhir"
+                name="pendidikan_terakhir"
+                value={formData.pendidikan_terakhir}
+                onChange={handleChange} 
+                required
+                className="text-black w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                <option value="">-- Pilih Pendidikan Terakhir --</option>
+                <option value="SD / MI / Sederajat">SD / MI / Sederajat</option>
+                <option value="SMP / MTs / Sederajat">SMP / MTs / Sederajat</option>
+                <option value="SMA / SMK / MA / Sederajat">SMA / SMK / MA / Sederajat</option>
+                <option value="S1">S1</option>
+                <option value="S2">S2</option>
+                <option value="S3">S3</option>
+            </select>
+        </div>
+
+        <div>
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+            Email
           </label>
           <input
-            type="text"
-            id="namaWali"
-            name="namaWali"
-            value={formData.namaWali}
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
             onChange={handleChange}
             required
             className="text-black w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            placeholder="Masukkan nama lengkap wali"
+            placeholder="Contoh: tes123@gmail.com"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="noHp" className="block text-sm font-medium text-gray-700 mb-1">
+            No. HP / WA Aktif
+          </label>
+          <input
+            type="tel"
+            id="noHp"
+            name="noHp"
+            value={formData.noHp}
+            onChange={handleChange}
+            required
+            className="text-black w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            placeholder="Contoh: 08xxxxxxxxx"
           />
         </div>
 
         <div>
           <label htmlFor="noHpWali" className="block text-sm font-medium text-gray-700 mb-1">
-            No. HP Wali
+            Alasan Melamar
           </label>
-          <input
-            type="tel"
-            id="noHpWali"
-            name="noHpWali"
-            value={formData.noHpWali}
+          <textarea
+            id="alasan_melamar"
+            name="alasan_melamar"
+            rows={4}
+            value={formData.alasan_melamar}
             onChange={handleChange}
             required
             className="text-black w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            placeholder="Contoh: 08123456789"
+            placeholder="Masukkan alasan Anda mendaftar"
           />
         </div>
 
