@@ -104,16 +104,6 @@ export default function FormPendaftaran() {
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
-      {/* User info - Enhanced for debugging */}
-      <div className="mb-4 p-3 bg-blue-50 rounded-md">
-        <p className="text-sm text-blue-700">
-          Logged in as: <strong>{user.email}</strong>
-        </p>
-        <p className="text-xs text-blue-600 mt-1">
-          User ID: {user.id}
-        </p>
-      </div>
-
       {message && (
         <div className={`mb-4 p-3 rounded-md ${
           messageType === 'success'

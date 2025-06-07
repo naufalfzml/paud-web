@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 export default function Home() {
   return (
     <>
+    <div className="font-fredoka">
     <Navbar></Navbar>
       <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md mx-auto">
@@ -22,6 +23,7 @@ export default function Home() {
         </div>
       </div>
       <Footer></Footer>
+      </div>
     </>
   );
 }
