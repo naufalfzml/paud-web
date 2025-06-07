@@ -2,8 +2,9 @@
 
 import { useState } from 'react';
 import { useAuth } from '@/lib/AuthContext';
+import withAuth from '@lib/WithAuth';
 
-export default function FormPendaftaran() {
+function FormPendaftaran() {
   const { user, loading: authLoading } = useAuth();
   
   const [formData, setFormData] = useState({
@@ -273,3 +274,5 @@ export default function FormPendaftaran() {
     </div>
   );
 }
+
+export default withAuth(FormPendaftaran);

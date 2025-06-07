@@ -1,10 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '@/lib/AuthContext';
+import { useRouter } from 'next/navigation'
+import withAuth from '@/lib/WithAuth';
 
-export default function FormPendaftaran() {
+function FormPendaftaran() {
   const { user, loading: authLoading } = useAuth();
+  const router = useRouter();
   
   const [formData, setFormData] = useState({
     fullName: '',
@@ -77,30 +80,6 @@ export default function FormPendaftaran() {
       setLoading(false);
     }
   };
-
-  // Loading state
-  if (authLoading) {
-    return (
-      <div className="bg-white rounded-lg shadow-md p-6">
-        <div className="flex items-center justify-center p-4">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-          <span className="ml-2">Memuat...</span>
-        </div>
-      </div>
-    );
-  }
-
-  // Not authenticated
-  if (!user) {
-    return (
-      <div className="bg-white rounded-lg shadow-md p-6">
-        <div className="bg-yellow-100 text-yellow-700 border border-yellow-300 p-3 rounded-md">
-          <p>Silakan login terlebih dahulu untuk mengakses form pendaftaran.</p>
-          <p className="text-sm mt-1">Status: User tidak terdeteksi</p>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
@@ -210,3 +189,5 @@ export default function FormPendaftaran() {
     </div>
   );
 }
+
+export default withAuth(FormPendaftaran);
