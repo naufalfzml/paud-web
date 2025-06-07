@@ -53,7 +53,7 @@ const Sidebar = ({ collapsed }: SidebarProps) => {
               href={item.path}
               className={`flex items-center px-4 py-3 mb-2 rounded-lg transition-all duration-200 group ${
                 isActive
-                  ? 'bg-primary-100 text-primary-600 border-l-4 border-primary-500'
+                  ? 'bg-gray-300 text-gray-800 border-l-4 border-primary-500'
                   : 'text-gray-600 hover:bg-gray-100 hover:text-gray-800'
               }`}
             >

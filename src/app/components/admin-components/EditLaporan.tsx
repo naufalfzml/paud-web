@@ -1,9 +1,9 @@
-'use client';
+'use client'
 
 import { useState } from 'react';
 import { Download, FileText, Calendar, BarChart3, Filter, Users, GraduationCap, UserCheck } from 'lucide-react';
 
-const Laporan = () => {
+const Reports = () => {
   const [reportType, setReportType] = useState('all');
   const [dateFrom, setDateFrom] = useState('');
   const [dateTo, setDateTo] = useState('');
@@ -84,7 +84,7 @@ const Laporan = () => {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold text-gray-800">Laporan</h1>
-        <button className="bg-gray-200 text-gray-800 px-6 py-2 rounded-lg hover:bg-primary-600 transition-colors font-medium flex items-center space-x-2">
+        <button className="bg-primary-500 text-white px-6 py-2 rounded-lg hover:bg-primary-600 transition-colors font-medium flex items-center space-x-2">
           <FileText className="w-5 h-5" />
           <span>Generate Laporan Baru</span>
         </button>
@@ -118,7 +118,7 @@ const Laporan = () => {
               <select
                 value={reportType}
                 onChange={(e) => setReportType(e.target.value)}
-                className="flex-1 px-3 py-2 text-gray-500 focus:text-black border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                className="flex-1 px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               >
                 <option value="all">Semua Laporan</option>
                 <option value="pendaftaran">Pendaftaran</option>
@@ -135,7 +135,7 @@ const Laporan = () => {
               type="date"
               value={dateFrom}
               onChange={(e) => setDateFrom(e.target.value)}
-              className="w-full px-3 py-2 border text-gray-500 focus:text-black  border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             />
           </div>
           <div>
@@ -144,7 +144,7 @@ const Laporan = () => {
               type="date"
               value={dateTo}
               onChange={(e) => setDateTo(e.target.value)}
-              className="w-full px-3 py-2 border text-gray-500 focus:text-black  border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             />
           </div>
           <div className="flex items-end">
@@ -215,4 +215,4 @@ const Laporan = () => {
   );
 };
 
-export default Laporan;
+export default Reports;

@@ -1,10 +1,12 @@
 import React from 'react';
-import Laporan from '@/app/components/admin-components/Laporan';
+import EditArtikelPage from '@/app/components/admin-components/EditArtikel';
 
 export default function Artikel() {
   return (
     <div className="min-h-screen flex flex-col font-fredoka bg-cover bg-no-repeat">
-      <Laporan></Laporan>
+      <EditArtikelPage params={{
+              id: ''
+          }}></EditArtikelPage>
     </div>
   );
 }

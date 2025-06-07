@@ -216,7 +216,7 @@ const FacilitiesSection = () => {
 
   return (
     <section className="py-16 px-6 bg-gradient-to-r from-blue-400 to-cyan-400" id="fasilitas">
-      <div className="max-w-7xl mx-auto">
+      -<div className="max-w-7xl mx-auto">
         <h2 className="text-4xl font-semibold text-center text-white mb-12 animate-fade-in">
           FASILITAS PAUD
         </h2>
