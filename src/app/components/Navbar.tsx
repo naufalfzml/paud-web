@@ -182,7 +182,7 @@ export default function Navbar() {
             {dropdownOpen && (
               <div className="absolute bg-white border shadow-lg rounded-md mt-2 w-48 right-0 z-[60] py-1">
                 <Link
-                  href="/daftar-peserta"
+                  href="/daftar-pd"
                   className={`block px-4 py-2 text-sm hover:bg-gray-100 transition-colors ${
                     isActive("/daftar-peserta")
                       ? "bg-blue-50 text-black font-medium"
