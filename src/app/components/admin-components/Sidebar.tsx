@@ -8,7 +8,8 @@ import {
   FileText,
   GraduationCap,
   UserCheck,
-  BarChart3
+  BarChart3,
+  FileChartColumn
 } from "lucide-react";
 
 interface SidebarProps {
@@ -24,6 +25,7 @@ const Sidebar = ({ collapsed }: SidebarProps) => {
     { path: "/admin-page/articles", icon: FileText, label: "Manajemen Artikel" },
     { path: "/admin-page/students", icon: GraduationCap, label: "Peserta Didik" },
     { path: "/admin-page/teachers", icon: UserCheck, label: "Tenaga Pendidik" },
+    { path: "/admin-page/status", icon: FileChartColumn, label: "Status" },
     { path: "/admin-page/laporan", icon: BarChart3, label: "Laporan" },
   ];
 
