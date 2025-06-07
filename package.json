@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@prisma/extension-accelerate": "^2.0.1",
+    "@supabase/auth-helpers-nextjs": "^0.10.0",
     "@supabase/supabase-js": "^2.49.9",
     "@types/react-router-dom": "^5.3.3",
     "bcrypt": "^6.0.0",
