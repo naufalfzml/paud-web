@@ -247,6 +247,12 @@ const ManageArtikel = () => {
   // Handle status change with proper error handling
   const handleStatusChange = async (articleId: string, isPublished: boolean) => {
     try {
+      if (isPublished) {
+        const confirmed = confirm('Apakah Anda yakin ingin mem-publish artikel ini?');
+        if (!confirmed) {
+          return; // Batalkan jika user tidak konfirmasi
+        }
+      }
       // Update ke backend
       await updateArticleStatus(articleId, isPublished);
       
@@ -555,10 +561,10 @@ const ManageArtikel = () => {
                         <select
                           value={article.isPublished ? "published" : "draft"}
                           onChange={(e) => handleStatusChange(article.id, e.target.value === "published")}
-                          className={`text-xs font-semibold rounded-full border-0 px-2 py-1 focus:ring-2 focus:ring-blue-500 ${
+                          className={`text-xs font-semibold rounded-full px-2 py-1 focus:ring-2 focus:ring-blue-500 ${
                             article.isPublished 
                               ? 'bg-green-100 text-green-800' 
-                              : 'bg-yellow-100 text-yellow-800'
+                              : 'bg-red-300 text-red-500'
                           }`}
                         >
                           <option value="draft">Draft</option>
