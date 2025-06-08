@@ -127,32 +127,7 @@ type ArtikelProps = {
 };
 
 const ReadArtikel = ({ artikel }: ArtikelProps) => {
-  const explorationCards = [
-    {
-      title: "Lure Exploration",
-      description:
-        "Exploring the mysteries of cosmic phenomena and their impact on our understanding of the universe.",
-      image:
-        "https://images.unsplash.com/photo-1446776877081-d282a0f896e2?w=400&h=300&fit=crop",
-      badge: "Featured",
-    },
-    {
-      title: "Nature Exploration",
-      description:
-        "Discovering the wonders of natural cosmic events and their scientific implications.",
-      image:
-        "https://images.unsplash.com/photo-1502134249126-9f3755a50d78?w=400&h=300&fit=crop",
-      badge: "Popular",
-    },
-    {
-      title: "Stellar Journey",
-      description:
-        "Journey through the cosmos and uncover the secrets of stellar formations.",
-      image:
-        "https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=400&h=300&fit=crop",
-      badge: "New",
-    },
-  ];
+  
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 pt-20">

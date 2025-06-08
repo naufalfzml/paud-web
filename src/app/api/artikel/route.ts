@@ -326,7 +326,7 @@ export async function DELETE(request: NextRequest) {
   try {
     if (!supabase) {
       return NextResponse.json(
-        { 
+        {
           error: 'Supabase client not initialized',
           details: 'Check your environment variables and Supabase configuration'
         } as ErrorResponse,
@@ -355,6 +355,61 @@ export async function DELETE(request: NextRequest) {
 
     console.log('DELETE request - ID:', id);
 
+    // First, get the article to retrieve the image URL
+    const { data: artikel, error: fetchError } = await supabase
+      .from(TABLE_NAME)
+      .select('imageUrl')
+      .eq('id', id)
+      .single();
+
+    if (fetchError) {
+      console.error('Error fetching artikel:', fetchError);
+      return NextResponse.json(
+        handleSupabaseError(fetchError, 'mengambil data artikel'),
+        { status: 500 }
+      );
+    }
+
+    if (!artikel) {
+      return NextResponse.json(
+        { error: 'Artikel tidak ditemukan' } as ErrorResponse,
+        { status: 404 }
+      );
+    }
+
+    // Delete image from storage bucket if exists
+    if (artikel.imageUrl) {
+      try {
+        // Extract file path from URL
+        // Assuming imageUrl format: https://your-project.supabase.co/storage/v1/object/public/bucket-name/path/to/file
+        const url = new URL(artikel.imageUrl);
+        const pathSegments = url.pathname.split('/');
+        
+        // Find the bucket name and file path from URL
+        const bucketIndex = pathSegments.findIndex(segment => segment === 'public') + 1;
+        const bucketName = pathSegments[bucketIndex];
+        const filePath = pathSegments.slice(bucketIndex + 1).join('/');
+
+        if (bucketName && filePath) {
+          const { error: storageError } = await supabase.storage
+            .from(bucketName)
+            .remove([filePath]);
+
+          if (storageError) {
+            console.error('Error deleting image from storage:', storageError);
+            // Don't return error here, continue with article deletion
+            // You might want to log this for later cleanup
+          } else {
+            console.log('Image deleted successfully:', filePath);
+          }
+        }
+      } catch (imageError) {
+        console.error('Error processing image deletion:', imageError);
+        // Continue with article deletion even if image deletion fails
+      }
+    }
+
+    // Delete the article record
     const { error } = await supabase
       .from(TABLE_NAME)
       .delete()
@@ -376,7 +431,7 @@ export async function DELETE(request: NextRequest) {
   } catch (error) {
     console.error('Error in DELETE /api/artikel:', error);
     return NextResponse.json(
-      { 
+      {
         error: 'Internal server error',
         details: (error as Error).message,
         debugInfo: process.env.NODE_ENV === 'development' ? error : undefined
