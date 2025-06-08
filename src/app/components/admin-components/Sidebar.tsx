@@ -20,7 +20,7 @@ const Sidebar = ({ collapsed }: SidebarProps) => {
   const pathname = usePathname();
 
   const menuItems = [
-    { path: "/admin-page/dashboard", icon: LayoutDashboard, label: "Dashboard" },
+    { path: "/admin-page", icon: LayoutDashboard, label: "Dashboard" },
     { path: "/admin-page/users", icon: Users, label: "Manajemen User" },
     { path: "/admin-page/articles", icon: FileText, label: "Manajemen Artikel" },
     { path: "/admin-page/students", icon: GraduationCap, label: "Peserta Didik" },
