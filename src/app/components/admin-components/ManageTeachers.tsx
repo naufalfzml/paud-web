@@ -78,31 +78,7 @@ const ManageTeachers = () => {
         </div>
       </div>
 
-      {/* Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
-          <div className="text-2xl font-bold text-blue-600">{teachers.length}</div>
-          <div className="text-sm text-gray-600">Total Pendaftar</div>
-        </div>
-        <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
-          <div className="text-2xl font-bold text-green-600">
-            {teachers.filter(t => t.status === 'verified').length}
-          </div>
-          <div className="text-sm text-gray-600">Terverifikasi</div>
-        </div>
-        <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
-          <div className="text-2xl font-bold text-yellow-600">
-            {teachers.filter(t => t.status === 'pending').length}
-          </div>
-          <div className="text-sm text-gray-600">Menunggu Verifikasi</div>
-        </div>
-        <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
-          <div className="text-2xl font-bold text-red-600">
-            {teachers.filter(t => t.status === 'rejected').length}
-          </div>
-          <div className="text-sm text-gray-600">Ditolak</div>
-        </div>
-      </div>
+      
 
       {/* Filters */}
       <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">

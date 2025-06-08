@@ -70,32 +70,6 @@ const ManageStudents = () => {
         </div>
       </div>
 
-      {/* Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
-          <div className="text-2xl font-bold text-blue-600">{students.length}</div>
-          <div className="text-sm text-gray-600">Total Pendaftar</div>
-        </div>
-        <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
-          <div className="text-2xl font-bold text-green-600">
-            {students.filter(s => s.status === 'verified').length}
-          </div>
-          <div className="text-sm text-gray-600">Terverifikasi</div>
-        </div>
-        <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
-          <div className="text-2xl font-bold text-yellow-600">
-            {students.filter(s => s.status === 'pending').length}
-          </div>
-          <div className="text-sm text-gray-600">Menunggu Verifikasi</div>
-        </div>
-        <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
-          <div className="text-2xl font-bold text-red-600">
-            {students.filter(s => s.status === 'rejected').length}
-          </div>
-          <div className="text-sm text-gray-600">Ditolak</div>
-        </div>
-      </div>
-
       {/* Filters */}
       <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
         <div className="flex flex-col md:flex-row gap-4">

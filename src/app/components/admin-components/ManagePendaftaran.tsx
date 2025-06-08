@@ -29,10 +29,6 @@ type TenagaPendidik = {
   status: Status;
 };
 
-// --- DATA AKAN DIAMBIL DARI DATABASE ---
-// Ganti dengan fetch dari API/database
-const dummyPendaftarPD: PesertaDidik[] = [];
-const dummyPesertaTendik: TenagaPendidik[] = [];
 
 // --- KOMPONEN PREVIEW DOKUMEN ---
 const DokumenPreview = ({ url, nama }: { url: string; nama: string }) => {
@@ -60,7 +56,7 @@ const DokumenPreview = ({ url, nama }: { url: string; nama: string }) => {
           <span className="text-sm">Buka</span>
         </button>
       </div>
-      
+
       {showPreview && (
         <div className="border rounded-lg overflow-hidden bg-gray-50">
           <div className="p-2 bg-gray-100 border-b flex items-center space-x-2">
@@ -108,7 +104,7 @@ const DetailPendaftar = ({ data, type, onBack }: { data: any; type: 'PD' | 'TP';
         </button>
         <StatusBadge status={data.status} />
       </div>
-      
+
       <div className="bg-white rounded-lg border shadow-sm">
         <div className="p-6 border-b bg-gray-50">
           <h2 className="text-2xl font-bold text-gray-800 flex items-center">
@@ -159,11 +155,11 @@ const DetailPendaftar = ({ data, type, onBack }: { data: any; type: 'PD' | 'TP';
                     <Calendar className="w-5 h-5 text-gray-600 mt-1" />
                     <div>
                       <label className="text-sm font-medium text-gray-600">Tanggal Daftar</label>
-                      <p className="text-gray-800">{new Date(data.tanggalDaftar).toLocaleDateString('id-ID', { 
-                        weekday: 'long', 
-                        year: 'numeric', 
-                        month: 'long', 
-                        day: 'numeric' 
+                      <p className="text-gray-800">{new Date(data.tanggalDaftar).toLocaleDateString('id-ID', {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
                       })}</p>
                     </div>
                   </div>
@@ -263,14 +259,14 @@ const Tabel = ({ data, type, onDetail, onStatusChange }: {
               </td>
               <td className="px-6 py-4">
                 <div className="flex items-center space-x-2">
-                  <button 
-                    onClick={() => onDetail(item.id)} 
+                  <button
+                    onClick={() => onDetail(item.id)}
                     className="text-blue-600 hover:text-blue-800 p-2 hover:bg-blue-50 rounded transition-colors"
                     title="Lihat Detail"
                   >
                     <Eye className="w-4 h-4" />
                   </button>
-                  <button 
+                  <button
                     className="text-red-600 hover:text-red-800 p-2 hover:bg-red-50 rounded transition-colors"
                     title="Hapus"
                   >
@@ -290,8 +286,9 @@ const Tabel = ({ data, type, onDetail, onStatusChange }: {
 const DetailPendaftaranPage = () => {
   const [tab, setTab] = useState<'PD' | 'TP'>('PD');
   const [detailId, setDetailId] = useState<number | null>(null);
-  const [pesertaDidik, setPesertaDidik] = useState<PesertaDidik[]>([]);
-  const [tenagaPendidik, setTenagaPendidik] = useState<TenagaPendidik[]>([]);
+  // Initialize with dummy data
+  const [pesertaDidik, setPesertaDidik] = useState<PesertaDidik[]>();
+  const [tenagaPendidik, setTenagaPendidik] = useState<TenagaPendidik[]>();
   const [isLoading, setIsLoading] = useState(false);
 
   // TODO: Implementasi fetch data dari database
@@ -317,7 +314,7 @@ const DetailPendaftaranPage = () => {
   //   fetchData();
   // }, [tab]);
 
-  const peserta = tab === 'PD' ? pesertaDidik : tenagaPendidik;
+  const peserta = tab === 'PD' ? pesertaDidik ?? [] : tenagaPendidik ?? [];
   const selectedData = peserta.find((p) => p.id === detailId) || null;
 
   const handleStatusChange = async (id: number, newStatus: Status) => {
@@ -328,7 +325,7 @@ const DetailPendaftaranPage = () => {
       //   headers: { 'Content-Type': 'application/json' },
       //   body: JSON.stringify({ status: newStatus })
       // });
-      // 
+      //
       // if (response.ok) {
       //   // Update local state
       //   if (tab === 'PD') {
@@ -337,12 +334,24 @@ const DetailPendaftaranPage = () => {
       //     setTenagaPendidik(prev => prev.map(p => p.id === id ? {...p, status: newStatus} : p));
       //   }
       // }
-      
+
+      // Temporary local state update for demonstration
+      if (tab === 'PD') {
+        setPesertaDidik(prev => (prev ?? []).map(p => p.id === id ? { ...p, status: newStatus } : p));
+      } else {
+        setTenagaPendidik(prev => (prev ?? []).map(p => p.id === id ? { ...p, status: newStatus } : p));
+      }
       console.log(`Update status ID ${id} menjadi ${newStatus}`);
     } catch (error) {
       console.error('Error updating status:', error);
     }
   };
+
+  // Calculate stats based on the active tab's data
+  const totalPendaftar = tab === 'PD' ? (pesertaDidik?.length ?? 0) : (tenagaPendidik?.length ?? 0);
+  const verifiedCount = peserta.filter(p => p.status === 'Terverifikasi').length;
+  const pendingCount = peserta.filter(p => p.status === 'Diterima').length; // Assuming 'Diterima' maps to 'pending' in the context of the provided stats
+  const rejectedCount = peserta.filter(p => p.status === 'Ditolak').length;
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
@@ -358,8 +367,8 @@ const DetailPendaftaranPage = () => {
             <button
               onClick={() => setTab('PD')}
               className={`px-6 py-3 rounded-lg font-medium transition-colors ${
-                tab === 'PD' 
-                  ? 'bg-blue-600 text-white shadow-sm' 
+                tab === 'PD'
+                  ? 'bg-blue-600 text-white shadow-sm'
                   : 'bg-white text-gray-700 border hover:bg-gray-50'
               }`}
             >
@@ -369,14 +378,42 @@ const DetailPendaftaranPage = () => {
             <button
               onClick={() => setTab('TP')}
               className={`px-6 py-3 rounded-lg font-medium transition-colors ${
-                tab === 'TP' 
-                  ? 'bg-blue-600 text-white shadow-sm' 
+                tab === 'TP'
+                  ? 'bg-blue-600 text-white shadow-sm'
                   : 'bg-white text-gray-700 border hover:bg-gray-50'
               }`}
             >
               <UserSquare className="inline w-5 h-5 mr-2" />
               Tenaga Pendidik
             </button>
+          </div>
+        )}
+
+        {/* Stats */}
+        {!detailId && (
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+              <div className="text-2xl font-bold text-blue-600">{totalPendaftar}</div>
+              <div className="text-sm text-gray-600">Total Pendaftar</div>
+            </div>
+            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+              <div className="text-2xl font-bold text-green-600">
+                {verifiedCount}
+              </div>
+              <div className="text-sm text-gray-600">Terverifikasi</div>
+            </div>
+            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+              <div className="text-2xl font-bold text-yellow-600">
+                {pendingCount}
+              </div>
+              <div className="text-sm text-gray-600">Diterima</div> {/* Changed to Diterima for consistency */}
+            </div>
+            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+              <div className="text-2xl font-bold text-red-600">
+                {rejectedCount}
+              </div>
+              <div className="text-sm text-gray-600">Ditolak</div>
+            </div>
           </div>
         )}
 
