@@ -17,12 +17,14 @@ function FormPendaftaran() {
     namaWali: "",
     noHpWali: "",
     jenis_kelamin: "",
-    formUrl: "",
+    formUrl: "", // Untuk menyimpan URL PDF yang diupload
   });
 
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState("");
+  const [isUploading, setIsUploading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -127,42 +129,64 @@ function FormPendaftaran() {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    // Validasi tipe file - hanya PDF
     if (file.type !== "application/pdf") {
+      setError("Hanya file PDF yang diperbolehkan");
       setMessage("Hanya file PDF yang diperbolehkan");
       setMessageType("error");
       return;
     }
 
-    setLoading(true);
-    setMessage("");
+    // Validasi ukuran file (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      setError('Ukuran file terlalu besar. Maksimal 5MB.');
+      setMessage('Ukuran file terlalu besar. Maksimal 5MB.');
+      setMessageType("error");
+      return;
+    }
+
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${Date.now()}.${fileExt}`;
+    const filePath = `documents/${fileName}`; // Ganti folder menjadi documents untuk PDF
+
+    setIsUploading(true);
+    setError(''); // Clear error sebelum upload
+    setMessage(''); // Clear message sebelum upload
 
     try {
-      const fileName = `${Date.now()}-${file.name}`;
       const { data, error } = await supabase.storage
-        .from("formulir")
-        .upload(fileName, file);
+        .from('pesertadidik') // Pastikan bucket ini sudah dibuat di Supabase
+        .upload(filePath, file);
 
       if (error) {
-        throw error;
+        console.error('Upload error:', error.message);
+        setError('Gagal mengupload file: ' + error.message);
+        setMessage('Gagal mengupload file: ' + error.message);
+        setMessageType("error");
+        return;
       }
 
-      const { data: publicUrlData } = supabase.storage
-        .from("formulir")
-        .getPublicUrl(fileName);
+      const { data: publicUrlData } = supabase
+        .storage
+        .from('pesertadidik')
+        .getPublicUrl(filePath);
 
-      setFormData((prev) => ({
-        ...prev,
-        formUrl: publicUrlData.publicUrl,
-      }));
-
-      setMessage("File berhasil di-upload");
-      setMessageType("success");
-    } catch (error) {
-      console.error("Upload error:", error);
-      setMessage("Gagal mengupload file");
+      if (publicUrlData?.publicUrl) {
+        setFormData(prev => ({
+          ...prev,
+          formUrl: publicUrlData.publicUrl // Simpan ke formUrl bukan imageUrl
+        }));
+        setError(''); // Clear error jika berhasil
+        setMessage('File PDF berhasil diupload!');
+        setMessageType("success");
+      }
+    } catch (err: any) {
+      console.error('Unexpected upload error:', err);
+      setError('Terjadi kesalahan tidak terduga saat upload file.');
+      setMessage('Terjadi kesalahan tidak terduga saat upload file.');
       setMessageType("error");
     } finally {
-      setLoading(false);
+      setIsUploading(false);
     }
   };
 
@@ -246,31 +270,42 @@ function FormPendaftaran() {
         </div>
 
         <div>
-          <label
-            htmlFor="formUrl"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
-            Upload Formulir (PDF) <span className="text-red-500">*</span>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Upload Dokumen PDF <span className="text-red-500">*</span>
           </label>
           <input
             type="file"
-            accept=".pdf"
-            //required
+            accept=".pdf,application/pdf"
             onChange={handleFileUpload}
-            className="text-black w-full"
+            disabled={isUploading}
+            className="w-full px-3 py-2 border border-gray-200 rounded-lg text-black disabled:opacity-50 disabled:cursor-not-allowed"
           />
+          <p className="text-sm text-gray-500 mt-1">
+            Hanya file PDF dengan ukuran maksimal 5MB
+          </p>
+          {isUploading && (
+            <div className="mt-2 flex items-center space-x-2">
+              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-500"></div>
+              <span className="text-sm text-gray-600">Mengupload file...</span>
+            </div>
+          )}
           {formData.formUrl && (
-            <p className="text-sm text-green-700 mt-1">
-              File berhasil di-upload:{" "}
-              <a
-                href={formData.formUrl}
-                target="_blank"
+            <div className="mt-3 p-3 bg-green-50 border border-green-200 rounded-lg">
+              <div className="flex items-center space-x-2">
+                <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                <span className="text-sm text-green-700 font-medium">File PDF berhasil diupload</span>
+              </div>
+              <a 
+                href={formData.formUrl} 
+                target="_blank" 
                 rel="noopener noreferrer"
-                className="text-blue-600 underline"
+                className="text-sm text-blue-600 hover:text-blue-800 underline mt-1 inline-block"
               >
-                Lihat file
+                Lihat file yang diupload
               </a>
-            </p>
+            </div>
           )}
         </div>
 
