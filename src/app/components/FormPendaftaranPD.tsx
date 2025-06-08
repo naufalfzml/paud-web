@@ -139,7 +139,7 @@ function FormPendaftaran() {
     try {
       const fileName = `${Date.now()}-${file.name}`;
       const { data, error } = await supabase.storage
-        .from("formulir") // nama bucket kamu di Supabase
+        .from("formulir")
         .upload(fileName, file);
 
       if (error) {
@@ -173,6 +173,18 @@ function FormPendaftaran() {
         <div className="animate-pulse">
           <div className="h-4 bg-gray-200 rounded w-3/4 mb-4"></div>
           <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+        </div>
+      </div>
+    );
+  }
+
+    // Not authenticated
+  if (!user) {
+    return (
+      <div className="bg-white rounded-lg shadow-md p-6">
+        <div className="bg-yellow-100 text-yellow-700 border border-yellow-300 p-3 rounded-md">
+          <p>Silakan login terlebih dahulu untuk mengakses form pendaftaran.</p>
+          <p className="text-sm mt-1">Status: User tidak terdeteksi</p>
         </div>
       </div>
     );
