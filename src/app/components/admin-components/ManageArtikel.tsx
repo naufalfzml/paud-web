@@ -17,6 +17,179 @@ interface Article {
   updatedAt: string;
 }
 
+interface ArticleFormProps {
+  formData: {
+    judul: string;
+    content: string;
+    author: string;
+    imageUrl: string;
+    deskripsiSingkat: string;
+    isPublished: boolean;
+  };
+  setFormData: React.Dispatch<React.SetStateAction<{
+    judul: string;
+    content: string;
+    author: string;
+    imageUrl: string;
+    deskripsiSingkat: string;
+    isPublished: boolean;
+  }>>;
+  handleSubmit: () => Promise<void>;
+  resetForm: () => void;
+  error: string;
+  editingArticle: Article | null;
+  isUploading: boolean;
+  handleImageUpload: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
+}
+
+// Pindahkan ArticleForm ke luar komponen utama
+const ArticleForm = ({ 
+  formData, 
+  setFormData, 
+  handleSubmit, 
+  resetForm, 
+  error, 
+  editingArticle, 
+  isUploading, 
+  handleImageUpload 
+}: ArticleFormProps) => {
+  // Handle form change langsung tanpa useCallback
+  const handleInputChange = (field: string, value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
+  return (
+    <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 space-y-4">
+      <div className="flex items-center justify-between">
+        <h3 className="text-lg font-semibold text-gray-800">
+          {editingArticle ? 'Edit Artikel' : 'Tambah Artikel Baru'}
+        </h3>
+        <button
+          onClick={resetForm}
+          className="text-gray-400 hover:text-gray-600"
+        >
+          <X className="w-5 h-5" />
+        </button>
+      </div>
+
+      {error && (
+        <div className="bg-red-50 border border-red-200 rounded-lg p-3 flex items-center space-x-2">
+          <AlertCircle className="w-5 h-5 text-red-500" />
+          <span className="text-red-700 text-sm">{error}</span>
+        </div>
+      )}
+
+      <div className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Judul Artikel *
+            </label>
+            <input
+              type="text"
+              value={formData.judul}
+              onChange={(e) => handleInputChange('judul', e.target.value)}
+              className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
+              placeholder="Masukkan judul artikel..."
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Penulis *
+            </label>
+            <input
+              type="text"
+              value={formData.author}
+              onChange={(e) => handleInputChange('author', e.target.value)}
+              className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
+              placeholder="Nama penulis..."
+              required
+            />
+          </div>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Deskripsi Singkat
+          </label>
+          <textarea
+            rows={2}
+            value={formData.deskripsiSingkat}
+            onChange={(e) => handleInputChange('deskripsiSingkat', e.target.value)}
+            className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
+            placeholder="Deskripsi singkat artikel..."
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Konten Artikel *
+          </label>
+          <textarea
+            rows={8}
+            value={formData.content}
+            onChange={(e) => handleInputChange('content', e.target.value)}
+            className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
+            placeholder="Tulis konten artikel di sini..."
+            required
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Upload Gambar
+          </label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageUpload}
+            disabled={isUploading}
+            className="w-full px-3 py-2 border border-gray-200 rounded-lg text-black disabled:opacity-50 disabled:cursor-not-allowed"
+          />
+          {isUploading && (
+            <div className="mt-2 flex items-center space-x-2">
+              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-500"></div>
+              <span className="text-sm text-gray-600">Mengupload gambar...</span>
+            </div>
+          )}
+          {formData.imageUrl && (
+            <div className="mt-3">
+              <img 
+                src={formData.imageUrl} 
+                alt="Preview" 
+                className="w-32 h-32 object-cover rounded-lg border border-gray-200"
+              />
+            </div>
+          )}
+        </div>
+
+        <div className="flex space-x-3">
+          <button
+            type="button"
+            onClick={handleSubmit}
+            disabled={isUploading}
+            className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors flex items-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <Save className="w-4 h-4" />
+            <span>{editingArticle ? 'Update' : 'Simpan'}</span>
+          </button>
+          <button
+            type="button"
+            onClick={resetForm}
+            className="bg-gray-200 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-300 transition-colors"
+          >
+            Batal
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const ManageArtikel = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
@@ -93,14 +266,6 @@ const ManageArtikel = () => {
       console.error('Error updating status:', err);
     }
   };
-    
-  // Handle form input changes with useCallback to prevent re-renders
-  const handleFormChange = useCallback((field: string, value: any) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: value
-    }));
-  }, []);
 
   // Submit form (create or update)
   const handleSubmit = async () => {
@@ -168,7 +333,7 @@ const ManageArtikel = () => {
       author: article.author,
       imageUrl: article.imageUrl || '',
       deskripsiSingkat: article.deskripsiSingkat || '',
-      isPublished: article.isPublished
+      isPublished: false
     });
     setShowForm(true);
   };
@@ -251,7 +416,10 @@ const ManageArtikel = () => {
         .getPublicUrl(filePath);
 
       if (publicUrlData?.publicUrl) {
-        handleFormChange('imageUrl', publicUrlData.publicUrl);
+        setFormData(prev => ({
+          ...prev,
+          imageUrl: publicUrlData.publicUrl
+        }));
         setError(''); // Clear error jika berhasil
       }
     } catch (err: any) {
@@ -261,147 +429,6 @@ const ManageArtikel = () => {
       setIsUploading(false);
     }
   };
-
-  const ArticleForm = () => (
-    <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 space-y-4">
-      <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-gray-800">
-          {editingArticle ? 'Edit Artikel' : 'Tambah Artikel Baru'}
-        </h3>
-        <button
-          onClick={resetForm}
-          className="text-gray-400 hover:text-gray-600"
-        >
-          <X className="w-5 h-5" />
-        </button>
-      </div>
-
-      {error && (
-        <div className="bg-red-50 border border-red-200 rounded-lg p-3 flex items-center space-x-2">
-          <AlertCircle className="w-5 h-5 text-red-500" />
-          <span className="text-red-700 text-sm">{error}</span>
-        </div>
-      )}
-
-      <div className="space-y-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Judul Artikel *
-            </label>
-            <input
-              type="text"
-              value={formData.judul}
-              onChange={(e) => handleFormChange('judul', e.target.value)}
-              className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
-              placeholder="Masukkan judul artikel..."
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Penulis *
-            </label>
-            <input
-              type="text"
-              value={formData.author}
-              onChange={(e) => handleFormChange('author', e.target.value)}
-              className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
-              placeholder="Nama penulis..."
-              required
-            />
-          </div>
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Deskripsi Singkat
-          </label>
-          <textarea
-            rows={2}
-            value={formData.deskripsiSingkat}
-            onChange={(e) => handleFormChange('deskripsiSingkat', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
-            placeholder="Deskripsi singkat artikel..."
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Konten Artikel *
-          </label>
-          <textarea
-            rows={8}
-            value={formData.content}
-            onChange={(e) => handleFormChange('content', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
-            placeholder="Tulis konten artikel di sini..."
-            required
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Upload Gambar
-          </label>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageUpload}
-            disabled={isUploading}
-            className="w-full px-3 py-2 border border-gray-200 rounded-lg text-black disabled:opacity-50 disabled:cursor-not-allowed"
-          />
-          {isUploading && (
-            <div className="mt-2 flex items-center space-x-2">
-              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-500"></div>
-              <span className="text-sm text-gray-600">Mengupload gambar...</span>
-            </div>
-          )}
-          {formData.imageUrl && (
-            <div className="mt-3">
-              <img 
-                src={formData.imageUrl} 
-                alt="Preview" 
-                className="w-32 h-32 object-cover rounded-lg border border-gray-200"
-              />
-            </div>
-          )}
-        </div>
-
-        <div className="flex items-center space-x-2">
-          <input
-            type="checkbox"
-            id="isPublished"
-            checked={formData.isPublished}
-            onChange={(e) => handleFormChange('isPublished', e.target.checked)}
-            className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-          />
-          <label htmlFor="isPublished" className="text-sm text-gray-700">
-            Publish artikel sekarang
-          </label>
-        </div>
-
-        <div className="flex space-x-3">
-          <button
-            type="button"
-            onClick={handleSubmit}
-            disabled={isUploading}
-            className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors flex items-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <Save className="w-4 h-4" />
-            <span>{editingArticle ? 'Update' : 'Simpan'}</span>
-          </button>
-          <button
-            type="button"
-            onClick={resetForm}
-            className="bg-gray-200 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-300 transition-colors"
-          >
-            Batal
-          </button>
-        </div>
-      </div>
-    </div>
-  );
 
   return (
     <div className="space-y-6">
@@ -423,7 +450,18 @@ const ManageArtikel = () => {
         </div>
       )}
 
-      {showForm && <ArticleForm />}
+      {showForm && (
+        <ArticleForm 
+          formData={formData}
+          setFormData={setFormData}
+          handleSubmit={handleSubmit}
+          resetForm={resetForm}
+          error={error}
+          editingArticle={editingArticle}
+          isUploading={isUploading}
+          handleImageUpload={handleImageUpload}
+        />
+      )}
 
       {/* Filters */}
       <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
