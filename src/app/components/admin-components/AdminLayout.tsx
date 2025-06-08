@@ -13,7 +13,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen bg-gray-50 flex font-fredoka">
       <Sidebar collapsed={sidebarCollapsed} />
 
       <div className={`flex-1 transition-all duration-300 ${sidebarCollapsed ? 'ml-20' : 'ml-64'}`}>
@@ -26,11 +26,8 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
           </button>
 
           <div className="flex items-center space-x-4">
-            <div className="text-sm text-gray-600">
-              Selamat datang, Admin
-            </div>
-            <div className="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center text-white text-sm font-medium">
-              A
+            <div className="text-md text-gray-600">
+              Selamat datang, Admin 
             </div>
           </div>
         </header>

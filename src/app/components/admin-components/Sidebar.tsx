@@ -30,7 +30,7 @@ const Sidebar = ({ collapsed }: SidebarProps) => {
   ];
 
   return (
-    <div className={`fixed left-0 top-0 h-full bg-white border-r border-gray-200 transition-all duration-300 z-50 ${
+    <div className={`font-fredoka fixed left-0 top-0 h-full bg-white border-r border-gray-200 transition-all duration-300 z-50 ${
       collapsed ? 'w-20' : 'w-64'
     }`}>
       <div className="p-6">
