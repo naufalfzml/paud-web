@@ -82,6 +82,7 @@ export default function Navbar() {
     fullName: "",
     address: "",
     whatsApp: "",
+    role: ""
   });
 
   useEffect(() => {
@@ -94,6 +95,7 @@ export default function Navbar() {
               fullName: data.name || "",
               address: data.address || "",
               whatsApp: data.no_hp || "",
+              role: data.role || ""
             });
           }
         });
@@ -240,6 +242,17 @@ export default function Navbar() {
                       {user.email}
                     </p>
                   </div>
+
+                  {formData?.role === 'ADMIN' && (
+                    <Link
+                      href="/admin-page"
+                      className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center space-x-2 transition-colors"
+                      onClick={() => setUserDropdownOpen(false)}
+                    >
+                      <span>📊</span>
+                      <span>Dashboard</span>
+                    </Link>
+                  )}
                   
                   <Link
                     href="/profile-settings"
