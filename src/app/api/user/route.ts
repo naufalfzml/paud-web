@@ -1,4 +1,3 @@
-// src/app/api/user/route.ts
 import { createClient } from "@/lib/supabase";
 import { NextResponse } from "next/server";
 
@@ -51,10 +50,13 @@ function getSupabaseClient() {
   }
 }
 
-// Validation helpers
-function validateUserId(userId: string | null): string {
+// Validation helpers - Updated to handle optional userId
+function validateUserId(userId: string | null, required: boolean = true): string | null {
   if (!userId || userId.trim() === '') {
-    throw new Error("User ID is required and cannot be empty");
+    if (required) {
+      throw new Error("User ID is required and cannot be empty");
+    }
+    return null;
   }
   return userId.trim();
 }
@@ -78,12 +80,38 @@ function validateUserUpdateData(data: any): UserUpdateData {
   return { name, address, no_hp };
 }
 
-// GET /api/user?id=userId
+// GET /api/user?id=userId (optional id for single user, no id for all users)
 export async function GET(request: Request) {
   try {
     const supabase = getSupabaseClient();
     const { searchParams } = new URL(request.url);
-    const userId = validateUserId(searchParams.get("id"));
+    const userIdParam = searchParams.get("id");
+    
+    // If no ID is provided, return all users
+    if (!userIdParam || userIdParam.trim() === '') {
+      console.log("Fetching all users...");
+      
+      const { data, error } = await supabase
+        .from("User")
+        .select("*")
+        .order("createdAt", { ascending: false });
+
+      if (error) {
+        console.error("Supabase error (all users):", error);
+        return NextResponse.json(
+          { error: "Failed to fetch users data" }, 
+          { status: 500 }
+        );
+      }
+
+      console.log(`Fetched ${data?.length || 0} users`);
+      return NextResponse.json({ users: data || [] });
+    }
+
+    // If ID is provided, validate and fetch single user
+    const userId = validateUserId(userIdParam, true);
+
+    console.log("Fetching single user with ID:", userId);
 
     const { data, error } = await supabase
       .from("User")
@@ -92,7 +120,7 @@ export async function GET(request: Request) {
       .single();
 
     if (error) {
-      console.error("Supabase error:", error);
+      console.error("Supabase error (single user):", error);
       
       // Handle specific Supabase errors
       if (error.code === 'PGRST116') {
@@ -147,7 +175,7 @@ export async function PUT(request: Request) {
     }
 
     const { id, ...updateData } = body;
-    const userId = validateUserId(id);
+    const userId = validateUserId(id, true); // Required for updates
     const validatedUpdateData = validateUserUpdateData(updateData);
 
     // Check if there's actually data to update
@@ -205,6 +233,75 @@ export async function PUT(request: Request) {
     const statusCode = errorMessage.includes("required") || 
                       errorMessage.includes("must be") || 
                       errorMessage.includes("Invalid") ? 400 : 500;
+    
+    return NextResponse.json(
+      { error: errorMessage }, 
+      { status: statusCode }
+    );
+  }
+}
+
+// DELETE /api/user
+export async function DELETE(request: Request) {
+  try {
+    const supabase = getSupabaseClient();
+    const { searchParams } = new URL(request.url);
+    const userId = validateUserId(searchParams.get("id"), true); // Required for deletion
+
+    // Check if user exists before deletion
+    const { data: existingUser, error: checkError } = await supabase
+      .from("User")
+      .select("id, name")
+      .eq("id", userId)
+      .single();
+
+    if (checkError) {
+      console.error("Supabase check error:", checkError);
+      
+      if (checkError.code === 'PGRST116') {
+        return NextResponse.json(
+          { error: "User not found" }, 
+          { status: 404 }
+        );
+      }
+      
+      return NextResponse.json(
+        { error: "Failed to check user existence" }, 
+        { status: 500 }
+      );
+    }
+
+    if (!existingUser) {
+      return NextResponse.json(
+        { error: "User not found" }, 
+        { status: 404 }
+      );
+    }
+
+    // Perform the deletion
+    const { error } = await supabase
+      .from("User")
+      .delete()
+      .eq("id", userId);
+
+    if (error) {
+      console.error("Supabase delete error:", error);
+      return NextResponse.json(
+        { error: "Failed to delete user" }, 
+        { status: 500 }
+      );
+    }
+
+    return NextResponse.json({ 
+      success: true,
+      message: `User ${existingUser.name} deleted successfully`
+    });
+
+  } catch (error) {
+    console.error("DELETE /api/user error:", error);
+    
+    const errorMessage = error instanceof Error ? error.message : "Internal server error";
+    const statusCode = errorMessage.includes("required") ? 400 : 500;
     
     return NextResponse.json(
       { error: errorMessage }, 
