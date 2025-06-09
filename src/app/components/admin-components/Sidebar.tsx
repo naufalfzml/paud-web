@@ -9,7 +9,8 @@ import {
   GraduationCap,
   UserCheck,
   BarChart3,
-  FileChartColumn
+  FileChartColumn,
+  CircleChevronLeft
 } from "lucide-react";
 
 interface SidebarProps {
@@ -27,6 +28,7 @@ const Sidebar = ({ collapsed }: SidebarProps) => {
     { path: "/admin-page/teachers", icon: UserCheck, label: "Tenaga Pendidik" },
     { path: "/admin-page/status", icon: FileChartColumn, label: "Status" },
     { path: "/admin-page/laporan", icon: BarChart3, label: "Laporan" },
+    { path: "/", icon: CircleChevronLeft, label: "Kembali ke Beranda" },
   ];
 
   return (

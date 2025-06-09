@@ -14,7 +14,7 @@ const Breadcrumb = () => {
     students: "Peserta Didik",
     teachers: "Tenaga Pendidik",
     status: "Status",
-    laporan: "Laporan",
+    laporan: "Laporan"
   };
 
   if (pathname === "/") {
