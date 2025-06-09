@@ -1,11 +1,14 @@
 import { createClient } from "@/lib/supabase";
 import { NextResponse } from "next/server";
 
+type Role = 'USER' | 'ADMIN';
+
 // Types for better type safety
 interface UserUpdateData {
   name?: string;
   address?: string;
   no_hp?: string;
+  role?: Role;
   updated_at?: string;
 }
 
@@ -62,7 +65,7 @@ function validateUserId(userId: string | null, required: boolean = true): string
 }
 
 function validateUserUpdateData(data: any): UserUpdateData {
-  const { name, address, no_hp } = data;
+  const { name, address, no_hp, role } = data;
   
   // Basic validation - add more as needed
   if (name !== undefined && typeof name !== 'string') {
@@ -77,7 +80,7 @@ function validateUserUpdateData(data: any): UserUpdateData {
     throw new Error("Phone number must be a string");
   }
 
-  return { name, address, no_hp };
+  return { name, address, no_hp, role };
 }
 
 // GET /api/user?id=userId (optional id for single user, no id for all users)
