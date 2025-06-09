@@ -12,7 +12,8 @@ export async function POST(req: NextRequest) {
       noHpWali,
       userId,
       jenis_kelamin,
-      formUrl,
+      suratPernyataan,
+      formulir
     } = body;
 
     // Log request untuk debugging
@@ -24,7 +25,8 @@ export async function POST(req: NextRequest) {
       noHpWali: !!noHpWali,
       userId: !!userId,
       jenis_kelamin: !!jenis_kelamin,
-      formUrl: !!formUrl,
+      formulir: !!formulir,
+      suratPernyataan: !!suratPernyataan
     });
 
     if (!userId) {
@@ -93,11 +95,29 @@ export async function POST(req: NextRequest) {
     }
 
     // Validasi URL jika diisi
-    if (formUrl && formUrl.trim() !== "") {
+    if (formulir && formulir.trim() !== "") {
       try {
-        new URL(formUrl);
+        new URL(formulir);
       } catch (error) {
-        console.error("Validation failed: Invalid URL format:", formUrl);
+        console.error("Validation failed: Invalid URL format:", formulir);
+        return new Response(
+          JSON.stringify({
+            error: "Format URL tidak valid",
+            code: "INVALID_URL",
+          }),
+          {
+            status: 400,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+      }
+    }
+
+    if (suratPernyataan && suratPernyataan.trim() !== "") {
+      try {
+        new URL(suratPernyataan);
+      } catch (error) {
+        console.error("Validation failed: Invalid URL format:", suratPernyataan);
         return new Response(
           JSON.stringify({
             error: "Format URL tidak valid",
@@ -158,9 +178,10 @@ export async function POST(req: NextRequest) {
       namaWali: namaWali.trim(),
       noHpWali: noHpWali.trim(),
       jenis_kelamin,
-      formUrl: formUrl ? formUrl.trim() : null,
+      formulir: formulir ? formulir.trim() : null,
+      suratPernyataan: suratPernyataan ? suratPernyataan.trim() : null,
       userId,
-      status: "pending",
+      status: "MENUNGGU VERIFIKASI",
       createdAt: new Date().toISOString(),
     };
 

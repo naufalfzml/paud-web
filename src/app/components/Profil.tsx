@@ -15,7 +15,7 @@ import {
 // Hero Section Component
 const HeroSection = () => {
   return (
-    <section className="relative py-20 px-6 text-center bg-gradient-to-br from-blue-50 to-purple-50">
+    <section className="relative pt-20 px-6 text-center ">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-5xl font-semibold text-gray-800 mb-4 animate-fade-in">
           Tentang PAUD
@@ -31,7 +31,7 @@ const HeroSection = () => {
 // About Section Component
 const AboutSection = () => {
   return (
-    <section className="py-16 px-6 bg-gradient-to-r from-blue-50 to-purple-50">
+    <section className="py-16 px-6">
       <div className="max-w-6xl mx-auto">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="space-y-4 animate-fade-in">
@@ -229,8 +229,8 @@ const FacilitiesSection = () => {
 // Main Profile Page Component
 const ProfilPage = () => {
   return (
-    <div className="min-h-screen font-fredoka bg-gradient-to-br from-blue-50 to-purple-50">
-      <div className="pt-16">
+    <div className="min-h-screen font-fredoka bg-header">
+      <div className="pt-16 ">
         <div id="home">
           <HeroSection />
         </div>

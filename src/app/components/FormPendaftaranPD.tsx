@@ -17,14 +17,16 @@ function FormPendaftaran() {
     namaWali: "",
     noHpWali: "",
     jenis_kelamin: "",
-    formUrl: "", // Untuk menyimpan URL PDF yang diupload
+    formulir: "",
+    suratPernyataan: "",
+    program: "",
   });
 
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState("");
   const [isUploading, setIsUploading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -110,7 +112,9 @@ function FormPendaftaran() {
           namaWali: "",
           noHpWali: "",
           jenis_kelamin: "",
-          formUrl: "",
+          formulir: "",
+          suratPernyataan: "",
+          program: "",
         });
       } else {
         setMessage(result.error || "Terjadi kesalahan");
@@ -125,7 +129,7 @@ function FormPendaftaran() {
     }
   };
 
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUploadSuratPernyataan = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -139,51 +143,114 @@ function FormPendaftaran() {
 
     // Validasi ukuran file (max 5MB)
     if (file.size > 5 * 1024 * 1024) {
-      setError('Ukuran file terlalu besar. Maksimal 5MB.');
-      setMessage('Ukuran file terlalu besar. Maksimal 5MB.');
+      setError("Ukuran file terlalu besar. Maksimal 5MB.");
+      setMessage("Ukuran file terlalu besar. Maksimal 5MB.");
       setMessageType("error");
       return;
     }
 
-    const fileExt = file.name.split('.').pop();
+    const fileExt = file.name.split(".").pop();
     const fileName = `${Date.now()}.${fileExt}`;
-    const filePath = `documents/${fileName}`; // Ganti folder menjadi documents untuk PDF
+    const filePath = `suratpernyataan/${fileName}`; // Ganti folder menjadi documents untuk PDF
 
     setIsUploading(true);
-    setError(''); // Clear error sebelum upload
-    setMessage(''); // Clear message sebelum upload
+    setError(""); // Clear error sebelum upload
+    setMessage(""); // Clear message sebelum upload
 
     try {
       const { data, error } = await supabase.storage
-        .from('pesertadidik') // Pastikan bucket ini sudah dibuat di Supabase
+        .from("pesertadidik") // Pastikan bucket ini sudah dibuat di Supabase
         .upload(filePath, file);
 
       if (error) {
-        console.error('Upload error:', error.message);
-        setError('Gagal mengupload file: ' + error.message);
-        setMessage('Gagal mengupload file: ' + error.message);
+        console.error("Upload error:", error.message);
+        setError("Gagal mengupload file: " + error.message);
+        setMessage("Gagal mengupload file: " + error.message);
         setMessageType("error");
         return;
       }
 
-      const { data: publicUrlData } = supabase
-        .storage
-        .from('pesertadidik')
+      const { data: publicUrlData } = supabase.storage
+        .from("pesertadidik")
         .getPublicUrl(filePath);
 
       if (publicUrlData?.publicUrl) {
-        setFormData(prev => ({
+        setFormData((prev) => ({
           ...prev,
-          formUrl: publicUrlData.publicUrl // Simpan ke formUrl bukan imageUrl
+          suratPernyataan: publicUrlData.publicUrl, 
         }));
-        setError(''); // Clear error jika berhasil
-        setMessage('File PDF berhasil diupload!');
+        setError(""); // Clear error jika berhasil
+        setMessage("File PDF berhasil diupload!");
         setMessageType("success");
       }
     } catch (err: any) {
-      console.error('Unexpected upload error:', err);
-      setError('Terjadi kesalahan tidak terduga saat upload file.');
-      setMessage('Terjadi kesalahan tidak terduga saat upload file.');
+      console.error("Unexpected upload error:", err);
+      setError("Terjadi kesalahan tidak terduga saat upload file.");
+      setMessage("Terjadi kesalahan tidak terduga saat upload file.");
+      setMessageType("error");
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  const handleFileUploadFormulir = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Validasi tipe file - hanya PDF
+    if (file.type !== "application/pdf") {
+      setError("Hanya file PDF yang diperbolehkan");
+      setMessage("Hanya file PDF yang diperbolehkan");
+      setMessageType("error");
+      return;
+    }
+
+    // Validasi ukuran file (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      setError("Ukuran file terlalu besar. Maksimal 5MB.");
+      setMessage("Ukuran file terlalu besar. Maksimal 5MB.");
+      setMessageType("error");
+      return;
+    }
+
+    const fileExt = file.name.split(".").pop();
+    const fileName = `${Date.now()}.${fileExt}`;
+    const filePath = `formulir/${fileName}`; // Ganti folder menjadi documents untuk PDF
+
+    setIsUploading(true);
+    setError(""); // Clear error sebelum upload
+    setMessage(""); // Clear message sebelum upload
+
+    try {
+      const { data, error } = await supabase.storage
+        .from("pesertadidik") // Pastikan bucket ini sudah dibuat di Supabase
+        .upload(filePath, file);
+
+      if (error) {
+        console.error("Upload error:", error.message);
+        setError("Gagal mengupload file: " + error.message);
+        setMessage("Gagal mengupload file: " + error.message);
+        setMessageType("error");
+        return;
+      }
+
+      const { data: publicUrlData } = supabase.storage
+        .from("pesertadidik")
+        .getPublicUrl(filePath);
+
+      if (publicUrlData?.publicUrl) {
+        setFormData((prev) => ({
+          ...prev,
+          formulir: publicUrlData.publicUrl, 
+        }));
+        setError(""); // Clear error jika berhasil
+        setMessage("File PDF berhasil diupload!");
+        setMessageType("success");
+      }
+    } catch (err: any) {
+      console.error("Unexpected upload error:", err);
+      setError("Terjadi kesalahan tidak terduga saat upload file.");
+      setMessage("Terjadi kesalahan tidak terduga saat upload file.");
       setMessageType("error");
     } finally {
       setIsUploading(false);
@@ -202,7 +269,7 @@ function FormPendaftaran() {
     );
   }
 
-    // Not authenticated
+  // Not authenticated
   if (!user) {
     return (
       <div className="bg-white rounded-lg shadow-md p-6">
@@ -261,7 +328,7 @@ function FormPendaftaran() {
             value={formData.jenis_kelamin}
             onChange={handleChange}
             required
-            className="text-black w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="text-gray-700 w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           >
             <option value="">Pilih Jenis Kelamin</option>
             <option value="Laki-laki">Laki-laki</option>
@@ -270,15 +337,48 @@ function FormPendaftaran() {
         </div>
 
         <div>
+          <label
+            htmlFor="program"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
+            Program <span className="text-red-500">*</span>
+          </label>
+          <select
+            id="program"
+            name="program"
+            value={formData.program}
+            onChange={handleChange}
+            required
+            className="text-gray-700 w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          >
+            <option value="">Pilih Program</option>
+            <option value="Regular">Regular</option>
+            <option value="Fullday Paket A">Fullday Paket A</option>
+            <option value="Fullday Paket B">Fullday Paket B</option>
+            <option value="Fullday Paket C">Fullday Paket C</option>
+          </select>
+        </div>
+
+        <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Upload Dokumen PDF <span className="text-red-500">*</span>
+            Upload Formulir <span className="text-red-500">*</span>
+            <br />
+            <a
+              href="https://yvixnhiybrgmxfywqjzu.supabase.co/storage/v1/object/public/formulir/Surat%20Pernyataan%20Ortu.docx"
+              className="text-blue-500  hover:underline text-sm"
+              download
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Download template di sini
+            </a>
           </label>
           <input
             type="file"
             accept=".pdf,application/pdf"
-            onChange={handleFileUpload}
+            onChange={handleFileUploadFormulir}
             disabled={isUploading}
-            className="w-full px-3 py-2 border border-gray-200 rounded-lg text-black disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full px-3 py-2 border border-gray-200 rounded-lg text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
           />
           <p className="text-sm text-gray-500 mt-1">
             Hanya file PDF dengan ukuran maksimal 5MB
@@ -289,17 +389,92 @@ function FormPendaftaran() {
               <span className="text-sm text-gray-600">Mengupload file...</span>
             </div>
           )}
-          {formData.formUrl && (
+          {formData.formulir && (
             <div className="mt-3 p-3 bg-green-50 border border-green-200 rounded-lg">
               <div className="flex items-center space-x-2">
-                <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                <svg
+                  className="w-5 h-5 text-green-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  />
                 </svg>
-                <span className="text-sm text-green-700 font-medium">File PDF berhasil diupload</span>
+                <span className="text-sm text-green-700 font-medium">
+                  File PDF berhasil diupload
+                </span>
               </div>
-              <a 
-                href={formData.formUrl} 
-                target="_blank" 
+              <a
+                href={formData.formulir}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-blue-600 hover:text-blue-800 underline mt-1 inline-block"
+              >
+                Lihat file yang diupload
+              </a>
+            </div>
+          )}
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Upload Surat Pernyataan Orang Tua{" "}
+            <span className="text-red-500">*</span>
+            <br />
+            <a
+              href="https://yvixnhiybrgmxfywqjzu.supabase.co/storage/v1/object/public/formulir/Surat%20Pernyataan%20Ortu.docx"
+              className="text-blue-500  hover:underline text-sm"
+              download
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Download template di sini
+            </a>
+          </label>
+          <input
+            type="file"
+            accept=".pdf,application/pdf"
+            onChange={handleFileUploadSuratPernyataan}
+            disabled={isUploading}
+            className="w-full px-3 py-2 border border-gray-200 rounded-lg text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
+          />
+          <p className="text-sm text-gray-500 mt-1">
+            Hanya file PDF dengan ukuran maksimal 5MB
+          </p>
+          {isUploading && (
+            <div className="mt-2 flex items-center space-x-2">
+              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-500"></div>
+              <span className="text-sm text-gray-600">Mengupload file...</span>
+            </div>
+          )}
+          {formData.suratPernyataan && (
+            <div className="mt-3 p-3 bg-green-50 border border-green-200 rounded-lg">
+              <div className="flex items-center space-x-2">
+                <svg
+                  className="w-5 h-5 text-green-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  />
+                </svg>
+                <span className="text-sm text-green-700 font-medium">
+                  File PDF berhasil diupload
+                </span>
+              </div>
+              <a
+                href={formData.suratPernyataan}
+                target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm text-blue-600 hover:text-blue-800 underline mt-1 inline-block"
               >
