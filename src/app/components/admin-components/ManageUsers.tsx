@@ -2,13 +2,18 @@
 import { useState, useEffect } from 'react';
 import { Search, Filter, Edit, Trash2, X, Save } from 'lucide-react';
 
+enum UserRole {
+  USER = 'USER',
+  ADMIN = 'ADMIN'
+}
+
 interface User {
   id: string;
   name: string;
   email: string;
   address?: string;
   no_hp?: string;
-  role?: string;
+  role?: UserRole;
   created_at?: string;
   updated_at?: string;
 }
@@ -27,6 +32,7 @@ const ManageUsers = () => {
   const [editFormData, setEditFormData] = useState({
     name: '',
     address: '',
+    no_hp: '',
     role: ''
   });
   const [editLoading, setEditLoading] = useState(false);
@@ -222,7 +228,6 @@ const ManageUsers = () => {
             onClick={() => setError('')} 
             className="float-right text-red-700 hover:text-red-900"
           >
-            ×
           </button>
         </div>
       )}
@@ -406,15 +411,13 @@ const ManageUsers = () => {
                   onChange={(e) =>
                     setEditFormData((prev) => ({
                       ...prev,
-                      role: e.target.value, // ← harusnya "role", bukan "no_hp"
+                      role: e.target.value,
                     }))
                   }
                   className="text-black w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
-                  <option value={editFormData.role}>{editFormData.role}</option>
-                  <option value={editFormData.role === 'ADMIN' ? 'USER' : 'ADMIN'}>
-                    {editFormData.role === 'ADMIN' ? 'USER' : 'ADMIN'}
-                  </option>
+    <option value="USER">USER</option>
+    <option value="ADMIN">ADMIN</option>
                 </select>
               </div>
             </div>
