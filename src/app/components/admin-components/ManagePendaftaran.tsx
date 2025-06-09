@@ -63,7 +63,7 @@ const allFeStatuses: FeStatus[] = ["Menunggu Verifikasi", "Telah Diverifikasi", 
 // --- UI COMPONENTS ---
 
 const Notification: FC<{ notification: NotificationType | null, onDismiss: () => void }> = ({ notification, onDismiss }) => {
-  if (!notification) return null;
+  if (!notification) return;
 
   const isSuccess = notification.type === 'success';
   const bgColor = isSuccess ? 'bg-green-100' : 'bg-red-100';
@@ -91,7 +91,7 @@ const DeleteConfirmationModal: FC<{
   onConfirm: () => void;
   itemName: string;
 }> = ({ isOpen, onClose, onConfirm, itemName }) => {
-  if (!isOpen) return null;
+  if (!isOpen) return;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-40">
@@ -396,7 +396,6 @@ const DetailPendaftaranPage = () => {
   const handleStatusUpdate = async (id: number, newStatus: DbStatus) => {
     const endpoint = tab === 'PD' ? '/api/pendaftar-peserta-didik' : '/api/pendaftar-tenaga-pendidik';
     
-    // Optimistically update UI
     const updater = (setter: React.Dispatch<React.SetStateAction<any[]>>) => {
         setter(prev => prev.map(p => (p.id === id ? { ...p, status: newStatus } : p)));
     };

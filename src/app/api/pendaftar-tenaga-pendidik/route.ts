@@ -201,7 +201,7 @@ export async function PUT(req: NextRequest) {
     }
 
     // Validasi status yang diizinkan
-    const validStatuses = ['pending', 'verified', 'rejected', 'accepted'];
+    const validStatuses = ['MENUNGGU VERIFIKASI', 'TELAH DIVERIFIKASI', 'DITOLAK', 'DITERIMA'];
     if (!validStatuses.includes(status)) {
       return new Response(JSON.stringify({ 
         error: 'Status tidak valid',
@@ -223,7 +223,7 @@ export async function PUT(req: NextRequest) {
       .from('PendaftarTenagaPendidik')
       .update({ 
         status,
-        updated_at: new Date().toISOString()
+        updatedAt: new Date().toISOString()
       })
       .eq('id', id)
       .select();
