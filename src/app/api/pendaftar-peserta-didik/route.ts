@@ -12,6 +12,7 @@ export async function POST(req: NextRequest) {
       noHpWali,
       userId,
       jenis_kelamin,
+      program,
       suratPernyataan,
       formulir
     } = body;
@@ -26,7 +27,8 @@ export async function POST(req: NextRequest) {
       userId: !!userId,
       jenis_kelamin: !!jenis_kelamin,
       formulir: !!formulir,
-      suratPernyataan: !!suratPernyataan
+      suratPernyataan: !!suratPernyataan,
+      program: !!program
     });
 
     if (!userId) {
@@ -46,6 +48,7 @@ export async function POST(req: NextRequest) {
       ttl,
       namaWali,
       noHpWali,
+      program,
       jenis_kelamin,
     };
     const missingFields = Object.entries(requiredFields)
@@ -182,6 +185,7 @@ export async function POST(req: NextRequest) {
       suratPernyataan: suratPernyataan ? suratPernyataan.trim() : null,
       userId,
       status: "MENUNGGU VERIFIKASI",
+      program,
       createdAt: new Date().toISOString(),
     };
 

@@ -416,8 +416,8 @@ const ManageUsers = () => {
                   }
                   className="text-black w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
-    <option value="USER">USER</option>
-    <option value="ADMIN">ADMIN</option>
+                <option value="USER">USER</option>
+                <option value="ADMIN">ADMIN</option>
                 </select>
               </div>
             </div>

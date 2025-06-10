@@ -4,7 +4,7 @@ import { NextRequest } from "next/server";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { fullName, alamat, ttl, noHp, userId, email, jenis_kelamin, pendidikan_terakhir, alasan_melamar } = body;
+    const { fullName, alamat, ttl, noHp, userId, email, jenisKelamin, pendidikanTerakhir, alasan_melamar } = body;
 
     if (!userId) {
       return new Response(JSON.stringify({ error: 'User tidak terautentikasi' }), {
@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Validasi data
-    if (!fullName || !alamat || !ttl || !noHp || !email || !jenis_kelamin || !pendidikan_terakhir || !alasan_melamar) {
+    if (!fullName || !alamat || !ttl || !noHp || !email || !jenisKelamin || !pendidikanTerakhir || !alasan_melamar) {
       return new Response(JSON.stringify({ error: 'Semua field harus diisi' }), {
         status: 400,
         headers: { 'Content-Type': 'application/json' }
@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
     const { data, error } = await supabase
       .from('PendaftarTenagaPendidik')
       .insert([
-        { fullName, alamat, ttl, noHp, userId, email, jenis_kelamin, pendidikan_terakhir, alasan_melamar }
+        { fullName, alamat, ttl, noHp, userId, email, jenisKelamin, pendidikanTerakhir, alasan_melamar }
       ])
       .select();
 
@@ -131,7 +131,7 @@ export async function GET_WITH_FILTERS(req: NextRequest) {
 
     // Filter berdasarkan pendidikan terakhir
     if (pendidikan) {
-      query = query.eq('pendidikan_terakhir', pendidikan);
+      query = query.eq('pendidikanTerakhir', pendidikan);
     }
 
     // Pagination

@@ -13,6 +13,7 @@ type PesertaDidik = {
   id: number;
   fullName: string;
   alamat: string;
+  program: string;
   ttl: string;
   namaWali: string;
   noHpWali: string;
@@ -136,7 +137,7 @@ const StatusBadge: FC<{ status: DbStatus }> = ({ status }) => {
     }
   };
   return (
-    <span className={`px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(status)}`}>
+    <span className={`px-3 py-1 rounded-full text-xs font-semibold border ${getStatusColor(status)}`}>
       {dbToFeStatusMap[status] || status}
     </span>
   );
@@ -299,6 +300,11 @@ const Tabel: FC<{
           <tr>
             <th className="px-6 py-4 text-left text-sm font-medium text-black">Nama</th>
             <th className="px-6 py-4 text-left text-sm font-medium text-black">Alamat</th>
+            {type === 'PD' && (
+              <th className="px-6 py-4 text-left text-sm font-medium text-black">
+                Program
+              </th>
+            )}
             <th className="px-6 py-4 text-left text-sm font-medium text-black">{type === 'PD' ? 'Nama Wali' : 'Email'}</th>
             <th className="px-6 py-4 text-left text-sm font-medium text-black">Status</th>
             <th className="px-6 py-4 text-left text-sm font-medium text-black">Aksi</th>
@@ -311,17 +317,28 @@ const Tabel: FC<{
                 <div className="font-medium text-black">{item.fullName}</div>
                 <div className="text-sm text-gray-700">{item.ttl}</div>
               </td>
-              <td className="px-6 py-4 text-sm max-w-xs truncate text-black">{item.alamat}</td>
+              <td className="px-6 py-4 text-sm text-black max-w-[200px] whitespace-nowrap overflow-hidden text-ellipsis">{item.alamat}</td>
+              {type ==='PD' && (
+                <td className="px-6 py-4 text-sm max-w-xs truncate text-black">{item.program}</td>
+              )}
               <td className="px-6 py-4 text-sm text-black">{type === 'PD' ? item.namaWali : item.email}</td>
               <td className="px-6 py-4">
                 <select
                   value={item.status}
                   onChange={(e) => onStatusChange(item.id, e.target.value as DbStatus)}
-                  className="text-black w-full p-2 text-sm border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                  className={`font-medium text-black w-full p-2 text-sm border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500
+                    ${item.status === 'MENUNGGU VERIFIKASI' ? 'bg-yellow-100 text-yellow-800' :
+                      item.status === 'TELAH DIVERIFIKASI' ? 'bg-blue-100 text-blue-800' :
+                      item.status === 'DITERIMA' ? 'bg-green-100 text-green-800' :
+                      item.status === 'DITOLAK' ? 'bg-red-100 text-red-800' : ''}`}
                 >
                   {allFeStatuses.map(feStatus => {
-                      const dbStatus = feToDbStatusMap[feStatus];
-                      return <option key={dbStatus} value={dbStatus}>{feStatus}</option>
+                    const dbStatus = feToDbStatusMap[feStatus];
+                    return (
+                      <option key={dbStatus} value={dbStatus}>
+                        {feStatus}
+                      </option>
+                    );
                   })}
                 </select>
               </td>
