@@ -333,33 +333,11 @@ function FormPendaftaran() {
   }
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 p-6">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
-      </div>
-
-      {/* Floating Decorative Elements */}
-      <div className="absolute top-20 left-10 w-4 h-4 bg-blue-400 rounded-full opacity-40 animate-bounce"></div>
-      <div
-        className="absolute top-32 right-20 w-3 h-3 bg-purple-400 rounded-full opacity-40 animate-bounce"
-        style={{ animationDelay: "0.5s" }}
-      ></div>
-      <div
-        className="absolute bottom-32 left-20 w-5 h-5 bg-pink-400 rounded-full opacity-40 animate-bounce"
-        style={{ animationDelay: "1s" }}
-      ></div>
-      <div
-        className="absolute bottom-20 right-10 w-4 h-4 bg-yellow-400 rounded-full opacity-40 animate-bounce"
-        style={{ animationDelay: "1.5s" }}
-      ></div>
-
+    <div className="relative min-h-screen bg-blue-50 rounded-2xl p-6">
       <div className="relative z-10 max-w-4xl mx-auto">
         {/* Header Section */}
         <div className="text-center mb-12">
-          <div className="inline-block p-3 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-blue-500 via-blue-600 to-blue-800 rounded-2xl mb-6 shadow-lg">
+          <div className="inline-block p-3 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-blue-400 via-blue-500 to-blue-700 rounded-2xl mb-6 shadow-lg">
             <svg
               className="w-12 h-12 text-white"
               fill="none"
@@ -384,7 +362,7 @@ function FormPendaftaran() {
         </div>
 
         {/* Main Form Container */}
-        <div className="bg-white/70 backdrop-blur-sm rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
+        <div className="bg-white/70 backdrop-blur-sm rounded-3xl border border-white/20 overflow-hidden">
           {/* Decorative Header */}
           <div className="bg-gradient-to-r via-blue-200 from-blue-500 to-blue-500 h-2"></div>
 
@@ -436,7 +414,7 @@ function FormPendaftaran() {
               {/* Personal Information Section */}
               <div className="space-y-6">
                 <div className="flex items-center space-x-3 mb-6">
-                  <div className="p-2 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-500 via-blue-600 to-blue-800 rounded-full">
+                  <div className="p-2 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-400 via-blue-500 to-blue-800 rounded-full">
                     <svg
                       className="w-5 h-5 text-white"
                       fill="none"
@@ -609,7 +587,7 @@ function FormPendaftaran() {
               {/* Guardian Information Section */}
               <div className="space-y-6">
                 <div className="flex items-center space-x-3 mb-6">
-                  <div className="p-2 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-green-500 via-green-600 to-green-800 rounded-full">
+                  <div className="p-2 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-green-400 via-green-500 to-green-800 rounded-full">
                     <svg
                       className="w-5 h-5 text-white"
                       fill="none"
@@ -679,7 +657,7 @@ function FormPendaftaran() {
               {/* Documents Section */}
               <div className="space-y-6">
                 <div className="flex items-center space-x-3 mb-6">
-                  <div className="p-2 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-500 via-purple-600 to-purple-800 rounded-full">
+                  <div className="p-2 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-400 via-purple-500 to-purple-800 rounded-full">
                     <svg
                       className="w-5 h-5 text-white"
                       fill="none"
@@ -937,7 +915,7 @@ function FormPendaftaran() {
                   className={`group relative w-full py-4 px-8 rounded-2xl font-bold text-lg transition-all duration-300 transform ${
                     loading
                       ? "bg-gray-400 cursor-not-allowed scale-95"
-                      : "bg-gradient-to-r from-orange-600 via-orange-600 to-orange-600 hover:from-orange-700 hover:via-orange-700 hover:to-orange-700 hover:scale-105 hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-purple-300 focus:ring-offset-2 active:scale-95"
+                      : "bg-orange-600 hover:bg-orange-700 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-purple-300 focus:ring-offset-2 active:scale-95"
                   } text-white shadow-xl`}
                 >
                   <div className="flex items-center justify-center space-x-3">
@@ -977,13 +955,13 @@ function FormPendaftaran() {
         {/* Footer decoration */}
         <div className="text-center mt-12 space-y-4">
           <div className="flex justify-center space-x-2">
-            <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+            <div className="w-4 h-2 bg-blue-400 rounded-full "></div>
             <div
-              className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"
+              className="w-4 h-2 bg-purple-400 rounded-full "
               style={{ animationDelay: "0.2s" }}
             ></div>
             <div
-              className="w-2 h-2 bg-pink-400 rounded-full animate-pulse"
+              className="w-4 h-2 bg-pink-400 rounded-full"
               style={{ animationDelay: "0.4s" }}
             ></div>
           </div>

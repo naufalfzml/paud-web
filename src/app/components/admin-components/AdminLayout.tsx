@@ -2,7 +2,7 @@
 
 import { useState, ReactNode } from "react";
 import Sidebar from "../admin-components/Sidebar";
-import Breadcrumb from "../admin-components/Breadcrumb";
+// import Breadcrumb from "../admin-components/Breadcrumb";
 import { Menu } from "lucide-react";
 
 type AdminLayoutProps = {
@@ -33,7 +33,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
         </header>
 
         <main className="p-6">
-          <Breadcrumb />
+          {/* <Breadcrumb /> */}
           {children}
         </main>
       </div>
