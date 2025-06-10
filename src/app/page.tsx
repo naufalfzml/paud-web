@@ -24,34 +24,33 @@ const PAUDWebsite = () => {
                 <span className="text-green-500">Menyenangkan</span>
               </h2>
               <p className="text-black mb-8 leading-tight font-medium my-5 max-w-lg text-2xl">
-                A warm and nurturing environment where every child's curiosity is celebrated and their unique potential is discovered.
+                PAUD Cahya Indria menyediakan pembelajaran yang interaktif dan menyenangkan dengan program Islami seperti praktek sholat,
+                hafalan doa harian, surat-surat pendek dan hadist.
               </p>
               <div className="space-y-3">
                 <div className="flex items-center space-x-3">
-                  <span className="font-medium text-black bg-gray-300 rounded-xl inline-flex px-6 py-1.5 transition-transform duration-300 hover:scale-110 cursor-pointer">Selengkapnya</span>
+                  <a href="/profil">
+                    <span className="font-medium text-black bg-gray-300 rounded-xl inline-flex px-6 py-1.5 transition-transform duration-300 hover:scale-110 cursor-pointer">Selengkapnya</span>
+                  </a>
                 </div>
                 <div className="flex items-center space-x-3">
                   <img src="/images/siswa.png" alt="" />
-                  <span className="text-gray-600">400+ Siswa</span>
+                  <span className="text-gray-600">300+ Siswa</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <img src="/images/guru.png" alt="" />
-                  <span className="text-gray-600">100+ Guru</span>
+                  <span className="text-gray-600">30+ Guru</span>
                 </div>
               </div>
             </div>
             <div className="lg:w-1/2 w-full sm:3/4">
-              <div className="bg-gray-200 rounded-xl h-94 lg:h-[28rem] flex items-center justify-center relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-yellow-100 to-orange-100"></div>
-                <div className="relative z-10 text-center p-6">
-                  <div className="grid grid-cols-4 gap-2 mb-4">
-                    {[...Array(12)].map((_, i) => (
-                      <div key={i} className="w-8 h-8 bg-blue-400 rounded-full opacity-80"></div>
-                    ))}
-                  </div>
+              <img src={"https://yvixnhiybrgmxfywqjzu.supabase.co/storage/v1/object/public/homepage//homepage.jpg"} className="bg-gray-200 rounded-xl h-9 object-cover lg:h-[28rem] flex items-center justify-center relative overflow-hidden">
+                {/* <div className="absolute inset-0 bg-gradient-to-br from-yellow-100 to-orange-100"></div>
+                <img className="relative z-10 text-center p-6">
+                  <img ></img>
                   <p className="text-sm text-gray-600">Suasana kelas yang menyenangkan</p>
-                </div>
-              </div>
+                </img> */}
+              </img>
             </div>
             <div className="absolute bottom-4 right-4">
             </div>
@@ -62,9 +61,9 @@ const PAUDWebsite = () => {
       {/* About Section */}
       <section className="py-16 bg-tentang-paud">
         <div className="max-w-6xl mx-auto px-4 text-center">
-          <h2 className="text-5xl font-medium text-gray-800 mb-6">Tentang PAUD</h2>
-          <p className="text-gray-600 max-w-3xl mx-auto leading-relaxed text-2xl mt-16">
-            PAUD Cahya Indria is dedicated to providing a nurturing environment where children can explore, discover, and develop a love for learning through play-based educational experiences.
+          <h2 className="text-5xl font-medium text-gray-800 mb-6">Tentang Cahya Indria</h2>
+          <p className="text-gray-600 max-w-3xl mx-auto leading-relaxed text-2xl mt-8">
+            PAUD Cahya Indria berkomitmen untuk menyediakan lingkungan yang hangat dan mendukung, tempat anak-anak dapat bereksplorasi, menemukan hal baru, dan menumbuhkan cinta belajar melalui pengalaman pendidikan berbasis bermain.
           </p>
         </div>
         <div className="max-w-6xl mx-auto px-4 mt-16">

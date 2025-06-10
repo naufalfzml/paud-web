@@ -1,8 +1,8 @@
-"use client"
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import React, { useState } from 'react';
-import { Menu, X, MapPin, Phone, Mail, Clock } from 'lucide-react';
+"use client";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import React, { useState } from "react";
+import { Menu, X, MapPin, Phone, Mail, Clock } from "lucide-react";
 import {
   Carousel,
   CarouselContent,
@@ -11,14 +11,13 @@ import {
   CarouselPrevious,
 } from "../components/Carousel";
 
-
 // Hero Section Component
 const HeroSection = () => {
   return (
     <section className="relative pt-20 px-6 text-center ">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-5xl font-semibold text-gray-800 mb-4 animate-fade-in">
-          Tentang PAUD
+          PAUD CAHYA INDRIA
         </h1>
         <p className="text-xl text-gray-600 animate-fade-in animation-delay-200">
           Cerdas, Cermat, Ceria!
@@ -36,18 +35,19 @@ const AboutSection = () => {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="space-y-4 animate-fade-in">
             <p className="text-gray-700 leading-relaxed">
-              PAUD Cahya Indria diberikan untuk anak usia 3-6 tahun, yaitu
-              masa yang memberikan kontribusi berupa bentuk-bentuk yang akan
-              menjadi dasar bagi tahap perkembangan selanjutnya. Dalam proses
-              tersebut diperlukan rangsangan-rangsangan yang tepat agar potensi
-              anak dapat berkembang secara optimal.
+              PAUD CAHYA INDRIA adalah lembaga Pendidikan Anak Usia Dini (PAUD)
+              yang berdiri sejak 2018. Berstatus sebagai sekolah Swasta, lembaga
+              ini telah memberikan kontribusi signifikan dalam pengembangan
+              pendidikan anak usia dini di wilayah Kec. Demak.
             </p>
             <p className="text-gray-700 leading-relaxed">
-              Program pembelajaran di PAUD Cahya Indria direncanakan dengan
-              pendekatan yang komprehensif dan bermakna berdasarkan kecerdasan
-              majemuk yang ada dalam diri anak dengan menggunakan pendekatan
-              holistik sehingga terciptanya anak yang berkarakter, kreatif,
-              mandiri, dan berprestasi.
+              PAUD CAHYA INDRIA didukung oleh tenaga pendidik profesional yang
+              memiliki kompetensi di bidang pendidikan anak usia dini. Fasilitas
+              pendukung yang aman, bersih, dan ramah anak juga menjadi bagian
+              penting dalam menciptakan lingkungan belajar yang positif. Hingga
+              kini, PAUD CAHYA INDRIA terus tumbuh sebagai pilihan utama
+              masyarakat di wilayah Kec. Demak, dalam memberikan pendidikan awal
+              terbaik bagi buah hati mereka.
             </p>
           </div>
           <div className="flex justify-center animate-fade-in animation-delay-300">
@@ -76,12 +76,19 @@ const VisionMissionSection = () => {
       <div className="max-w-4xl mx-auto">
         <div className="grid md:grid-cols-2 gap-8 mb-10">
           <div className="bg-white/70 backdrop-blur-sm rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 animate-fade-in">
-            <h2 className="text-3xl font-medium text-center text-gray-800 mb-6 tracking-widest">VISI</h2>
-            <p className="text-black text-center font-normal px-4 leading-7 text-lg">Menyiapkan calon generasi yang bertaqwa, sehat, cerdas, dan berbudi luhur</p>
+            <h2 className="text-3xl font-medium text-center text-gray-800 mb-6 tracking-widest">
+              VISI
+            </h2>
+            <p className="text-black text-center font-normal px-4 leading-7 text-lg">
+              Menyiapkan calon generasi yang bertaqwa, sehat, cerdas, dan
+              berbudi luhur
+            </p>
           </div>
-          
+
           <div className="bg-white/70 backdrop-blur-sm rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 animate-fade-in animation-delay-200">
-            <h2 className="text-3xl font-medium text-center text-gray-800 mb-6 tracking-widest">MISI</h2>
+            <h2 className="text-3xl font-medium text-center text-gray-800 mb-6 tracking-widest">
+              MISI
+            </h2>
             <ul className="text-left leading-7 text-lg text-black font-normal list-disc ml-4">
               <li>Mempraktikkan dasar-dasar keimanan</li>
               <li>Melatih kebersamaan</li>
@@ -92,12 +99,23 @@ const VisionMissionSection = () => {
         </div>
         <div className="flex justify-center">
           <div className="bg-white/70 backdrop-blur-sm rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 animate-fade-in">
-            <h2 className="text-3xl font-medium text-center text-gray-800 mb-6 tracking-wide">TUJUAN</h2>
+            <h2 className="text-3xl font-medium text-center text-gray-800 mb-6 tracking-wide">
+              TUJUAN
+            </h2>
             <ul className="text-left leading-7 text-lg text-black font-normal list-disc ml-4">
-                <li>Mewujudkan anak yang bertaqwa dan berakhlaqul karimah</li>
-                <li>Mendidik anak agar menjadi generasi yang berkualitas berguna bagi agama,nusa,dan bangsa</li>
-                <li>Mengembangkan kreatifitas ketrampilan anak didik untuk mengekspresikan diri dalam berkarya seni</li>
-                <li>Mengembangkan bakat minat dan kemampuan sehingga anak berkembang secara optimal dan mampu beraktualisasi diri</li>
+              <li>Mewujudkan anak yang bertaqwa dan berakhlaqul karimah</li>
+              <li>
+                Mendidik anak agar menjadi generasi yang berkualitas berguna
+                bagi agama,nusa,dan bangsa
+              </li>
+              <li>
+                Mengembangkan kreatifitas ketrampilan anak didik untuk
+                mengekspresikan diri dalam berkarya seni
+              </li>
+              <li>
+                Mengembangkan bakat minat dan kemampuan sehingga anak berkembang
+                secara optimal dan mampu beraktualisasi diri
+              </li>
             </ul>
           </div>
         </div>
@@ -117,7 +135,7 @@ interface InfiniteCarouselItem {
 
 interface InfiniteCarouselProps {
   items: InfiniteCarouselItem[];
-  type: 'organizational' | string;
+  type: "organizational" | string;
 }
 
 const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({ items, type }) => {
@@ -137,7 +155,7 @@ const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({ items, type }) => {
               className="pl-2 md:pl-4 md:basis-1/3 lg:basis-1/3 relative overflow-visible"
             >
               <div className="p-3 overflow-visible">
-                {type === 'organizational' ? (
+                {type === "organizational" ? (
                   <div className="flex flex-col bg-white rounded-2xl shadow-md hover:shadow-md transition-all duration-300 hover:scale-105 hover:z-30 overflow-hidden h-72 relative">
                     {item.imageUrl && (
                       <div className="h-1/2 flex-shrink-0">
@@ -145,28 +163,55 @@ const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({ items, type }) => {
                           src={item.imageUrl}
                           alt={item.title}
                           className="w-full h-full object-cover rounded-t-2xl"
-                          onError={(e) => { (e.target as HTMLImageElement).src = 'https://placehold.co/600x400/CCCCCC/333333?text=No+Image'; }}
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).src =
+                              "https://placehold.co/600x400/CCCCCC/333333?text=No+Image";
+                          }}
                         />
                       </div>
                     )}
-                    <div className={`p-4 flex flex-col justify-center text-center ${item.color || 'bg-gray-700'} ${item.imageUrl ? 'h-1/2 rounded-b-2xl' : 'h-full rounded-2xl'}`}>
-                      <h3 className="text-white font-semibold text-lg mb-2">{item.title}</h3>
-                      {item.name && <p className="text-white/90 text-sm">{item.name}</p>}
+                    <div
+                      className={`p-4 flex flex-col justify-center text-center ${
+                        item.color || "bg-gray-700"
+                      } ${
+                        item.imageUrl
+                          ? "h-1/2 rounded-b-2xl"
+                          : "h-full rounded-2xl"
+                      }`}
+                    >
+                      <h3 className="text-white font-semibold text-lg mb-2">
+                        {item.title}
+                      </h3>
+                      {item.name && (
+                        <p className="text-white/90 text-sm">{item.name}</p>
+                      )}
                     </div>
                   </div>
                 ) : (
                   <div className="relative rounded-2xl shadow- hover:shadow-inner transition-all duration-300 hover:scale-100 hover:z-30 overflow-hidden h-72 group bg-slate-200">
                     <img
-                      src={item.imageUrl || 'https://placehold.co/600x400/E0E0E0/333333?text=Image+Not+Available'}
+                      src={
+                        item.imageUrl ||
+                        "https://placehold.co/600x400/E0E0E0/333333?text=Image+Not+Available"
+                      }
                       alt={item.title}
                       className="w-full h-full object-cover rounded-2xl transition-transform duration-300 group-hover:scale-110"
-                      onError={(e) => { (e.target as HTMLImageElement).src = 'https://placehold.co/600x400/CCCCCC/333333?text=Error+Loading'; }}
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src =
+                          "https://placehold.co/600x400/CCCCCC/333333?text=Error+Loading";
+                      }}
                     />
                     <div className="absolute inset-0 flex flex-col justify-end p-4 bg-gradient-to-t from-black/80 via-black/50 to-transparent rounded-b-2xl">
-                      <h3 className="text-white font-bold text-lg mb-1">{item.title}</h3>
-                      {item.description && (
-                        <p className="text-white/90 text-sm leading-relaxed line-clamp-2">{item.description}</p>
-                      )}
+                      <div className="h-20">
+                        <h3 className="text-white font-medium text-lg mb-1 justify-start">
+                          {item.title}
+                        </h3>
+                        {item.description && (
+                          <p className="text-white/90 text-sm leading-relaxed line-clamp-2">
+                            {item.description}
+                          </p>
+                        )}
+                      </div>
                     </div>
                   </div>
                 )}
@@ -179,21 +224,65 @@ const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({ items, type }) => {
   );
 };
 
-
 // Organizational Structure Section Component
 const OrganizationalStructure = () => {
-  const orgData: InfiniteCarouselItem[] = [ // Menggunakan InfiniteCarouselItem
-    { id: 1, title: "Kepala Sekolah", name: "Hariyanto Setiadi D.C.S.Pd", color: "bg-gradient-to-br from-purple-500 to-purple-600", imageUrl: "https://images.pexels.com/photos/1001914/pexels-photo-1001914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" },
-    { id: 2, title: "Wakil Kepala", name: "Hariyanto Setiadi D.C.S.Pd", color: "bg-gradient-to-br from-blue-500 to-blue-600", imageUrl: "https://images.pexels.com/photos/1001914/pexels-photo-1001914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" },
-    { id: 3, title: "Bendahara", name: "Hariyanto Setiadi D.C.S.Pd", color: "bg-gradient-to-br from-green-500 to-green-600", imageUrl: "https://images.pexels.com/photos/1001914/pexels-photo-1001914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" },
-    { id: 4, title: "Sekretaris", name: "Hariyanto Setiadi D.C.S.Pd", color: "bg-gradient-to-br from-pink-500 to-pink-600", imageUrl: "https://images.pexels.com/photos/1001914/pexels-photo-1001914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" },
-    { id: 5, title: "Guru Kelas A", name: "Hariyanto Setiadi D.C.S.Pd", color: "bg-gradient-to-br from-indigo-500 to-indigo-600", imageUrl: "https://images.pexels.com/photos/1001914/pexels-photo-1001914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" },
-    { id: 6, title: "Guru Kelas B", name: "Hariyanto Setiadi D.C.S.Pd", color: "bg-gradient-to-br from-teal-500 to-teal-600", imageUrl: "https://images.pexels.com/photos/1001914/pexels-photo-1001914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" },
+  const orgData: InfiniteCarouselItem[] = [
+    // Menggunakan InfiniteCarouselItem
+    {
+      id: 1,
+      title: "Kepala Sekolah",
+      name: "Hariyanto Setiadi D.C.S.Pd",
+      color: "bg-gradient-to-br from-purple-500 to-purple-600",
+      imageUrl:
+        "https://images.pexels.com/photos/1001914/pexels-photo-1001914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    },
+    {
+      id: 2,
+      title: "Wakil Kepala",
+      name: "Hariyanto Setiadi D.C.S.Pd",
+      color: "bg-gradient-to-br from-blue-500 to-blue-600",
+      imageUrl:
+        "https://images.pexels.com/photos/1001914/pexels-photo-1001914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    },
+    {
+      id: 3,
+      title: "Bendahara",
+      name: "Hariyanto Setiadi D.C.S.Pd",
+      color: "bg-gradient-to-br from-green-500 to-green-600",
+      imageUrl:
+        "https://images.pexels.com/photos/1001914/pexels-photo-1001914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    },
+    {
+      id: 4,
+      title: "Sekretaris",
+      name: "Hariyanto Setiadi D.C.S.Pd",
+      color: "bg-gradient-to-br from-pink-500 to-pink-600",
+      imageUrl:
+        "https://images.pexels.com/photos/1001914/pexels-photo-1001914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    },
+    {
+      id: 5,
+      title: "Guru Kelas A",
+      name: "Hariyanto Setiadi D.C.S.Pd",
+      color: "bg-gradient-to-br from-indigo-500 to-indigo-600",
+      imageUrl:
+        "https://images.pexels.com/photos/1001914/pexels-photo-1001914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    },
+    {
+      id: 6,
+      title: "Guru Kelas B",
+      name: "Hariyanto Setiadi D.C.S.Pd",
+      color: "bg-gradient-to-br from-teal-500 to-teal-600",
+      imageUrl:
+        "https://images.pexels.com/photos/1001914/pexels-photo-1001914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    },
   ];
 
-
   return (
-    <section className="py-16 px-6 bg-gradient-to-r from-purple-500 to-blue-500" id="struktur-kepengurusan">
+    <section
+      className="py-16 px-6 bg-gradient-to-r from-purple-500 to-blue-500"
+      id="struktur-kepengurusan"
+    >
       <div className="max-w-7xl mx-auto">
         <h2 className="text-4xl font-semibold text-center text-white mb-12 animate-fade-in">
           STRUKTUR KEPENGURUSAN
@@ -207,16 +296,55 @@ const OrganizationalStructure = () => {
 // Facilities Section Component
 const FacilitiesSection = () => {
   const facilitiesData: InfiniteCarouselItem[] = [
-    { id: 1, title: "RUANG KELAS BER-AC", description: "Ruang kelas yang nyaman dengan pendingin udara", color: "bg-gradient-to-br from-blue-300 to-blue-400", imageUrl: "https://images.pexels.com/photos/1001914/pexels-photo-1001914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" },
-    { id: 2, title: "TAMAN BERMAIN YANG AMAN", description: "Area bermain outdoor yang aman untuk anak", color: "bg-gradient-to-br from-green-300 to-green-400", imageUrl: "https://images.pexels.com/photos/1001914/pexels-photo-1001914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" },
-    { id: 3, title: "GURU YANG RAMAH ANAK", description: "Tenaga pengajar profesional dan berpengalaman", color: "bg-gradient-to-br from-purple-300 to-purple-400" , imageUrl: "https://images.pexels.com/photos/1001914/pexels-photo-1001914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"},
-    { id: 4, title: "PERPUSTAKAAN MINI", description: "Koleksi buku cerita dan edukatif untuk anak", color: "bg-gradient-to-br from-pink-300 to-pink-400" , imageUrl: "https://images.pexels.com/photos/1001914/pexels-photo-1001914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"},
-    { id: 5, title: "AREA SENI DAN KREATIVITAS", description: "Ruang khusus untuk mengembangkan kreativitas", color: "bg-gradient-to-br from-indigo-300 to-indigo-400" , imageUrl: "https://images.pexels.com/photos/1001914/pexels-photo-1001914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"},
+    {
+      id: 1,
+      title: "AULA LUAS BER-AC",
+      description: "Aula pembelajaran yang nyaman dengan pendingin udara",
+      color: "bg-gradient-to-br from-blue-300 to-blue-400",
+      imageUrl:
+        "https://images.pexels.com/photos/1001914/pexels-photo-1001914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    },
+    {
+      id: 2,
+      title: "TAMAN BERMAIN YANG AMAN",
+      description: "Area bermain outdoor yang aman untuk anak",
+      color: "bg-gradient-to-br from-green-300 to-green-400",
+      imageUrl:
+        "https://images.pexels.com/photos/1001914/pexels-photo-1001914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    },
+    {
+      id: 3,
+      title: "GURU YANG RAMAH ANAK",
+      description: "Tenaga pengajar profesional dan berpengalaman",
+      color: "bg-gradient-to-br from-purple-300 to-purple-400",
+      imageUrl:
+        "https://images.pexels.com/photos/1001914/pexels-photo-1001914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    },
+    {
+      id: 4,
+      title: "TAMAN BELAJAR",
+      description: "Koleksi buku cerita dan edukatif untuk anak",
+      color: "bg-gradient-to-br from-pink-300 to-pink-400",
+      imageUrl:
+        "https://images.pexels.com/photos/1001914/pexels-photo-1001914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    },
+    {
+      id: 5,
+      title: "AREA SENI DAN KREATIVITAS",
+      description: "Ruang khusus untuk mengembangkan kreativitas",
+      color: "bg-gradient-to-br from-indigo-300 to-indigo-400",
+      imageUrl:
+        "https://images.pexels.com/photos/1001914/pexels-photo-1001914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    },
   ];
 
   return (
-    <section className="py-16 px-6 bg-gradient-to-r from-blue-400 to-cyan-400" id="fasilitas">
-      -<div className="max-w-7xl mx-auto">
+    <section
+      className="py-16 px-6 bg-gradient-to-r from-blue-400 to-cyan-400"
+      id="fasilitas"
+    >
+      -
+      <div className="max-w-7xl mx-auto">
         <h2 className="text-4xl font-semibold text-center text-white mb-12 animate-fade-in">
           FASILITAS PAUD
         </h2>
