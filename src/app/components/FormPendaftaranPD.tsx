@@ -25,7 +25,8 @@ function FormPendaftaran() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState("");
-  const [isUploading, setIsUploading] = useState(false);
+  const [isUploadingFormulir, setIsUploadingFormulir] = useState(false);
+  const [isUploadingSurat, setIsUploadingSurat] = useState(false);
   const [error, setError] = useState("");
 
   const handleChange = (
@@ -155,7 +156,7 @@ function FormPendaftaran() {
     const fileName = `${Date.now()}.${fileExt}`;
     const filePath = `suratpernyataan/${fileName}`; // Ganti folder menjadi documents untuk PDF
 
-    setIsUploading(true);
+    setIsUploadingSurat(true);
     setError(""); // Clear error sebelum upload
     setMessage(""); // Clear message sebelum upload
 
@@ -191,7 +192,7 @@ function FormPendaftaran() {
       setMessage("Terjadi kesalahan tidak terduga saat upload file.");
       setMessageType("error");
     } finally {
-      setIsUploading(false);
+      setIsUploadingSurat(false);
     }
   };
 
@@ -221,7 +222,7 @@ function FormPendaftaran() {
     const fileName = `${Date.now()}.${fileExt}`;
     const filePath = `formulir/${fileName}`; // Ganti folder menjadi documents untuk PDF
 
-    setIsUploading(true);
+    setIsUploadingFormulir(true);
     setError(""); // Clear error sebelum upload
     setMessage(""); // Clear message sebelum upload
 
@@ -257,7 +258,7 @@ function FormPendaftaran() {
       setMessage("Terjadi kesalahan tidak terduga saat upload file.");
       setMessageType("error");
     } finally {
-      setIsUploading(false);
+      setIsUploadingFormulir(false);
     }
   };
 
@@ -728,7 +729,7 @@ function FormPendaftaran() {
                         type="file"
                         accept=".pdf,application/pdf"
                         onChange={handleFileUploadFormulir}
-                        disabled={isUploading}
+                        disabled={isUploadingFormulir}
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed bg-white/70 hover:bg-white/90 transition-all duration-200 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-purple-100 file:text-purple-700 hover:file:bg-purple-200"
                       />
 
@@ -736,7 +737,7 @@ function FormPendaftaran() {
                         Hanya file PDF dengan ukuran maksimal 5MB
                       </p>
 
-                      {isUploading && (
+                      {isUploadingFormulir && (
                         <div className="mt-4 flex items-center justify-center space-x-3">
                           <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-purple-500"></div>
                           <span className="text-sm text-purple-600 font-medium">
@@ -842,7 +843,7 @@ function FormPendaftaran() {
                         type="file"
                         accept=".pdf,application/pdf"
                         onChange={handleFileUploadSuratPernyataan}
-                        disabled={isUploading}
+                        disabled={isUploadingSurat}
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed bg-white/70 hover:bg-white/90 transition-all duration-200 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-100 file:text-blue-700 hover:file:bg-blue-200"
                       />
 
@@ -850,7 +851,7 @@ function FormPendaftaran() {
                         Hanya file PDF dengan ukuran maksimal 5MB
                       </p>
 
-                      {isUploading && (
+                      {isUploadingSurat && (
                         <div className="mt-4 flex items-center justify-center space-x-3">
                           <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-500"></div>
                           <span className="text-sm text-blue-600 font-medium">
