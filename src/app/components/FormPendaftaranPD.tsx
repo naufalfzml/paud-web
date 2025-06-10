@@ -526,7 +526,17 @@ function FormPendaftaran() {
                       className="block text-sm font-semibold text-gray-700 mb-2"
                     >
                       Program <span className="text-red-500">*</span>
+                      <br />
+                      <a
+                        href="https://yvixnhiybrgmxfywqjzu.supabase.co/storage/v1/object/public/formulir//SuratPAUD.jpg"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:underline text-sm font-normal"
+                      >
+                        Lihat brosur di sini
+                      </a>
                     </label>
+
                     <div className="relative">
                       <select
                         id="program"
