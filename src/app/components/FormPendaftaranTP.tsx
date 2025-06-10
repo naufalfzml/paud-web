@@ -61,7 +61,7 @@ function FormPendaftaran() {
     try {
       const fileName = `cv/${Date.now()}-${file.name}`;
       const { error } = await supabase.storage
-        .from("formulir") // Pastikan bucket 'formulir' ada
+        .from("tenagapendidik") // Pastikan bucket 'formulir' ada
         .upload(fileName, file);
 
       if (error) {
@@ -69,7 +69,7 @@ function FormPendaftaran() {
       }
 
       const { data: publicUrlData } = supabase.storage
-        .from("formulir")
+        .from("tenagapendidik")
         .getPublicUrl(fileName);
 
       setFormData((prev) => ({
