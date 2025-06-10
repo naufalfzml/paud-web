@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { Search, Filter, Eye, CheckCircle, XCircle, Download, FileText, Award, Trash2, Edit, X, Loader } from 'lucide-react';
+import { Search, Filter, Eye, CheckCircle, XCircle, Download, FileText, Award, Trash2, Edit, X, Loader, Plus } from 'lucide-react';
 
 interface Teacher {
   id: string;
@@ -19,11 +19,21 @@ const ManageTeachers = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showAddModal, setShowAddModal] = useState(false);
   const [selectedTeacher, setSelectedTeacher] = useState<Teacher | null>(null);
   const [teachers, setTeachers] = useState<Teacher[]>([]);
   const [loading, setLoading] = useState(true);
   const [editFormData, setEditFormData] = useState({
     fullName: '',
+    alamat: '',
+    noHp: '',
+    pendidikanTerakhir: '',
+    ttl: '',
+    nip: ''
+  });
+  const [addFormData, setAddFormData] = useState({
+    fullName: '',
+    email: '',
     alamat: '',
     noHp: '',
     pendidikanTerakhir: '',
@@ -84,6 +94,19 @@ const ManageTeachers = () => {
     setShowEditModal(true);
   };
 
+  const handleAdd = () => {
+    setAddFormData({
+      fullName: '',
+      email: '',
+      alamat: '',
+      noHp: '',
+      pendidikanTerakhir: '',
+      ttl: '',
+      nip: ''
+    });
+    setShowAddModal(true);
+  };
+
   const handleDelete = async (teacherId: string) => {
     if (window.confirm('Apakah Anda yakin ingin menghapus data guru ini?')) {
       try {
@@ -131,44 +154,27 @@ const ManageTeachers = () => {
     }
   };
 
-  const handleExportData = async () => {
+  const handleSaveAdd = async () => {
     try {
-      const response = await fetch('/api/tenaga-pendidik/export');
+      const response = await fetch('/api/tenaga-pendidik', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(addFormData),
+      });
       
       if (response.ok) {
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.style.display = 'none';
-        a.href = url;
-        a.download = `data-guru-${new Date().toISOString().split('T')[0]}.csv`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
+        setShowAddModal(false);
+        alert('Data guru berhasil ditambahkan');
+        fetchTeachers(); // Refresh data
       } else {
-        // Fallback to client-side export if API endpoint doesn't exist
-        const csvContent = [
-          'Nama,NIP,Email,Alamat,No HP,Pendidikan Terakhir,TTL,Dibuat Pada,Diperbarui Pada',
-          ...teachers.map(t => 
-            `"${t.fullName || ''}","${t.nip || ''}","${t.email || ''}","${t.alamat || ''}","${t.noHp || ''}","${t.pendidikanTerakhir || ''}","${t.ttl || ''}","${t.createdAt || ''}","${t.updatedAt || ''}"`
-          )
-        ].join('\n');
-        
-        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.style.display = 'none';
-        a.href = url;
-        a.download = `data-guru-${new Date().toISOString().split('T')[0]}.csv`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);
+        const error = await response.json();
+        alert(`Gagal menambahkan data guru: ${error.error || 'Unknown error'}`);
       }
     } catch (error) {
-      console.error('Error exporting data:', error);
-      alert('Terjadi kesalahan saat mengexport data');
+      console.error('Error adding teacher:', error);
+      alert('Terjadi kesalahan saat menambahkan data');
     }
   };
 
@@ -189,11 +195,11 @@ const ManageTeachers = () => {
         <h1 className="text-3xl font-bold text-gray-800">Manajemen Tenaga Pendidik</h1>
         <div className="flex space-x-3">
           <button 
-            onClick={handleExportData}
-            className="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors font-medium flex items-center space-x-2"
+            onClick={handleAdd}
+            className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors font-medium flex items-center space-x-2"
           >
-            <Download className="w-5 h-5" />
-            <span>Export Data</span>
+            <Plus className="w-5 h-5" />
+            <span>Tambah Data</span>
           </button>
         </div>
       </div>
@@ -510,6 +516,132 @@ const ManageTeachers = () => {
                 className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
               >
                 Simpan
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Add Modal */}
+      {showAddModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg p-6 w-full max-w-md max-h-96 overflow-y-auto">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-gray-900 text-lg font-semibold">Tambah Guru Baru</h3>
+              <button
+                onClick={() => setShowAddModal(false)}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Email <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="email"
+                  value={addFormData.email}
+                  onChange={(e) => setAddFormData(prev => ({...prev, email: e.target.value}))}
+                  className="text-gray-900 w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="guru@example.com"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Nama Lengkap
+                </label>
+                <input
+                  type="text"
+                  value={addFormData.fullName}
+                  onChange={(e) => setAddFormData(prev => ({...prev, fullName: e.target.value}))}
+                  className="text-gray-900 w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Masukkan nama lengkap"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  NIP
+                </label>
+                <input
+                  type="text"
+                  value={addFormData.nip}
+                  onChange={(e) => setAddFormData(prev => ({...prev, nip: e.target.value}))}
+                  className="text-gray-900 w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Masukkan NIP"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Alamat
+                </label>
+                <textarea
+                  value={addFormData.alamat}
+                  onChange={(e) => setAddFormData(prev => ({...prev, alamat: e.target.value}))}
+                  className="text-gray-900 w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Masukkan alamat"
+                  rows={3}
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Nomor HP
+                </label>
+                <input
+                  type="text"
+                  value={addFormData.noHp}
+                  onChange={(e) => setAddFormData(prev => ({...prev, noHp: e.target.value}))}
+                  className="text-gray-900 w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="08xxxxxxxxx"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Pendidikan Terakhir
+                </label>
+                <input
+                  type="text"
+                  value={addFormData.pendidikanTerakhir}
+                  onChange={(e) => setAddFormData(prev => ({...prev, pendidikanTerakhir: e.target.value}))}
+                  className="text-gray-900 w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Masukkan pendidikan terakhir"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Tempat, Tanggal Lahir
+                </label>
+                <input
+                  type="text"
+                  value={addFormData.ttl}
+                  onChange={(e) => setAddFormData(prev => ({...prev, ttl: e.target.value}))}
+                  className="text-gray-900 w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="Kota, DD MMM YYYY"
+                />
+              </div>
+            </div>
+
+            <div className="flex space-x-3 mt-6">
+              <button
+                onClick={() => setShowAddModal(false)}
+                className="flex-1 px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+              >
+                Batal
+              </button>
+              <button
+                onClick={handleSaveAdd}
+                className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+              >
+                Tambah
               </button>
             </div>
           </div>

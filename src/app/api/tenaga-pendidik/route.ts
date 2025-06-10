@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     
     // Validate required fields
-    const requiredFields = ['name', 'nip', 'email'];
+    const requiredFields = ['fullName', 'nip', 'email'];
     const missingFields = requiredFields.filter(field => !body[field]);
     
     if (missingFields.length > 0) {
@@ -80,7 +80,6 @@ export async function POST(request: NextRequest) {
       noHp: body.noHp || null,
       pendidikanTerakhir: body.pendidikanTerakhir || null,
       ttl: body.ttl || null,
-      status: body.status || 'pending',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     };
