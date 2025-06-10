@@ -245,7 +245,7 @@ export default function Navbar() {
 
                   {formData?.role === 'ADMIN' && (
                     <Link
-                      href="/admin-page"
+                      href="/admin-page/users"
                       className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center space-x-2 transition-colors"
                       onClick={() => setUserDropdownOpen(false)}
                     >

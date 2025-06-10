@@ -33,7 +33,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
         </header>
 
         <main className="p-6">
-          <Breadcrumb />
+          {/* <Breadcrumb /> */}
           {children}
         </main>
       </div>
