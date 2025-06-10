@@ -59,8 +59,8 @@ const AboutSection = () => {
                 height={300}
                 className="rounded-2xl shadow-2xl hover:scale-105 transition-transform duration-300 max-w-md w-full"
               />
-              <div className="absolute -top-4 -right-4 w-8 h-8 bg-purple-400 rounded-full animate-pulse"></div>
-              <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-blue-400 rounded-full animate-pulse animation-delay-500"></div>
+              <div className="absolute -top-4 -right-4 w-8 h-8 bg-purple-400 rounded-full "></div>
+              <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-blue-400 rounded-full"></div>
             </div>
           </div>
         </div>
@@ -72,7 +72,7 @@ const AboutSection = () => {
 // Vision Mission Section Component
 const VisionMissionSection = () => {
   return (
-    <section className="py-16 px-6 ">
+    <section className="py-16 px-6 bg-gradient-to-b from-header to-blue-300">
       <div className="max-w-4xl mx-auto">
         <div className="grid md:grid-cols-2 gap-8 mb-10">
           <div className="bg-white/70 backdrop-blur-sm rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 animate-fade-in">
@@ -97,7 +97,7 @@ const VisionMissionSection = () => {
             </ul>
           </div>
         </div>
-        <div className="flex justify-center">
+        <div className="flex justify-center ">
           <div className="bg-white/70 backdrop-blur-sm rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 animate-fade-in">
             <h2 className="text-3xl font-medium text-center text-gray-800 mb-6 tracking-wide">
               TUJUAN
@@ -280,11 +280,11 @@ const OrganizationalStructure = () => {
 
   return (
     <section
-      className="py-16 px-6 bg-gradient-to-r from-purple-500 to-blue-500"
+      className="py-16 px-6 bg-gradient-to-b from-blue-300 to-blue-400"
       id="struktur-kepengurusan"
     >
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-4xl font-semibold text-center text-white mb-12 animate-fade-in">
+        <h2 className="text-4xl drop-shadow-md font-semibold text-center text-white mb-12 animate-fade-in">
           STRUKTUR KEPENGURUSAN
         </h2>
         <InfiniteCarousel items={orgData} type="organizational" />
@@ -340,7 +340,7 @@ const FacilitiesSection = () => {
 
   return (
     <section
-      className="py-16 px-6 bg-gradient-to-r from-blue-400 to-cyan-400"
+      className="py-16 px-6 bg-gradient-to-b from-blue-400 to-blue-500"
       id="fasilitas"
     >
       -
