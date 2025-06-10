@@ -1,104 +1,113 @@
-import { createClient } from "@supabase/supabase-js";
-import { NextRequest, NextResponse } from "next/server";
+// app/api/tenaga-pendidik/route.ts
+import { NextRequest, NextResponse } from 'next/server';
+import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
-export async function GET(req: NextRequest) {
+// GET - Fetch all teachers
+export async function GET() {
   try {
-    // Ambil semua data dari tabel PesertaDidik
     const { data, error } = await supabase
       .from('PesertaDidik')
       .select('*')
       .order('createdAt', { ascending: false });
 
     if (error) {
-      console.error('Select error:', error);
-      return new Response(JSON.stringify({ error: 'Gagal mengambil data' }), {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' }
-      });
+      console.error('Supabase error:', error);
+      return NextResponse.json(
+        { error: 'Failed to fetch students', details: error.message },
+        { status: 500 }
+      );
     }
 
-    return new Response(JSON.stringify({
-      message: 'Data berhasil diambil',
-      data: data,
-      total: data?.length || 0
-    }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' }
-    });
-
+    return NextResponse.json(data);
   } catch (error) {
     console.error('Unexpected error:', error);
-    return new Response(JSON.stringify({ error: 'Terjadi kesalahan server' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' }
-    });
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
   }
 }
 
-export async function POST(req: NextRequest) {
+// POST - Create new teacher
+export async function POST(request: NextRequest) {
   try {
-    const body = await req.json();
-    const { fullName, alamat, ttl, namaWali, noHpWali, program, userId, jenis_kelamin } = body;
-
-    if (!userId) {
-      return new Response(JSON.stringify({ error: 'User tidak terautentikasi' }), {
-        status: 401,
-        headers: { 'Content-Type': 'application/json' }
-      });
+    const body = await request.json();
+    
+    // Validate required fields
+    const requiredFields = ['fullName', 'alamat', 'ttl', 'namaWali', 'noHpWali', 'program', 'jenis_kelamin'];
+    const missingFields = requiredFields.filter(field => !body[field]);
+    
+    if (missingFields.length > 0) {
+      return NextResponse.json(
+        { error: `Missing required fields: ${missingFields.join(', ')}` },
+        { status: 400 }
+      );
     }
 
-    // Validasi data
-    if (!fullName || !alamat || !ttl || !noHpWali || !namaWali || !jenis_kelamin || !program) {
-      return new Response(JSON.stringify({ error: 'Semua field harus diisi' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' }
-      });
+    // Check if NIP or email already exists
+    const { data: existingTeacher, error: checkError } = await supabase
+      .from('PesertaDidik')
+      .select('fullName')
+      .or(`fullName.eq.${body.fullName}`);
+
+    if (checkError) {
+      console.error('Error checking existing student:', checkError);
+      return NextResponse.json(
+        { error: 'Failed to validate student data', details: checkError.message },
+        { status: 500 }
+      );
     }
 
-    const phoneRegex = /^[0-9+\-\s()]+$/;
-    if (!phoneRegex.test(noHpWali)) {
-      return new Response(JSON.stringify({ error: 'Format nomor HP tidak valid' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' }
-      });
+    if (existingTeacher && existingTeacher.length > 0) {
+      const duplicate = existingTeacher[0];
+      const duplicateField = duplicate.fullName === body.fullName? 'Siswa' : 'Siswa';
+      return NextResponse.json(
+        { error: `${duplicateField} sudah terdaftar` },
+        { status: 409 }
+      );
     }
+
+    const studentData = {
+      fullName: body.fullName,
+      alamat: body.alamat,
+      ttl: body.ttl,
+      namaWali: body.namaWali,
+      noHpWali: body.noHpWali,
+      program: body.program,
+      jenis_kelamin: body.jenis_kelamin,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
 
     const { data, error } = await supabase
       .from('PesertaDidik')
-      .insert([
-        { fullName, alamat, ttl, namaWali, noHpWali, program, userId, jenis_kelamin }
-      ])
+      .insert([studentData])
       .select();
 
     if (error) {
-      console.error('Insert error:', error);
-      return new Response(JSON.stringify({ error: 'Gagal menyimpan data' }), {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' }
-      });
+      console.error('Supabase insert error:', error);
+      return NextResponse.json(
+        { error: 'Failed to create teacher', details: error.message },
+        { status: 500 }
+      );
     }
 
-    return new Response(JSON.stringify({
-      message: 'Data berhasil ditambahkan',
-      data: data[0]
-    }), {
-      status: 201,
-      headers: { 'Content-Type': 'application/json' }
-    });
+    return NextResponse.json(data[0], { status: 201 });
   } catch (error) {
     console.error('Unexpected error:', error);
-    return new Response(JSON.stringify({ error: 'Terjadi kesalahan server' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' }
-    });
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
   }
 }
 
+// PUT - Update teacher by ID
 export async function PUT(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
@@ -106,7 +115,7 @@ export async function PUT(request: NextRequest) {
 
     if (!id) {
       return NextResponse.json(
-        { error: 'Missing teacher ID in query parameter' },
+        { error: 'Missing student ID in query parameter' },
         { status: 400 }
       );
     }
@@ -126,14 +135,14 @@ export async function PUT(request: NextRequest) {
     if (error) {
       console.error('Supabase update error:', error);
       return NextResponse.json(
-        { error: 'Failed to update teacher', details: error.message },
+        { error: 'Failed to update student', details: error.message },
         { status: 500 }
       );
     }
 
     if (!data || data.length === 0) {
       return NextResponse.json(
-        { error: 'Teacher not found' },
+        { error: 'Student not found' },
         { status: 404 }
       );
     }
@@ -148,16 +157,19 @@ export async function PUT(request: NextRequest) {
   }
 }
 
-export async function DELETE(req: NextRequest) {
+
+
+// DELETE - Delete teacher by ID
+export async function DELETE(request: NextRequest) {
   try {
-    const body = await req.json();
-    const { id } = body;
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
 
     if (!id) {
-      return new Response(JSON.stringify({ error: 'ID tidak ditemukan' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' }
-      });
+      return NextResponse.json(
+        { error: 'Missing stident ID' },
+        { status: 400 }
+      );
     }
 
     const { data, error } = await supabase
@@ -167,33 +179,26 @@ export async function DELETE(req: NextRequest) {
       .select();
 
     if (error) {
-      console.error('Delete error:', error);
-      return new Response(JSON.stringify({ error: 'Gagal menghapus data' }), {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' }
-      });
+      console.error('Supabase delete error:', error);
+      return NextResponse.json(
+        { error: 'Failed to delete student', details: error.message },
+        { status: 500 }
+      );
     }
 
     if (!data || data.length === 0) {
-      return new Response(JSON.stringify({ error: 'Data tidak ditemukan' }), {
-        status: 404,
-        headers: { 'Content-Type': 'application/json' }
-      });
+      return NextResponse.json(
+        { error: 'Student not found' },
+        { status: 404 }
+      );
     }
 
-    return new Response(JSON.stringify({
-      message: 'Data berhasil dihapus',
-      data: data[0]
-    }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' }
-    });
-
+    return NextResponse.json({ message: 'Student deleted successfully' });
   } catch (error) {
     console.error('Unexpected error:', error);
-    return new Response(JSON.stringify({ error: 'Terjadi kesalahan server' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' }
-    });
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
   }
 }
