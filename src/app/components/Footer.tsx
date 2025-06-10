@@ -26,10 +26,11 @@ export default function Footer() {
                 <div>
                 <h4 className="font-bold mb-4">Program</h4>
                 <ul className="space-y-2 text-sm text-gray-400">
-                    <li><a href="#" className="hover:text-white">Kelompok Bermain</a></li>
-                    <li><a href="#" className="hover:text-white">TK A</a></li>
-                    <li><a href="#" className="hover:text-white">TK B</a></li>
-                    <li><a href="#" className="hover:text-white">Daycare</a></li>
+                    <li><a href="#" className="hover:text-white">PAUD</a></li>
+                    <li><a href="#" className="hover:text-white">TK Reguler</a></li>
+                    <li><a href="#" className="hover:text-white">TK Fullday A</a></li>
+                    <li><a href="#" className="hover:text-white">TK Fullday B</a></li>
+                    <li><a href="#" className="hover:text-white">TK Fullday C</a></li>
                 </ul>
                 </div>
                 

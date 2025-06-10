@@ -536,10 +536,11 @@ function FormPendaftaran() {
                         className="text-gray-700 w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 group-hover:border-gray-300 bg-white/50 backdrop-blur-sm appearance-none"
                       >
                         <option value="">Pilih Program</option>
-                        <option value="Regular">Regular</option>
-                        <option value="Fullday Paket A">Fullday Paket A</option>
-                        <option value="Fullday Paket B">Fullday Paket B</option>
-                        <option value="Fullday Paket C">Fullday Paket C</option>
+                        <option value="PAUD">PAUD</option>
+                        <option value="Regular">TK Regular</option>
+                        <option value="Fullday Paket A">TK Fullday Paket A</option>
+                        <option value="Fullday Paket B">TK Fullday Paket B</option>
+                        <option value="Fullday Paket C">TK Fullday Paket C</option>
                       </select>
                       <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
                         <svg
