@@ -46,10 +46,10 @@ type NotificationType = {
 
 // --- STATUS MAPPING UTILITIES ---
 const dbToFeStatusMap: Record<DbStatus, FeStatus> = {
-  pending: "Menunggu Verifikasi",
-  verified: "Telah Diverifikasi",
-  accepted: "Diterima",
-  rejected: "Ditolak",
+ "MENUNGGU VERIFIKASI": "Menunggu Verifikasi",
+ "TELAH DIVERIFIKASI": "Telah Diverifikasi",
+ "DITERIMA": "Diterima",
+ "DITOLAK": "Ditolak",
 };
 
 const feToDbStatusMap: Record<FeStatus, DbStatus> = {
