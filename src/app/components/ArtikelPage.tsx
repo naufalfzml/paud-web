@@ -235,13 +235,13 @@ const ArtikelPage = () => {
         </div>
 
         {/* Load More Button (optional - for pagination) */}
-        {artikels.length > 0 && (
+        {/* {artikels.length > 0 && (
           <div className="text-center mt-12">
             <button className="bg-white hover:bg-gray-50 text-gray-700 font-medium py-3 px-6 border border-gray-300 rounded-lg transition-colors">
               Muat Artikel Lainnya
             </button>
           </div>
-        )}
+        )} */}
       </div>
     </section>
   );
