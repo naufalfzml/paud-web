@@ -491,9 +491,10 @@ const ManageStudents = () => {
                   className="text-gray-900 w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
                   <option value="">Pilih Program</option>
-                  <option value="Paket A">Paket A</option>
-                  <option value="Paket B">Paket B</option>
-                  <option value="Paket C">Paket C</option>
+                  <option value="Regular">Regular</option>
+                  <option value="Fullday Paket A">Fullday Paket A</option>
+                  <option value="Fullday Paket B">Fullday Paket B</option>
+                  <option value="Fullday Paket C">Fullday Paket C</option>
                 </select>
               </div>
 

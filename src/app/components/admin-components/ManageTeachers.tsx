@@ -314,7 +314,7 @@ const ManageTeachers = () => {
 
       {/* Detail Modal */}
       {showDetailModal && selectedTeacher && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg p-6 w-full max-w-md max-h-96 overflow-y-auto">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-gray-900 text-lg font-semibold">Detail Guru</h3>
@@ -411,7 +411,6 @@ const ManageTeachers = () => {
                 <X className="w-5 h-5" />
               </button>
             </div>
-            
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -481,13 +480,20 @@ const ManageTeachers = () => {
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Pendidikan Terakhir
                 </label>
-                <input
-                  type="text"
+                <select
                   value={editFormData.pendidikanTerakhir}
                   onChange={(e) => setEditFormData(prev => ({...prev, pendidikanTerakhir: e.target.value}))}
                   className="text-gray-900 w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="Masukkan Pendidikan Terakhir terakhir"
-                />
+                >
+                  <option value="">Pilih Pendidikan Terakhir</option>
+                  <option value="SD/MI/Sederajat">SD/MI/Sederajat</option>
+                  <option value="SMP/MTs/Sederajat">SMP/MTs/Sederajat</option>
+                  <option value="SMA/SMK/MA/Sederajat">SMA/SMK/MA/Sederajat</option>
+                  <option value="D1/D2/D3/D4">D1/D2/D3/D4</option>
+                  <option value="S1">S1</option>
+                  <option value="S2">S2</option>
+                  <option value="S3">S3</option>
+                </select>
               </div>
 
               <div>
