@@ -230,48 +230,56 @@ const OrganizationalStructure = () => {
     // Menggunakan InfiniteCarouselItem
     {
       id: 1,
-      title: "Kepala Sekolah",
-      name: "Hariyanto Setiadi D.C.S.Pd",
+      title: "Ketua Yayasan",
+      name: "Susilowati, S.I.P",
       color: "bg-gradient-to-br from-purple-500 to-purple-600",
       imageUrl:
         "https://images.pexels.com/photos/1001914/pexels-photo-1001914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     },
     {
       id: 2,
-      title: "Wakil Kepala",
-      name: "Hariyanto Setiadi D.C.S.Pd",
+      title: "Pengelola KB",
+      name: "Wahyu Saraswati, S.Kom",
       color: "bg-gradient-to-br from-blue-500 to-blue-600",
       imageUrl:
         "https://images.pexels.com/photos/1001914/pexels-photo-1001914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     },
     {
       id: 3,
-      title: "Bendahara",
-      name: "Hariyanto Setiadi D.C.S.Pd",
+      title: "Pengelola TK",
+      name: "Mufidah, S.Pd.I, S.Pd",
       color: "bg-gradient-to-br from-green-500 to-green-600",
       imageUrl:
         "https://images.pexels.com/photos/1001914/pexels-photo-1001914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     },
     {
       id: 4,
-      title: "Sekretaris",
-      name: "Hariyanto Setiadi D.C.S.Pd",
+      title: "Pengelola TPA",
+      name: "Yusuf Cahya Wibawa, S.Ars",
       color: "bg-gradient-to-br from-pink-500 to-pink-600",
       imageUrl:
         "https://images.pexels.com/photos/1001914/pexels-photo-1001914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     },
     {
       id: 5,
-      title: "Guru Kelas A",
-      name: "Hariyanto Setiadi D.C.S.Pd",
+      title: "Guru TK",
+      name: "Mudawwamah, S.Pd.I, S.Pd",
       color: "bg-gradient-to-br from-indigo-500 to-indigo-600",
       imageUrl:
         "https://images.pexels.com/photos/1001914/pexels-photo-1001914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     },
     {
       id: 6,
-      title: "Guru Kelas B",
-      name: "Hariyanto Setiadi D.C.S.Pd",
+      title: "Guru KB",
+      name: "Kiki Ainur Rohmah",
+      color: "bg-gradient-to-br from-teal-500 to-teal-600",
+      imageUrl:
+        "https://images.pexels.com/photos/1001914/pexels-photo-1001914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    },
+    {
+      id: 7,
+      title: "Guru TPA",
+      name: "Dewi Agustin",
       color: "bg-gradient-to-br from-teal-500 to-teal-600",
       imageUrl:
         "https://images.pexels.com/photos/1001914/pexels-photo-1001914.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",

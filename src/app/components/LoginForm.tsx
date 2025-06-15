@@ -105,9 +105,6 @@ export default function LoginForm() {
             />
             <span className="ml-2 text-sm text-gray-600">Ingat saya</span>
           </label>
-          <a href="#" className="text-sm text-orange-500 hover:text-orange-600 font-medium">
-            Lupa kata sandi
-          </a>
         </div>
 
         <button
