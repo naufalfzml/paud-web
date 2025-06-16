@@ -416,7 +416,8 @@ const DetailPendaftaranPage = () => {
     const updater = (setter: React.Dispatch<React.SetStateAction<any[]>>) => {
         setter(prev => prev.map(p => (p.id === id ? { ...p, status: newStatus } : p)));
     };
-    const oldData = tab === 'PD' ? [...pesertaDidik] : [...tenagaPendidik];
+    const oldPesertaDidik = [...pesertaDidik];
+    const oldTenagaPendidik = [...tenagaPendidik];
     updater(tab === 'PD' ? setPesertaDidik : setTenagaPendidik);
 
     try {
@@ -433,8 +434,8 @@ const DetailPendaftaranPage = () => {
     } catch (err: any) {
       setNotification({ message: err.message, type: 'error' });
       // Revert UI on failure
-      if (tab === 'PD') setPesertaDidik(oldData);
-      else setTenagaPendidik(oldData);
+      if (tab === 'PD') setPesertaDidik(oldPesertaDidik);
+      else setTenagaPendidik(oldTenagaPendidik);
     }
   };
 

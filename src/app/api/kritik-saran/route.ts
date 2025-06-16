@@ -77,7 +77,10 @@ export async function GET(request: NextRequest) {
 
     const { data, error } = await supabase
       .from('KritikSaran')
-      .select('*')
+      .select(`
+        *,
+        User ( name )
+      `)
       .order('createdAt', { ascending: false });
 
     if (error) {
@@ -101,6 +104,8 @@ export async function GET(request: NextRequest) {
     );
   }
 }
+
+
 
 
 // POST - Buat kritik/saran baru
