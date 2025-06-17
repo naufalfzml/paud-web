@@ -28,6 +28,7 @@ const Sidebar = ({ collapsed }: SidebarProps) => {
     { path: "/admin-page/students", icon: GraduationCap, label: "Peserta Didik" },
     { path: "/admin-page/teachers", icon: UserCheck, label: "Tenaga Pendidik" },
     { path: "/admin-page/status", icon: FileChartColumn, label: "Status" },
+<<<<<<< Updated upstream
     { path: "/admin-page/kritiksaran", icon: MessageSquareDiff, label: "Kritik Saran" },
     // { path: "/admin-page/laporan", icon: BarChart3, label: "Laporan" },
     { path: "/", icon: CircleChevronLeft, label: "Kembali ke Beranda" },
