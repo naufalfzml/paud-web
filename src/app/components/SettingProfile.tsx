@@ -174,7 +174,7 @@ const ProfileSettings = () => {
               className="absolute inset-0 opacity-0 cursor-pointer"
               id="profile-upload"
             />
-            <label
+            {/* <label
               htmlFor="profile-upload"
               className="inline-flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:shadow-lg cursor-pointer"
             >
@@ -187,7 +187,7 @@ const ProfileSettings = () => {
             </p>
             <p className="text-xs text-gray-500">
               Maximum upload size is <span className="font-semibold">1 MB</span>
-            </p>
+            </p> */}
           </div>
         </div>
 
