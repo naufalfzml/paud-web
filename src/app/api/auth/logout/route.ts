@@ -3,15 +3,13 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-    // Ambil token dari cookie untuk logout dari Supabase
-    const token = req.cookies.get('supabase-auth')?.value;
+    const token = req.cookies.get("supabase-auth")?.value;
 
-    if(token) {
+    if (token) {
       try {
-        // Set token untuk session saat ini
         await supabase.auth.setSession({
           access_token: token,
-          refresh_token: ''
+          refresh_token: "",
         });
 
         await supabase.auth.signOut();
@@ -26,40 +24,38 @@ export async function POST(req: NextRequest) {
       { status: 200 }
     );
 
-    // Hapus cookie auth jika ada
-    response.cookies.set('supabase-auth', '', {
+    response.cookies.set("supabase-auth", "", {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      maxAge: 0, // Expired immediately
-      path: '/',
-      expires: new Date(0)
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: 0,
+      path: "/",
+      expires: new Date(0),
     });
 
-    response.cookies.delete('supabase-auth');
+    response.cookies.delete("supabase-auth");
 
     console.log("Auth cookie cleared successfully");
 
     return response;
-
   } catch (error) {
     console.error("Logout error:", error);
 
     const response = NextResponse.json(
       { message: "Logout berhasil (dengan peringatan)", success: true },
-      { status : 200}
+      { status: 200 }
     );
 
-    response.cookies.set('supabase-auth', '', {
+    response.cookies.set("supabase-auth", "", {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
       maxAge: 0,
-      path: '/',
-      expires: new Date(0)
-    })
+      path: "/",
+      expires: new Date(0),
+    });
 
-    response.cookies.delete('supabase-auth');
+    response.cookies.delete("supabase-auth");
 
     return response;
   }

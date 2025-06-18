@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
 import { Fredoka } from "next/font/google";
-import '@/app/globals.css'
+import "@/app/globals.css";
 
-const fredoka = Fredoka({ 
-  weight: ['300', '400', '500', '600', '700'],
-  subsets: ['latin'],
-  variable: '--font-fredoka',
-  display: 'block'
-})
-
+const fredoka = Fredoka({
+  weight: ["300", "400", "500", "600", "700"],
+  subsets: ["latin"],
+  variable: "--font-fredoka",
+  display: "block",
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -22,11 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${fredoka.variable} antialiased`}
-      >
-        {children}
-      </body>
+      <body className={`${fredoka.variable} antialiased`}>{children}</body>
     </html>
   );
 }

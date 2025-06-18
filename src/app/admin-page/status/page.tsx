@@ -1,5 +1,5 @@
-import React from 'react';
-import ManagePendaftaranPage from '@/app/components/admin-components/ManagePendaftaran';
+import React from "react";
+import ManagePendaftaranPage from "@/app/components/admin-components/ManagePendaftaran";
 
 export default function Artikel() {
   return (

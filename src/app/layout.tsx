@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import { Fredoka } from "next/font/google";
-import { AuthProvider } from '@/lib/AuthContext';
+import { AuthProvider } from "@/lib/AuthContext";
 import "./globals.css";
 
-const fredoka = Fredoka({ 
-  weight: ['300', '400', '500', '600', '700'],
-  subsets: ['latin'],
-  variable: '--font-fredoka',
-  display: 'block'
-})
+const fredoka = Fredoka({
+  weight: ["300", "400", "500", "600", "700"],
+  subsets: ["latin"],
+  variable: "--font-fredoka",
+  display: "block",
+});
 
 export const metadata: Metadata = {
   title: "PAUD Cahya Indria",
@@ -23,9 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${fredoka.variable} antialiased`}>
-        <AuthProvider>
-          {children}
-        </AuthProvider>
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );

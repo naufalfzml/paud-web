@@ -1,21 +1,26 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 
-// Debugging function untuk memeriksa environment variables
 function validateEnvironmentVariables() {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-  console.log('Environment check:');
-  console.log('NEXT_PUBLIC_SUPABASE_URL exists:', !!supabaseUrl);
-  console.log('SUPABASE_SERVICE_ROLE_KEY exists:', !!supabaseKey);
+  console.log("Environment check:");
+  console.log("NEXT_PUBLIC_SUPABASE_URL exists:", !!supabaseUrl);
+  console.log("SUPABASE_SERVICE_ROLE_KEY exists:", !!supabaseKey);
 
   if (supabaseUrl) {
-    console.log('Supabase URL format:', supabaseUrl.startsWith('https://') ? 'Valid' : 'Invalid');
+    console.log(
+      "Supabase URL format:",
+      supabaseUrl.startsWith("https://") ? "Valid" : "Invalid"
+    );
   }
 
   if (supabaseKey) {
-    console.log('Service Role Key starts with:', supabaseKey.substring(0, 10) + '...');
+    console.log(
+      "Service Role Key starts with:",
+      supabaseKey.substring(0, 10) + "..."
+    );
   }
 
   return { supabaseUrl, supabaseKey };
@@ -27,7 +32,6 @@ if (supabaseUrl && supabaseKey) {
   supabase = createClient(supabaseUrl, supabaseKey);
 }
 
-// Interface
 interface KritikSaran {
   id?: string;
   userId?: string;
@@ -46,21 +50,21 @@ function handleSupabaseError(error: any, operation: string) {
   console.error(`Supabase error during ${operation}:`, error);
   const errorResponse: ErrorResponse = {
     error: `Gagal ${operation}`,
-    details: error.message || 'Unknown error occurred'
+    details: error.message || "Unknown error occurred",
   };
 
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV === "development") {
     errorResponse.debugInfo = {
       code: error.code,
       hint: error.hint,
-      details: error.details
+      details: error.details,
     };
   }
 
   return errorResponse;
 }
 
-const TABLE_NAME = 'KritikSaran';
+const TABLE_NAME = "KritikSaran";
 
 // GET - Ambil semua kritik/saran
 export async function GET(request: NextRequest) {
@@ -68,26 +72,28 @@ export async function GET(request: NextRequest) {
     if (!supabase) {
       return NextResponse.json(
         {
-          error: 'Supabase client not initialized',
-          details: 'Cek environment variable Supabase'
+          error: "Supabase client not initialized",
+          details: "Cek environment variable Supabase",
         },
         { status: 500 }
       );
     }
 
     const { data, error } = await supabase
-      .from('KritikSaran')
-      .select(`
+      .from("KritikSaran")
+      .select(
+        `
         *,
         User ( name )
-      `)
-      .order('createdAt', { ascending: false });
+      `
+      )
+      .order("createdAt", { ascending: false });
 
     if (error) {
       return NextResponse.json(
         {
-          error: 'Gagal mengambil data kritik/saran',
-          details: error.message
+          error: "Gagal mengambil data kritik/saran",
+          details: error.message,
         },
         { status: 500 }
       );
@@ -97,16 +103,13 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     return NextResponse.json(
       {
-        error: 'Terjadi kesalahan server',
-        details: (error as Error).message
+        error: "Terjadi kesalahan server",
+        details: (error as Error).message,
       },
       { status: 500 }
     );
   }
 }
-
-
-
 
 // POST - Buat kritik/saran baru
 export async function POST(request: NextRequest) {
@@ -114,8 +117,9 @@ export async function POST(request: NextRequest) {
     if (!supabase) {
       return NextResponse.json(
         {
-          error: 'Supabase client not initialized',
-          details: 'Check your environment variables and Supabase configuration'
+          error: "Supabase client not initialized",
+          details:
+            "Check your environment variables and Supabase configuration",
         },
         { status: 500 }
       );
@@ -125,7 +129,7 @@ export async function POST(request: NextRequest) {
 
     if (!body.kritik?.trim() && !body.saran?.trim()) {
       return NextResponse.json(
-        { error: 'Silahkan isi Kritik atau Saran' },
+        { error: "Silahkan isi Kritik atau Saran" },
         { status: 400 }
       );
     }
@@ -134,7 +138,7 @@ export async function POST(request: NextRequest) {
       kritik: body.kritik?.trim() || null,
       saran: body.saran?.trim() || null,
       userId: body.userId || null,
-      createdAt: new Date().toISOString()
+      createdAt: new Date().toISOString(),
     };
 
     const { data, error } = await supabase
@@ -145,7 +149,7 @@ export async function POST(request: NextRequest) {
 
     if (error) {
       return NextResponse.json(
-        handleSupabaseError(error, 'menyimpan kritik/saran'),
+        handleSupabaseError(error, "menyimpan kritik/saran"),
         { status: 500 }
       );
     }
@@ -154,16 +158,16 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     if (error instanceof SyntaxError) {
       return NextResponse.json(
-        { error: 'Format JSON tidak valid' },
+        { error: "Format JSON tidak valid" },
         { status: 400 }
       );
     }
 
     return NextResponse.json(
       {
-        error: 'Internal server error',
+        error: "Internal server error",
         details: (error as Error).message,
-        debugInfo: process.env.NODE_ENV === 'development' ? error : undefined
+        debugInfo: process.env.NODE_ENV === "development" ? error : undefined,
       },
       { status: 500 }
     );

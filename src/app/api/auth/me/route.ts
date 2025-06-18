@@ -4,10 +4,9 @@ import { supabase } from "@/lib/supabase";
 export async function GET(req: NextRequest) {
   try {
     console.log("Checking auth...");
-    
-    // Ambil token dari cookie
-    const token = req.cookies.get('supabase-auth')?.value;
-    
+
+    const token = req.cookies.get("supabase-auth")?.value;
+
     if (!token) {
       console.log("No auth token found in cookies");
       return NextResponse.json(
@@ -18,25 +17,26 @@ export async function GET(req: NextRequest) {
 
     console.log("Token found, verifying with Supabase...");
 
-    // Verifikasi token dengan Supabase
-    const { data: { user }, error } = await supabase.auth.getUser(token);
+    const {
+      data: { user },
+      error,
+    } = await supabase.auth.getUser(token);
 
     if (error) {
       console.error("Token verification error:", error.message);
-      
-      // Hapus cookie yang tidak valid
+
       const response = NextResponse.json(
         { user: null, message: "Invalid or expired token" },
         { status: 401 }
       );
-      
-      response.cookies.set('supabase-auth', '', {
+
+      response.cookies.set("supabase-auth", "", {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'lax',
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
         maxAge: 0,
-        path: '/',
-        expires: new Date(0)
+        path: "/",
+        expires: new Date(0),
       });
 
       return response;
@@ -52,9 +52,7 @@ export async function GET(req: NextRequest) {
 
     console.log("User verified:", user.email);
 
-    // Return user data
     return NextResponse.json(user, { status: 200 });
-
   } catch (error) {
     console.error("Auth check server error:", error);
     return NextResponse.json(

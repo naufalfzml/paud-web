@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-// Interface untuk artikel
 interface Artikel {
   id: number;
   judul: string;
@@ -22,35 +21,34 @@ const ArtikelRecommendation = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Fungsi untuk format tanggal
   const formatDate = (dateString: string): string => {
     const date = new Date(dateString);
-    const options: Intl.DateTimeFormatOptions = { 
-      year: 'numeric', 
-      month: 'short', 
-      day: 'numeric' 
+    const options: Intl.DateTimeFormatOptions = {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
     };
-    return date.toLocaleDateString('id-ID', options);
+    return date.toLocaleDateString("id-ID", options);
   };
 
-  // Mengambil data artikel dari API
   useEffect(() => {
     const fetchArtikels = async () => {
       try {
         setLoading(true);
         setError(null);
-        
-        const response = await fetch('/api/artikel?published=true');
-        
+
+        const response = await fetch("/api/artikel?published=true");
+
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        
+
         const data: Artikel[] = await response.json();
         setArtikels(data);
       } catch (err) {
-        const errorMessage = err instanceof Error ? err.message : 'Gagal mengambil data artikel';
-        console.error('Error fetching artikels:', errorMessage);
+        const errorMessage =
+          err instanceof Error ? err.message : "Gagal mengambil data artikel";
+        console.error("Error fetching artikels:", errorMessage);
         setError(errorMessage);
       } finally {
         setLoading(false);
@@ -60,7 +58,6 @@ const ArtikelRecommendation = () => {
     fetchArtikels();
   }, []);
 
-  // Loading skeleton component
   const LoadingSkeleton = () => (
     <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm animate-pulse">
       <div className="rounded-t-lg w-full h-48 bg-gray-300"></div>
@@ -81,18 +78,16 @@ const ArtikelRecommendation = () => {
     </div>
   );
 
-  // Loading state
   if (loading) {
     return (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[...Array(3)].map((_, index) => (
-              <LoadingSkeleton key={index} />
-            ))}
-          </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {[...Array(3)].map((_, index) => (
+          <LoadingSkeleton key={index} />
+        ))}
+      </div>
     );
   }
 
-  // Error state
   if (error) {
     return (
       <section className="bg-card-belajar py-16 pt-40">
@@ -100,14 +95,26 @@ const ArtikelRecommendation = () => {
           <div className="text-center">
             <div className="bg-red-50 border border-red-200 rounded-lg p-6 max-w-md mx-auto">
               <div className="flex items-center justify-center mb-4">
-                <svg className="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <svg
+                  className="w-8 h-8 text-red-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
                 </svg>
               </div>
-              <h3 className="text-lg font-semibold text-red-800 mb-2">Terjadi Kesalahan</h3>
+              <h3 className="text-lg font-semibold text-red-800 mb-2">
+                Terjadi Kesalahan
+              </h3>
               <p className="text-red-600 mb-4">{error}</p>
-              <button 
-                onClick={() => window.location.reload()} 
+              <button
+                onClick={() => window.location.reload()}
                 className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-colors"
               >
                 Coba Lagi
@@ -127,38 +134,65 @@ const ArtikelRecommendation = () => {
           {artikels.length === 0 ? (
             <div className="col-span-full text-center">
               <div className="bg-gray-50 rounded-lg p-8 max-w-md mx-auto">
-                <svg className="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                <svg
+                  className="w-16 h-16 text-gray-400 mx-auto mb-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  />
                 </svg>
-                <h3 className="text-lg font-semibold text-gray-700 mb-2">Belum Ada Artikel</h3>
-                <p className="text-gray-500">Artikel akan segera tersedia. Silakan kembali lagi nanti!</p>
+                <h3 className="text-lg font-semibold text-gray-700 mb-2">
+                  Belum Ada Artikel
+                </h3>
+                <p className="text-gray-500">
+                  Artikel akan segera tersedia. Silakan kembali lagi nanti!
+                </p>
               </div>
             </div>
           ) : (
-            artikels.slice(0,3).map((artikel) => (
-              <article key={artikel.id} className="max-w-sm bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+            artikels.slice(0, 3).map((artikel) => (
+              <article
+                key={artikel.id}
+                className="max-w-sm bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300"
+              >
                 <Link href={`/artikel/${artikel.id}`}>
                   <div className="relative overflow-hidden rounded-t-lg">
                     <Image
                       className="w-full h-36 object-cover hover:scale-105 transition-transform duration-300"
-                      src={artikel.imageUrl || '/images/default-article.jpg'}
+                      src={artikel.imageUrl || "/images/default-article.jpg"}
                       alt={artikel.judul}
                       width={400}
                       height={192}
                       priority={false}
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
-                        target.src = '/images/default-article.jpg';
+                        target.src = "/images/default-article.jpg";
                       }}
                     />
                   </div>
                 </Link>
-                
+
                 <div className="p-5">
                   {/* Date */}
                   <div className="flex items-center text-sm mb-3 text-gray-500">
-                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    <svg
+                      className="w-4 h-4 mr-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                      />
                     </svg>
                     <time dateTime={artikel.createdAt}>
                       {formatDate(artikel.createdAt)}
@@ -171,10 +205,10 @@ const ArtikelRecommendation = () => {
                       {artikel.judul}
                     </h3>
                   </Link>
-                  
+
                   {/* Read More Button */}
-                  <Link 
-                    href={`/artikel/${artikel.id}`} 
+                  <Link
+                    href={`/artikel/${artikel.id}`}
                     className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 transition-all duration-200"
                   >
                     Baca Selengkapnya
@@ -197,11 +231,24 @@ const ArtikelRecommendation = () => {
 
                   {/* Author */}
                   <div className="flex items-center mt-4 pt-3 border-t border-gray-100">
-                    <svg className="w-5 h-5 text-gray-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    <svg
+                      className="w-5 h-5 text-gray-400 mr-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                      />
                     </svg>
                     <span className="text-sm text-gray-500">
-                      Oleh <span className="font-medium text-gray-700">{artikel.author}</span>
+                      Oleh{" "}
+                      <span className="font-medium text-gray-700">
+                        {artikel.author}
+                      </span>
                     </span>
                   </div>
                 </div>

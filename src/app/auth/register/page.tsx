@@ -1,11 +1,14 @@
-import React from 'react';
-import RegisterForm from '@/app/components/RegisterForm';
-import Navbar from '@/app/components/Navbar';
-import Footer from '@/app/components/Footer';
+import React from "react";
+import RegisterForm from "@/app/components/RegisterForm";
+import Navbar from "@/app/components/Navbar";
+import Footer from "@/app/components/Footer";
 
 export default function RegisterPage() {
   return (
-    <div className="min-h-screen flex flex-col font-fredoka bg-cover bg-no-repeat" style={{ backgroundImage: "url('/bg-regist.jpg')" }}>
+    <div
+      className="min-h-screen flex flex-col font-fredoka bg-cover bg-no-repeat"
+      style={{ backgroundImage: "url('/bg-regist.jpg')" }}
+    >
       <Navbar />
 
       <div className="flex flex-1">
@@ -23,8 +26,7 @@ export default function RegisterPage() {
           </div>
         </div>
 
-        <div className="w-1/2 relative">
-        </div>
+        <div className="w-1/2 relative"></div>
       </div>
 
       <Footer />

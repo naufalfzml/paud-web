@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 
-// Definisikan tipe untuk objek User agar lebih aman dan terstruktur
 type User = {
   id: number;
   namaLengkap: string;
@@ -13,7 +12,6 @@ type User = {
   status: "Aktif" | "Nonaktif" | "Pending";
 };
 
-// Data dummy untuk simulasi. Dalam aplikasi nyata, data ini akan diambil dari API.
 const dummyUser: User = {
   id: 1,
   namaLengkap: "Ahmad Susanto",
@@ -22,21 +20,14 @@ const dummyUser: User = {
   status: "Aktif",
 };
 
-// Komponen utama untuk halaman Edit User
 const EditUserPage = ({ params }: { params: { id: string } }) => {
-  // State untuk menyimpan data user yang akan diedit
   const [user, setUser] = useState<User | null>(null);
 
-  // Efek untuk mengambil data user saat komponen dimuat
   useEffect(() => {
-    // Di aplikasi nyata, Anda akan memanggil API di sini menggunakan params.id
-    // Contoh: const userData = await fetch(`/api/users/${params.id}`);
-    // Untuk sekarang, kita gunakan data dummy.
     console.log("Fetching data for user ID:", params.id);
     setUser(dummyUser);
   }, [params.id]);
 
-  // Handler untuk memperbarui state saat input form berubah
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -46,15 +37,12 @@ const EditUserPage = ({ params }: { params: { id: string } }) => {
     }
   };
 
-  // Handler untuk submit form
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Logika untuk mengirim data yang diperbarui ke server/API
     console.log("Saving user data:", user);
     alert("Perubahan telah disimpan!");
   };
 
-  // Tampilkan loading state jika data belum siap
   if (!user) {
     return <div>Loading...</div>;
   }

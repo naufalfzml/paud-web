@@ -1,5 +1,5 @@
-import React from 'react';
-import ManageKritikSaran from '@/app/components/admin-components/ManageKritikSaran';
+import React from "react";
+import ManageKritikSaran from "@/app/components/admin-components/ManageKritikSaran";
 
 export default function Artikel() {
   return (

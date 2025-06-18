@@ -116,7 +116,7 @@ const ProfileSettings = () => {
       }
 
       const { error: loginError } = await supabase.auth.signInWithPassword({
-        email: user?.email ?? '',
+        email: user?.email ?? "",
         password: currentPassword,
       });
 
@@ -165,7 +165,9 @@ const ProfileSettings = () => {
         {/* Sidebar */}
         <div className="bg-white shadow-lg rounded-lg p-8 text-center">
           <CircleUserRound className="stroke-slate-800 w-32 h-32 mx-auto mb-4 rounded-full border-4 border-slate-300" />
-          <h2 className="text-2xl font-bold text-gray-900 mb-1">{originalName}</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-1">
+            {originalName}
+          </h2>
           <div className="pt-2 relative">
             <input
               type="file"
@@ -174,20 +176,6 @@ const ProfileSettings = () => {
               className="absolute inset-0 opacity-0 cursor-pointer"
               id="profile-upload"
             />
-            {/* <label
-              htmlFor="profile-upload"
-              className="inline-flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:shadow-lg cursor-pointer"
-            >
-              Upload New Photo
-            </label>
-          </div>
-          <div className="bg-gray-50 rounded-lg p-4 mb-6 text-sm text-gray-600">
-            <p className="mb-2">
-              Upload a new avatar. Larger image will be resized automatically.
-            </p>
-            <p className="text-xs text-gray-500">
-              Maximum upload size is <span className="font-semibold">1 MB</span>
-            </p> */}
           </div>
         </div>
 
@@ -195,20 +183,30 @@ const ProfileSettings = () => {
         <div className="lg:col-span-2 bg-white shadow-lg rounded-lg p-8">
           <div className="flex justify-between items-center mb-6">
             <h1 className="text-2xl font-bold text-gray-900">Edit Profile</h1>
-            <a href="/" className="text-blue-600 hover:underline">← Back to Home</a>
+            <a href="/" className="text-blue-600 hover:underline">
+              ← Back to Home
+            </a>
           </div>
 
           {/* Tabs */}
           <div className="grid grid-cols-2 max-w-md gap-2 mb-6">
             <button
               onClick={() => setTab("user-info")}
-              className={`px-4 py-2 rounded ${tab === "user-info" ? "bg-blue-500 text-white" : "bg-gray-100 text-gray-700"}`}
+              className={`px-4 py-2 rounded ${
+                tab === "user-info"
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-100 text-gray-700"
+              }`}
             >
               User Info
             </button>
             <button
               onClick={() => setTab("change-pass")}
-              className={`px-4 py-2 rounded ${tab === "change-pass" ? "bg-blue-500 text-white" : "bg-gray-100 text-gray-700"}`}
+              className={`px-4 py-2 rounded ${
+                tab === "change-pass"
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-100 text-gray-700"
+              }`}
             >
               Change Password
             </button>
@@ -218,13 +216,22 @@ const ProfileSettings = () => {
           {tab === "user-info" ? (
             <form className="space-y-5">
               {message && (
-                <p className={`text-center text-sm font-medium ${success ? "text-green-500" : "text-red-500"}`}>
+                <p
+                  className={`text-center text-sm font-medium ${
+                    success ? "text-green-500" : "text-red-500"
+                  }`}
+                >
                   {message}
                 </p>
               )}
               <div className="grid grid-cols-1 gap-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700">Full Name</label>
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Full Name
+                  </label>
                   <input
                     id="name"
                     type="text"
@@ -234,7 +241,12 @@ const ProfileSettings = () => {
                   />
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email Address</label>
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Email Address
+                  </label>
                   <input
                     disabled
                     id="email"
@@ -245,18 +257,30 @@ const ProfileSettings = () => {
                   />
                 </div>
                 <div>
-                  <label htmlFor="address" className="block text-sm font-medium text-gray-700">Address</label>
+                  <label
+                    htmlFor="address"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Address
+                  </label>
                   <input
                     id="address"
                     type="text"
                     value={formData.address}
-                    onChange={(e) => handleInputChange("address", e.target.value)}
+                    onChange={(e) =>
+                      handleInputChange("address", e.target.value)
+                    }
                     className="w-full mt-1 p-2 border rounded-md border-gray-300 text-black focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition duration-200"
                     placeholder="Masukkan alamat Anda"
                   />
                 </div>
                 <div>
-                  <label htmlFor="no_hp" className="block text-sm font-medium text-gray-700">Nomor WhatsApp</label>
+                  <label
+                    htmlFor="no_hp"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Nomor WhatsApp
+                  </label>
                   <input
                     id="no_hp"
                     type="text"
@@ -280,14 +304,23 @@ const ProfileSettings = () => {
           ) : (
             <div className="grid grid-cols-1 gap-6">
               {message && passUtama && (
-                <p className={`text-center text-sm font-medium ${success ? "text-green-500" : "text-red-500"}`}>
+                <p
+                  className={`text-center text-sm font-medium ${
+                    success ? "text-green-500" : "text-red-500"
+                  }`}
+                >
                   {message}
                 </p>
               )}
 
               {/* Current Password */}
               <div>
-                <label htmlFor="current-password" className="block text-sm font-medium text-gray-700">Password saat ini</label>
+                <label
+                  htmlFor="current-password"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Password saat ini
+                </label>
                 {!passLama && <p className="text-red-500 text-sm">{message}</p>}
                 <div className="relative">
                   <input
@@ -309,7 +342,12 @@ const ProfileSettings = () => {
 
               {/* New Password */}
               <div>
-                <label htmlFor="new-password" className="block text-sm font-medium text-gray-700">Password baru</label>
+                <label
+                  htmlFor="new-password"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Password baru
+                </label>
                 {!passBaru && <p className="text-red-500 text-sm">{message}</p>}
                 <div className="relative">
                   <input
@@ -331,8 +369,15 @@ const ProfileSettings = () => {
 
               {/* Confirm Password */}
               <div>
-                <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-700">Konfirmasi password baru</label>
-                {!passKonfir && <p className="text-red-500 text-sm">{message}</p>}
+                <label
+                  htmlFor="confirm-password"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Konfirmasi password baru
+                </label>
+                {!passKonfir && (
+                  <p className="text-red-500 text-sm">{message}</p>
+                )}
                 <div className="relative">
                   <input
                     id="confirm-password"
@@ -357,7 +402,9 @@ const ProfileSettings = () => {
                 onClick={handleChangePassword}
                 disabled={isLoading}
                 className={`${
-                  isLoading ? "opacity-50 cursor-not-allowed" : "hover:bg-red-600"
+                  isLoading
+                    ? "opacity-50 cursor-not-allowed"
+                    : "hover:bg-red-600"
                 } bg-red-500 text-white px-8 py-3 rounded-lg font-medium transition-all duration-200 hover:shadow-lg`}
               >
                 {isLoading ? "Menyimpan..." : "Ubah Password"}

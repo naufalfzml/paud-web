@@ -2,10 +2,8 @@
 
 import React from "react";
 import { Clock, User } from "lucide-react";
-import ArtikelCard from "./ArtikelCard";
 import ArtikelRecommendation from "./ArtikelRecommendation";
 
-// Komponen Card
 const Card = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
@@ -66,7 +64,6 @@ const CardContent = React.forwardRef<
 ));
 CardContent.displayName = "CardContent";
 
-// Badge Component
 type BadgeProps = React.HTMLAttributes<HTMLDivElement> & {
   variant?: "default" | "secondary" | "outline";
   className?: string;
@@ -89,7 +86,6 @@ function Badge({ className, variant = "default", ...props }: BadgeProps) {
   );
 }
 
-// Separator Component
 const Separator = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & {
@@ -114,9 +110,8 @@ const Separator = React.forwardRef<
 );
 Separator.displayName = "Separator";
 
-// Props Type
 type ArtikelProps = {
-  artikel: {
+  artikel?: {
     id: string;
     judul: string;
     content: string;
@@ -127,7 +122,16 @@ type ArtikelProps = {
 };
 
 const ReadArtikel = ({ artikel }: ArtikelProps) => {
-  
+  if (!artikel) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 pt-20 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading artikel...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 pt-20">
@@ -178,47 +182,12 @@ const ReadArtikel = ({ artikel }: ArtikelProps) => {
           </div>
         </article>
 
-        {/* //TODO: EDIT DAN SESUAIKAN INI, ATAU BIKIN COMPONENTS BARU UNTUK TAMPILKAN CARD ARTIKEL REKOMEN */}
         <section>
           <h2 className="text-2xl font-bold text-gray-900 mb-6">
             Recommended Content
           </h2>
           <div className="grid gap-6">
             <ArtikelRecommendation></ArtikelRecommendation>
-            {/* {explorationCards.map((card, index) => (
-              <Card
-                key={index}
-                className="overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer group"
-              >
-                <div className="relative">
-                  <img
-                    src={card.image}
-                    alt={card.title}
-                    className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <Badge
-                    variant={
-                      card.badge === 'Featured'
-                        ? 'default'
-                        : card.badge === 'Popular'
-                        ? 'secondary'
-                        : 'outline'
-                    }
-                    className="absolute top-2 left-2"
-                  >
-                    {card.badge}
-                  </Badge>
-                </div>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-lg group-hover:text-blue-600 transition-colors">
-                    {card.title}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription>{card.description}</CardDescription>
-                </CardContent>
-              </Card>
-            ))} */}
           </div>
         </section>
       </main>

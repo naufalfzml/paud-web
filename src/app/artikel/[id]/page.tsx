@@ -1,9 +1,9 @@
 // src/app/artikel/[id]/page.tsx
 
-import { notFound } from 'next/navigation';
-import Navbar from '@/app/components/Navbar';
-import Footer from '@/app/components/Footer';
-import ReadArtikel from '@/app/components/ReadArtikel';
+import { notFound } from "next/navigation";
+import Navbar from "@/app/components/Navbar";
+import Footer from "@/app/components/Footer";
+import ReadArtikel from "@/app/components/ReadArtikel";
 
 type Artikel = {
   id: string;
@@ -17,12 +17,13 @@ type Artikel = {
 
 async function getArtikel(id: string): Promise<Artikel | null> {
   try {
-    const baseUrl = process.env.NODE_ENV === 'production'
-      ? 'https://your-domain.com'
-      : 'http://localhost:3000';
+    const baseUrl =
+      process.env.NODE_ENV === "production"
+        ? "https://your-domain.com"
+        : "http://localhost:3000";
 
     const res = await fetch(`${baseUrl}/api/artikel?id=${id}`, {
-      cache: 'no-store',
+      cache: "no-store",
     });
 
     if (!res.ok) return null;
@@ -32,7 +33,7 @@ async function getArtikel(id: string): Promise<Artikel | null> {
 
     return data as Artikel;
   } catch (error) {
-    console.error('Fetch error:', error);
+    console.error("Fetch error:", error);
     return null;
   }
 }
@@ -42,10 +43,9 @@ export default async function ArtikelDetail({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  // Await the params before using its properties
   const { id } = await params;
   const artikel = await getArtikel(id);
-  
+
   if (!artikel) return notFound();
 
   return (

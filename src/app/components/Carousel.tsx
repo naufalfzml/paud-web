@@ -1,11 +1,10 @@
-'use client';
+"use client";
 
-import React, { useCallback, useEffect, useRef, useState, createContext, useContext } from 'react';
-import useEmblaCarousel from 'embla-carousel-react';
-import type { EmblaOptionsType } from 'embla-carousel';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import React, { useCallback, createContext, useContext } from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import type { EmblaOptionsType } from "embla-carousel";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
-// Context to share embla API between components
 const CarouselContext = createContext<any>(null);
 
 interface CarouselProps {
@@ -19,13 +18,10 @@ export const Carousel = ({ children, opts, className }: CarouselProps) => {
 
   return (
     <CarouselContext.Provider value={emblaApi}>
-      {/* Container utama untuk carousel, termasuk tombol navigasi */}
-      <div className={`relative ${className || ''}`}>
-        {/* Elemen yang di-scroll oleh Embla */}
+      <div className={`relative ${className || ""}`}>
         <div className="overflow-hidden" ref={emblaRef}>
           <div className="flex">{children}</div>
         </div>
-        {/* Tombol navigasi ditempatkan di luar div yang di-scroll */}
         <CarouselPrevious />
         <CarouselNext />
       </div>
@@ -38,7 +34,10 @@ interface CarouselContentProps {
   children: React.ReactNode;
 }
 
-export const CarouselContent = ({ className = '', children }: CarouselContentProps) => {
+export const CarouselContent = ({
+  className = "",
+  children,
+}: CarouselContentProps) => {
   return <>{children}</>;
 };
 
@@ -47,9 +46,14 @@ interface CarouselItemProps {
   children: React.ReactNode;
 }
 
-export const CarouselItem = ({ className = '', children }: CarouselItemProps) => {
+export const CarouselItem = ({
+  className = "",
+  children,
+}: CarouselItemProps) => {
   return (
-    <div className={`min-w-0 flex-[0_0_100%] md:flex-[0_0_50%] lg:flex-[0_0_33.3333%] px-2 ${className}`}>
+    <div
+      className={`min-w-0 flex-[0_0_100%] md:flex-[0_0_50%] lg:flex-[0_0_33.3333%] px-2 ${className}`}
+    >
       {children}
     </div>
   );

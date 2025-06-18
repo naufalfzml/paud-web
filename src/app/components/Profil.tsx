@@ -1,17 +1,10 @@
 "use client";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import React, { useState } from "react";
-import { Menu, X, MapPin, Phone, Mail, Clock } from "lucide-react";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "../components/Carousel";
 
-// Hero Section Component
 const HeroSection = () => {
   return (
     <section className="relative pt-20 px-6 text-center ">
@@ -27,7 +20,6 @@ const HeroSection = () => {
   );
 };
 
-// About Section Component
 const AboutSection = () => {
   return (
     <section className="py-16 px-6">
@@ -69,7 +61,6 @@ const AboutSection = () => {
   );
 };
 
-// Vision Mission Section Component
 const VisionMissionSection = () => {
   return (
     <section className="py-16 px-6 bg-gradient-to-b from-header to-blue-300">
@@ -127,10 +118,10 @@ const VisionMissionSection = () => {
 interface InfiniteCarouselItem {
   id: string | number;
   title: string;
-  name?: string; // For organizational type
-  description?: string; // For non-organizational type
+  name?: string;
+  description?: string;
   imageUrl?: string;
-  color?: string; // For organizational type text background
+  color?: string;
 }
 
 interface InfiniteCarouselProps {
@@ -224,10 +215,8 @@ const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({ items, type }) => {
   );
 };
 
-// Organizational Structure Section Component
 const OrganizationalStructure = () => {
   const orgData: InfiniteCarouselItem[] = [
-    // Menggunakan InfiniteCarouselItem
     {
       id: 1,
       title: "Ketua Yayasan",
@@ -301,7 +290,6 @@ const OrganizationalStructure = () => {
   );
 };
 
-// Facilities Section Component
 const FacilitiesSection = () => {
   const facilitiesData: InfiniteCarouselItem[] = [
     {
@@ -362,7 +350,6 @@ const FacilitiesSection = () => {
   );
 };
 
-// Main Profile Page Component
 const ProfilPage = () => {
   return (
     <div className="min-h-screen font-fredoka bg-header">

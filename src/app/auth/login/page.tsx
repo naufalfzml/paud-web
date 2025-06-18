@@ -1,15 +1,18 @@
-import React from 'react';
-import LoginForm from '@/app/components/LoginForm';
-import Navbar from '@/app/components/Navbar';
-import Footer from '@/app/components/Footer';
+import React from "react";
+import LoginForm from "@/app/components/LoginForm";
+import Navbar from "@/app/components/Navbar";
+import Footer from "@/app/components/Footer";
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen flex flex-col font-fredoka bg-cover bg-no-repeat" style={{ backgroundImage: "url('/bg-login.jpg')" }}>
+    <div
+      className="min-h-screen flex flex-col font-fredoka bg-cover bg-no-repeat"
+      style={{ backgroundImage: "url('/bg-login.jpg')" }}
+    >
       <Navbar />
 
       <div className="flex flex-1">
-        <div className="w-1/2 flex items-center justify-center pt-40 py-16" >
+        <div className="w-1/2 flex items-center justify-center pt-40 py-16">
           <div className="w-full max-w-md">
             <div className="mb-8">
               <h1 className="text-4xl font-semibold text-gray-900 mb-2">
@@ -23,8 +26,7 @@ export default function LoginPage() {
           </div>
         </div>
 
-        <div className="w-1/2 relative">
-        </div>
+        <div className="w-1/2 relative"></div>
       </div>
 
       <Footer />

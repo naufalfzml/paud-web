@@ -1,14 +1,12 @@
 "use client";
 
-import { useState, useEffect, ChangeEvent } from "react";
+import { useState } from "react";
 import { useAuth } from "@/lib/AuthContext";
-import { useRouter } from "next/navigation";
 import withAuth from "@/lib/WithAuth";
 import { supabase } from "@/lib/supabase";
 
 function FormPendaftaran() {
   const { user, loading: authLoading } = useAuth();
-  const router = useRouter();
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -19,7 +17,7 @@ function FormPendaftaran() {
     jenis_kelamin: "",
     pendidikan_terakhir: "",
     alasan_melamar: "",
-    cvUrl: "", // Mengganti formUrl menjadi cvUrl agar lebih deskriptif
+    cvUrl: "",
   });
 
   const [loading, setLoading] = useState(false);
@@ -93,7 +91,6 @@ function FormPendaftaran() {
     setLoading(true);
     setMessage("");
 
-    // Validasi frontend
     const requiredFields = [
       "fullName",
       "alamat",
@@ -114,7 +111,6 @@ function FormPendaftaran() {
       }
     }
 
-    // Validasi Regex
     const phoneRegex = /^[0-9+\-\s()]+$/;
     if (!phoneRegex.test(formData.noHp)) {
       setMessage("Format nomor HP tidak valid");

@@ -8,15 +8,15 @@ export async function POST(req: Request) {
 
     console.log("Attempting login:", { email, password });
 
-    const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    const { data: signInData, error: signInError } =
+      await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
 
     if (signInError) {
       console.error("SignIn Error:", signInError.message);
 
-      // Tangani beberapa error spesifik dari Supabase
       if (signInError.message === "Invalid login credentials") {
         return NextResponse.json(
           { user: null, message: "Email atau password salah" },
@@ -38,26 +38,25 @@ export async function POST(req: Request) {
     }
 
     const response = NextResponse.json(
-      { 
+      {
         user: signInData.user,
         message: "Login berhasil",
-        success: true, 
-        redirectTo: "/"
+        success: true,
+        redirectTo: "/",
       },
       { status: 200 }
     );
 
     if (signInData.session) {
-        response.cookies.set('supabase-auth', signInData.session.access_token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'strict',
-            maxAge: signInData.session.expires_in
-        });
+      response.cookies.set("supabase-auth", signInData.session.access_token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+        maxAge: signInData.session.expires_in,
+      });
     }
 
     return response;
-
   } catch (error) {
     console.error("Terjadi error saat login:", error);
     return NextResponse.json(

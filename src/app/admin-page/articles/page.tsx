@@ -1,8 +1,5 @@
-import React from 'react';
-import ProfilPage from '@/app/components/Profil';
-import Navbar from '@/app/components/Navbar';
-import Footer from '@/app/components/Footer';
-import ManageArtikel from '@/app/components/admin-components/ManageArtikel';
+import React from "react";
+import ManageArtikel from "@/app/components/admin-components/ManageArtikel";
 
 export default function Artikel() {
   return (

@@ -4,18 +4,16 @@ import { useState, useEffect } from "react";
 import { ChevronLeft, FileText, Download, Upload, Award } from "lucide-react";
 import Link from "next/link";
 
-// Tipe untuk dokumen (bisa digunakan kembali)
 type Dokumen = {
   nama: string;
   url: string;
 };
 
-// Definisikan tipe untuk objek TenagaPendidik
 type TenagaPendidik = {
   id: number;
   nama: string;
   email: string;
-  pengalaman: number; // dalam tahun
+  pengalaman: number;
   sudahSertifikasi: boolean;
   nip: string;
   mataPelajaran: string;
@@ -24,7 +22,6 @@ type TenagaPendidik = {
   dokumen: Dokumen[];
 };
 
-// Data dummy untuk simulasi. Kita gunakan data 'Siti Nurhasanah' yang statusnya 'Pending'.
 const dummyTenagaPendidik: TenagaPendidik = {
   id: 2,
   nama: "Siti Nurhasanah, M.Pd",
@@ -42,23 +39,19 @@ const dummyTenagaPendidik: TenagaPendidik = {
   ],
 };
 
-// Komponen utama untuk halaman Edit Tenaga Pendidik
 const EditTenagaPendidikPage = ({ params }: { params: { id: string } }) => {
   const [guru, setGuru] = useState<TenagaPendidik | null>(null);
 
   useEffect(() => {
-    // Di aplikasi nyata, panggil API berdasarkan params.id
     console.log("Fetching data for educator ID:", params.id);
     setGuru(dummyTenagaPendidik);
   }, [params.id]);
 
-  // Handler untuk mengelola semua perubahan pada form
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value, type } = e.target;
 
-    // Penanganan khusus untuk checkbox
     const isCheckbox = type === "checkbox";
     const checked = isCheckbox
       ? (e.target as HTMLInputElement).checked
@@ -74,7 +67,6 @@ const EditTenagaPendidikPage = ({ params }: { params: { id: string } }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Kirim seluruh objek 'guru' yang telah diperbarui ke API
     console.log("Saving full educator data (Admin Action):", guru);
     alert("Data tenaga pendidik telah berhasil diperbarui!");
   };

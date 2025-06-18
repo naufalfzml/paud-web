@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { ChevronLeft, FileText, Download, Upload } from "lucide-react";
 import Link from "next/link";
 
-// Tipe data tidak perlu diubah
 type Dokumen = {
   nama: string;
   url: string;
@@ -21,13 +20,12 @@ type PesertaDidik = {
   dokumen: Dokumen[];
 };
 
-// Data dummy yang sama
 const dummyPesertaDidik: PesertaDidik = {
   id: 2,
   nama: "Sari Indah",
   email: "sari.indah@email.com",
   nisn: "1234567891",
-  sekolahAsal: "SMA Negeri 2 Bandung",
+  sekolahAsal: "SMA Negeri 2 Demak",
   status: "Pending",
   tanggalDaftar: "2024-01-14",
   dokumen: [
@@ -36,17 +34,14 @@ const dummyPesertaDidik: PesertaDidik = {
   ],
 };
 
-// Komponen utama untuk halaman Edit Peserta Didik
 const EditPesertaDidikPage = ({ params }: { params: { id: string } }) => {
   const [siswa, setSiswa] = useState<PesertaDidik | null>(null);
 
   useEffect(() => {
-    // Logika pengambilan data tetap sama
     console.log("Fetching data for student ID:", params.id);
     setSiswa(dummyPesertaDidik);
   }, [params.id]);
 
-  // Handler ini sekarang akan menangani SEMUA input form
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -58,7 +53,6 @@ const EditPesertaDidikPage = ({ params }: { params: { id: string } }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Kirim seluruh objek 'siswa' yang telah diperbarui ke API
     console.log("Saving full student data (Admin Action):", siswa);
     alert("Data siswa telah berhasil diperbarui!");
   };

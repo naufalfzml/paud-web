@@ -14,10 +14,9 @@ export async function POST(req: NextRequest) {
       jenis_kelamin,
       program,
       suratPernyataan,
-      formulir
+      formulir,
     } = body;
 
-    // Log request untuk debugging
     console.log("API Request received:", {
       fullName: !!fullName,
       alamat: !!alamat,
@@ -28,7 +27,7 @@ export async function POST(req: NextRequest) {
       jenis_kelamin: !!jenis_kelamin,
       formulir: !!formulir,
       suratPernyataan: !!suratPernyataan,
-      program: !!program
+      program: !!program,
     });
 
     if (!userId) {
@@ -41,7 +40,6 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Validasi semua field required
     const requiredFields = {
       fullName,
       alamat,
@@ -81,7 +79,6 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Validasi jenis kelamin
     const validGenders = ["Laki-laki", "Perempuan"];
     if (!validGenders.includes(jenis_kelamin)) {
       console.error("Validation failed: Invalid gender:", jenis_kelamin);
@@ -97,7 +94,6 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Validasi URL jika diisi
     if (formulir && formulir.trim() !== "") {
       try {
         new URL(formulir);
@@ -120,7 +116,10 @@ export async function POST(req: NextRequest) {
       try {
         new URL(suratPernyataan);
       } catch (error) {
-        console.error("Validation failed: Invalid URL format:", suratPernyataan);
+        console.error(
+          "Validation failed: Invalid URL format:",
+          suratPernyataan
+        );
         return new Response(
           JSON.stringify({
             error: "Format URL tidak valid",
@@ -134,10 +133,9 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // Koneksi langsung ke Supabase (tanpa session helper)
     const supabase = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_ROLE_KEY! // WARNING: hanya aman digunakan di server-side
+      process.env.SUPABASE_SERVICE_ROLE_KEY!
     );
 
     const { data: existingRegistration, error: checkError } = await supabase
@@ -173,7 +171,6 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Insert data baru
     const insertData = {
       fullName: fullName.trim(),
       alamat: alamat.trim(),
@@ -244,117 +241,107 @@ export async function POST(req: NextRequest) {
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
-    
-    // Optional query parameters
-    const page = parseInt(searchParams.get('page') || '1');
-    const limit = parseInt(searchParams.get('limit') || '10');
-    const search = searchParams.get('search') || '';
-    const status = searchParams.get('status') || '';
-    const jenis_kelamin = searchParams.get('jenis_kelamin') || '';
-    const userId = searchParams.get('userId') || '';
 
-    // Koneksi langsung ke Supabase
+    const page = parseInt(searchParams.get("page") || "1");
+    const limit = parseInt(searchParams.get("limit") || "10");
+    const search = searchParams.get("search") || "";
+    const status = searchParams.get("status") || "";
+    const jenis_kelamin = searchParams.get("jenis_kelamin") || "";
+    const userId = searchParams.get("userId") || "";
+
     const supabase = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     );
 
-    // Build query
     let query = supabase
-      .from('PendaftarPesertaDidik')
-      .select('*', { count: 'exact' });
+      .from("PendaftarPesertaDidik")
+      .select("*", { count: "exact" });
 
-    // Filter berdasarkan userId (untuk mengambil data user tertentu)
     if (userId) {
-      query = query.eq('userId', userId);
+      query = query.eq("userId", userId);
     }
 
-    // Filter berdasarkan pencarian nama
     if (search) {
       query = query.or(`fullName.ilike.%${search}%,namaWali.ilike.%${search}%`);
     }
 
-    // Filter berdasarkan status
     if (status) {
-      query = query.eq('status', status);
+      query = query.eq("status", status);
     }
 
-    // Filter berdasarkan jenis kelamin
     if (jenis_kelamin) {
-      query = query.eq('jenis_kelamin', jenis_kelamin);
+      query = query.eq("jenis_kelamin", jenis_kelamin);
     }
 
-    // Pagination
-    if (!userId) { // Jika tidak filter by userId, gunakan pagination
+    if (!userId) {
       const from = (page - 1) * limit;
       const to = from + limit - 1;
       query = query.range(from, to);
     }
 
-    // Order by created date (terbaru dulu)
-    const { data, error, count } = await query
-      .order('createdAt', { ascending: false });
+    const { data, error, count } = await query.order("createdAt", {
+      ascending: false,
+    });
 
     if (error) {
-      console.error('Select error:', error);
-      return new Response(JSON.stringify({ 
-        error: 'Gagal mengambil data',
-        code: 'DB_SELECT_ERROR'
-      }), {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' }
-      });
+      console.error("Select error:", error);
+      return new Response(
+        JSON.stringify({
+          error: "Gagal mengambil data",
+          code: "DB_SELECT_ERROR",
+        }),
+        {
+          status: 500,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
     }
 
-    // Response format
     const response = {
-      message: 'Data berhasil diambil',
+      message: "Data berhasil diambil",
       data: data || [],
-      total: count || 0
+      total: count || 0,
     };
-
-    // Add pagination info if not filtering by userId
-    if (!userId) {
-      response.pagination = {
-        page,
-        limit,
-        total: count || 0,
-        totalPages: Math.ceil((count || 0) / limit),
-        hasNextPage: page * limit < (count || 0),
-        hasPrevPage: page > 1
-      };
-    }
 
     return new Response(JSON.stringify(response), {
       status: 200,
-      headers: { 'Content-Type': 'application/json' }
+      headers: { "Content-Type": "application/json" },
     });
-
   } catch (error) {
-    console.error('Unexpected error:', error);
-    return new Response(JSON.stringify({ 
-      error: 'Terjadi kesalahan server',
-      code: 'INTERNAL_SERVER_ERROR'
-    }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' }
-    });
+    console.error("Unexpected error:", error);
+    return new Response(
+      JSON.stringify({
+        error: "Terjadi kesalahan server",
+        code: "INTERNAL_SERVER_ERROR",
+      }),
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
   }
 }
 
-// Method untuk mengambil data berdasarkan ID tertentu
-export async function GET_BY_ID(req: NextRequest, { params }: { params: { id: string } }) {
+// Method GET untuk mengambil data berdasarkan ID tertentu
+export async function GET_BY_ID(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
   try {
     const { id } = params;
 
     if (!id) {
-      return new Response(JSON.stringify({ 
-        error: 'ID tidak boleh kosong',
-        code: 'MISSING_ID'
-      }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' }
-      });
+      return new Response(
+        JSON.stringify({
+          error: "ID tidak boleh kosong",
+          code: "MISSING_ID",
+        }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
     }
 
     const supabase = createClient(
@@ -363,50 +350,61 @@ export async function GET_BY_ID(req: NextRequest, { params }: { params: { id: st
     );
 
     const { data, error } = await supabase
-      .from('PendaftarPesertaDidik')
-      .select('*')
-      .eq('id', id)
+      .from("PendaftarPesertaDidik")
+      .select("*")
+      .eq("id", id)
       .single();
 
     if (error) {
-      console.error('Select by ID error:', error);
-      
-      if (error.code === 'PGRST116') {
-        return new Response(JSON.stringify({ 
-          error: 'Data tidak ditemukan',
-          code: 'NOT_FOUND'
-        }), {
-          status: 404,
-          headers: { 'Content-Type': 'application/json' }
-        });
+      console.error("Select by ID error:", error);
+
+      if (error.code === "PGRST116") {
+        return new Response(
+          JSON.stringify({
+            error: "Data tidak ditemukan",
+            code: "NOT_FOUND",
+          }),
+          {
+            status: 404,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
       }
 
-      return new Response(JSON.stringify({ 
-        error: 'Gagal mengambil data',
-        code: 'DB_SELECT_ERROR'
-      }), {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' }
-      });
+      return new Response(
+        JSON.stringify({
+          error: "Gagal mengambil data",
+          code: "DB_SELECT_ERROR",
+        }),
+        {
+          status: 500,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
     }
 
-    return new Response(JSON.stringify({
-      message: 'Data berhasil diambil',
-      data: data
-    }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' }
-    });
-
+    return new Response(
+      JSON.stringify({
+        message: "Data berhasil diambil",
+        data: data,
+      }),
+      {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
   } catch (error) {
-    console.error('Unexpected error:', error);
-    return new Response(JSON.stringify({ 
-      error: 'Terjadi kesalahan server',
-      code: 'INTERNAL_SERVER_ERROR'
-    }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' }
-    });
+    console.error("Unexpected error:", error);
+    return new Response(
+      JSON.stringify({
+        error: "Terjadi kesalahan server",
+        code: "INTERNAL_SERVER_ERROR",
+      }),
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
   }
 }
 
@@ -418,36 +416,49 @@ export async function PUT(req: NextRequest) {
 
     // Validasi input
     if (!id) {
-      return new Response(JSON.stringify({ 
-        error: 'ID tidak boleh kosong',
-        code: 'MISSING_ID'
-      }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' }
-      });
+      return new Response(
+        JSON.stringify({
+          error: "ID tidak boleh kosong",
+          code: "MISSING_ID",
+        }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
     }
 
     if (!status) {
-      return new Response(JSON.stringify({ 
-        error: 'Status tidak boleh kosong',
-        code: 'MISSING_STATUS'
-      }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' }
-      });
+      return new Response(
+        JSON.stringify({
+          error: "Status tidak boleh kosong",
+          code: "MISSING_STATUS",
+        }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
     }
 
-    // Validasi status yang diizinkan
-    const validStatuses = ['MENUNGGU VERIFIKASI', 'TELAH DIVERIFIKASI', 'DITOLAK', 'DITERIMA'];
+    const validStatuses = [
+      "MENUNGGU VERIFIKASI",
+      "TELAH DIVERIFIKASI",
+      "DITOLAK",
+      "DITERIMA",
+    ];
     if (!validStatuses.includes(status)) {
-      return new Response(JSON.stringify({ 
-        error: 'Status tidak valid',
-        code: 'INVALID_STATUS',
-        validStatuses
-      }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' }
-      });
+      return new Response(
+        JSON.stringify({
+          error: "Status tidak valid",
+          code: "INVALID_STATUS",
+          validStatuses,
+        }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
     }
 
     const supabase = createClient(
@@ -455,65 +466,78 @@ export async function PUT(req: NextRequest) {
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     );
 
-    // Update status
     const { data, error } = await supabase
-      .from('PendaftarPesertaDidik')
-      .update({ 
+      .from("PendaftarPesertaDidik")
+      .update({
         status,
-        updatedAt: new Date().toISOString()
+        updatedAt: new Date().toISOString(),
       })
-      .eq('id', id)
+      .eq("id", id)
       .select();
 
     if (error) {
-      console.error('Update status error:', error);
-      
-      if (error.code === 'PGRST116') {
-        return new Response(JSON.stringify({ 
-          error: 'Data tidak ditemukan',
-          code: 'NOT_FOUND'
-        }), {
-          status: 404,
-          headers: { 'Content-Type': 'application/json' }
-        });
+      console.error("Update status error:", error);
+
+      if (error.code === "PGRST116") {
+        return new Response(
+          JSON.stringify({
+            error: "Data tidak ditemukan",
+            code: "NOT_FOUND",
+          }),
+          {
+            status: 404,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
       }
 
-      return new Response(JSON.stringify({ 
-        error: 'Gagal mengupdate status',
-        code: 'DB_UPDATE_ERROR'
-      }), {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' }
-      });
+      return new Response(
+        JSON.stringify({
+          error: "Gagal mengupdate status",
+          code: "DB_UPDATE_ERROR",
+        }),
+        {
+          status: 500,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
     }
 
     if (!data || data.length === 0) {
-      return new Response(JSON.stringify({ 
-        error: 'Data tidak ditemukan',
-        code: 'NOT_FOUND'
-      }), {
-        status: 404,
-        headers: { 'Content-Type': 'application/json' }
-      });
+      return new Response(
+        JSON.stringify({
+          error: "Data tidak ditemukan",
+          code: "NOT_FOUND",
+        }),
+        {
+          status: 404,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
     }
 
-    return new Response(JSON.stringify({
-      message: 'Status berhasil diupdate',
-      data: data[0]
-    }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' }
-    });
-
+    return new Response(
+      JSON.stringify({
+        message: "Status berhasil diupdate",
+        data: data[0],
+      }),
+      {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
   } catch (error) {
-    console.error('Unexpected error:', error);
-    return new Response(JSON.stringify({ 
-      error: 'Terjadi kesalahan server',
-      code: 'INTERNAL_SERVER_ERROR'
-    }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' }
-    });
+    console.error("Unexpected error:", error);
+    return new Response(
+      JSON.stringify({
+        error: "Terjadi kesalahan server",
+        code: "INTERNAL_SERVER_ERROR",
+      }),
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
   }
 }
 
@@ -521,16 +545,19 @@ export async function PUT(req: NextRequest) {
 export async function DELETE(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
-    const id = searchParams.get('id');
+    const id = searchParams.get("id");
 
     if (!id) {
-      return new Response(JSON.stringify({ 
-        error: 'ID tidak boleh kosong',
-        code: 'MISSING_ID'
-      }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' }
-      });
+      return new Response(
+        JSON.stringify({
+          error: "ID tidak boleh kosong",
+          code: "MISSING_ID",
+        }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
     }
 
     const supabase = createClient(
@@ -538,72 +565,87 @@ export async function DELETE(req: NextRequest) {
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     );
 
-    // Ambil data sebelum dihapus untuk logging
     const { data: existingData, error: selectError } = await supabase
-      .from('PendaftarPesertaDidik')
-      .select('*')
-      .eq('id', id)
+      .from("PendaftarPesertaDidik")
+      .select("*")
+      .eq("id", id)
       .single();
 
-    if (selectError && selectError.code !== 'PGRST116') {
-      console.error('Select before delete error:', selectError);
-      return new Response(JSON.stringify({ 
-        error: 'Gagal memeriksa data',
-        code: 'DB_SELECT_ERROR'
-      }), {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' }
-      });
+    if (selectError && selectError.code !== "PGRST116") {
+      console.error("Select before delete error:", selectError);
+      return new Response(
+        JSON.stringify({
+          error: "Gagal memeriksa data",
+          code: "DB_SELECT_ERROR",
+        }),
+        {
+          status: 500,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
     }
 
     if (!existingData) {
-      return new Response(JSON.stringify({ 
-        error: 'Data tidak ditemukan',
-        code: 'NOT_FOUND'
-      }), {
-        status: 404,
-        headers: { 'Content-Type': 'application/json' }
-      });
+      return new Response(
+        JSON.stringify({
+          error: "Data tidak ditemukan",
+          code: "NOT_FOUND",
+        }),
+        {
+          status: 404,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
     }
 
-    // Hapus data
     const { error: deleteError } = await supabase
-      .from('PendaftarPesertaDidik')
+      .from("PendaftarPesertaDidik")
       .delete()
-      .eq('id', id);
+      .eq("id", id);
 
     if (deleteError) {
-      console.error('Delete error:', deleteError);
-      return new Response(JSON.stringify({ 
-        error: 'Gagal menghapus data',
-        code: 'DB_DELETE_ERROR'
-      }), {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' }
-      });
+      console.error("Delete error:", deleteError);
+      return new Response(
+        JSON.stringify({
+          error: "Gagal menghapus data",
+          code: "DB_DELETE_ERROR",
+        }),
+        {
+          status: 500,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
     }
 
-    console.log('Deleted PendaftarPesertaDidik:', { id, fullName: existingData.fullName });
+    console.log("Deleted PendaftarPesertaDidik:", {
+      id,
+      fullName: existingData.fullName,
+    });
 
-    return new Response(JSON.stringify({
-      message: 'Data berhasil dihapus',
-      deletedData: {
-        id: existingData.id,
-        fullName: existingData.fullName
+    return new Response(
+      JSON.stringify({
+        message: "Data berhasil dihapus",
+        deletedData: {
+          id: existingData.id,
+          fullName: existingData.fullName,
+        },
+      }),
+      {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
       }
-    }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' }
-    });
-
+    );
   } catch (error) {
-    console.error('Unexpected error:', error);
-    return new Response(JSON.stringify({ 
-      error: 'Terjadi kesalahan server',
-      code: 'INTERNAL_SERVER_ERROR'
-    }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' }
-    });
+    console.error("Unexpected error:", error);
+    return new Response(
+      JSON.stringify({
+        error: "Terjadi kesalahan server",
+        code: "INTERNAL_SERVER_ERROR",
+      }),
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
   }
 }

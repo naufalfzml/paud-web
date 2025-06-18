@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useAuth } from "@/lib/AuthContext";
 import { useRouter } from "next/navigation";
 import withAuth from "@/lib/WithAuth";
@@ -47,7 +47,6 @@ function FormPendaftaran() {
     setMessage("");
 
     try {
-      // Validasi di frontend sebelum kirim
       if (
         !formData.fullName ||
         !formData.alamat ||
@@ -62,7 +61,6 @@ function FormPendaftaran() {
         return;
       }
 
-      // Validasi format nomor HP
       const phoneRegex = /^[0-9+\-\s()]+$/;
       if (!phoneRegex.test(formData.noHpWali)) {
         setMessage("Format nomor HP tidak valid");
@@ -80,7 +78,6 @@ function FormPendaftaran() {
         return;
       }
 
-      // Log user info for debugging
       console.log("Submitting form with user:", {
         userId: user?.id,
         email: user?.email,
@@ -136,7 +133,6 @@ function FormPendaftaran() {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    // Validasi tipe file - hanya PDF
     if (file.type !== "application/pdf") {
       setError("Hanya file PDF yang diperbolehkan");
       setMessage("Hanya file PDF yang diperbolehkan");
@@ -144,7 +140,6 @@ function FormPendaftaran() {
       return;
     }
 
-    // Validasi ukuran file (max 5MB)
     if (file.size > 5 * 1024 * 1024) {
       setError("Ukuran file terlalu besar. Maksimal 5MB.");
       setMessage("Ukuran file terlalu besar. Maksimal 5MB.");
@@ -154,15 +149,15 @@ function FormPendaftaran() {
 
     const fileExt = file.name.split(".").pop();
     const fileName = `${Date.now()}.${fileExt}`;
-    const filePath = `suratpernyataan/${fileName}`; // Ganti folder menjadi documents untuk PDF
+    const filePath = `suratpernyataan/${fileName}`;
 
     setIsUploadingSurat(true);
-    setError(""); // Clear error sebelum upload
-    setMessage(""); // Clear message sebelum upload
+    setError("");
+    setMessage("");
 
     try {
       const { data, error } = await supabase.storage
-        .from("pesertadidik") // Pastikan bucket ini sudah dibuat di Supabase
+        .from("pesertadidik")
         .upload(filePath, file);
 
       if (error) {
@@ -182,7 +177,7 @@ function FormPendaftaran() {
           ...prev,
           suratPernyataan: publicUrlData.publicUrl,
         }));
-        setError(""); // Clear error jika berhasil
+        setError("");
         setMessage("File PDF berhasil diupload!");
         setMessageType("success");
       }
@@ -202,7 +197,6 @@ function FormPendaftaran() {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    // Validasi tipe file - hanya PDF
     if (file.type !== "application/pdf") {
       setError("Hanya file PDF yang diperbolehkan");
       setMessage("Hanya file PDF yang diperbolehkan");
@@ -210,7 +204,6 @@ function FormPendaftaran() {
       return;
     }
 
-    // Validasi ukuran file (max 5MB)
     if (file.size > 5 * 1024 * 1024) {
       setError("Ukuran file terlalu besar. Maksimal 5MB.");
       setMessage("Ukuran file terlalu besar. Maksimal 5MB.");
@@ -220,15 +213,15 @@ function FormPendaftaran() {
 
     const fileExt = file.name.split(".").pop();
     const fileName = `${Date.now()}.${fileExt}`;
-    const filePath = `formulir/${fileName}`; // Ganti folder menjadi documents untuk PDF
+    const filePath = `formulir/${fileName}`;
 
     setIsUploadingFormulir(true);
-    setError(""); // Clear error sebelum upload
-    setMessage(""); // Clear message sebelum upload
+    setError("");
+    setMessage("");
 
     try {
-      const { data, error } = await supabase.storage
-        .from("pesertadidik") // Pastikan bucket ini sudah dibuat di Supabase
+      const { error } = await supabase.storage
+        .from("pesertadidik")
         .upload(filePath, file);
 
       if (error) {
@@ -248,7 +241,7 @@ function FormPendaftaran() {
           ...prev,
           formulir: publicUrlData.publicUrl,
         }));
-        setError(""); // Clear error jika berhasil
+        setError("");
         setMessage("File PDF berhasil diupload!");
         setMessageType("success");
       }
@@ -262,11 +255,9 @@ function FormPendaftaran() {
     }
   };
 
-  // Loading state saat auth masih loading
   if (authLoading) {
     return (
       <div className="relative min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 p-6">
-        {/* Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
           <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
@@ -289,11 +280,9 @@ function FormPendaftaran() {
     );
   }
 
-  // Not authenticated
   if (!user) {
     return (
       <div className="relative min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 p-6">
-        {/* Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
           <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
@@ -595,7 +584,7 @@ function FormPendaftaran() {
                 </div>
               </div>
 
-              {/* Guardian Information Section */}
+              {/* Wali Information Section */}
               <div className="space-y-6">
                 <div className="flex items-center space-x-3 mb-6">
                   <div className="p-2 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-green-400 via-green-500 to-green-800 rounded-full">

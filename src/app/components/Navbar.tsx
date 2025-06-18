@@ -4,7 +4,15 @@ import { useEffect, useState, useRef } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/lib/AuthContext";
-import { House, Info, Newspaper, UserRoundPlus, LogOut, CircleUserRound, LayoutDashboard } from "lucide-react";
+import {
+  House,
+  Info,
+  Newspaper,
+  UserRoundPlus,
+  LogOut,
+  CircleUserRound,
+  LayoutDashboard,
+} from "lucide-react";
 
 export default function Navbar() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -13,8 +21,7 @@ export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
   const { user, loading, logout } = useAuth();
-  
-  // Refs untuk dropdown
+
   const dropdownRef = useRef<HTMLDivElement>(null);
   const userDropdownRef = useRef<HTMLDivElement>(null);
 
@@ -27,16 +34,19 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      // Check if click is outside dropdown
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setDropdownOpen(false);
       }
-      
-      // Check if click is outside user dropdown
-      if (userDropdownRef.current && !userDropdownRef.current.contains(event.target as Node)) {
+
+      if (
+        userDropdownRef.current &&
+        !userDropdownRef.current.contains(event.target as Node)
+      ) {
         setUserDropdownOpen(false);
       }
     };
@@ -45,12 +55,10 @@ export default function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Function untuk mengecek apakah link sedang aktif
   const isActive = (path: string) => {
     return pathname === path;
   };
 
-  // Function untuk mendapatkan style link
   const getLinkStyle = (path: string) => {
     return isActive(path)
       ? "text-black font-medium px-3 py-2 rounded-lg bg-gray-100"
@@ -60,29 +68,26 @@ export default function Navbar() {
   const handleLogout = async () => {
     try {
       await logout();
-      router.push('/');
+      router.push("/");
     } catch (error) {
-      console.error('Logout error:', error);
+      console.error("Logout error:", error);
     }
   };
 
-  // Dapatkan nama user untuk ditampilkan
   const getUserDisplayName = () => {
-    if (!user) return '';
-    
-    // Coba ambil dari user_metadata terlebih dahulu
+    if (!user) return "";
+
     const fullName = user.user_metadata?.name;
     if (fullName) return fullName;
-    
-    // Kalau tidak ada, gunakan bagian email sebelum @
-    return user.email.split('@')[0];
+
+    return user.email.split("@")[0];
   };
 
   const [formData, setFormData] = useState({
     fullName: "",
     address: "",
     whatsApp: "",
-    role: ""
+    role: "",
   });
 
   useEffect(() => {
@@ -95,7 +100,7 @@ export default function Navbar() {
               fullName: data.name || "",
               address: data.address || "",
               whatsApp: data.no_hp || "",
-              role: data.role || ""
+              role: data.role || "",
             });
           }
         });
@@ -113,11 +118,11 @@ export default function Navbar() {
     <header
       className="fixed left-1/2 transform -translate-x-1/2 z-50 bg-white shadow-md"
       style={{
-        transition: 'all 0.5s ease-in-out',
-        width: isScrolled ? '65%' : '100%',
-        top: isScrolled ? '1rem' : '0px',
-        padding: isScrolled ? '0.25rem 1.5rem' : '1rem 0',
-        borderRadius: isScrolled ? '9999px' : '0px',
+        transition: "all 0.5s ease-in-out",
+        width: isScrolled ? "65%" : "100%",
+        top: isScrolled ? "1rem" : "0px",
+        padding: isScrolled ? "0.25rem 1.5rem" : "1rem 0",
+        borderRadius: isScrolled ? "9999px" : "0px",
       }}
     >
       <div className="max-w-6xl mx-auto py-2 flex items-center justify-between">
@@ -156,7 +161,9 @@ export default function Navbar() {
 
           <Link
             href="/artikel"
-            className={`${getLinkStyle("/artikel")} flex items-center space-x-1`}
+            className={`${getLinkStyle(
+              "/artikel"
+            )} flex items-center space-x-1`}
           >
             <Newspaper></Newspaper>
             <span>Artikel</span>
@@ -179,7 +186,13 @@ export default function Navbar() {
             >
               <UserRoundPlus></UserRoundPlus>
               <span>Daftar</span>
-              <span className={`text-xs transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`}>▼</span>
+              <span
+                className={`text-xs transition-transform duration-200 ${
+                  dropdownOpen ? "rotate-180" : ""
+                }`}
+              >
+                ▼
+              </span>
             </button>
             {dropdownOpen && (
               <div className="absolute bg-white border shadow-lg rounded-md mt-2 w-48 right-0 z-[60] py-1">
@@ -211,17 +224,15 @@ export default function Navbar() {
 
           {/* Authentication Section */}
           {loading ? (
-            // Loading state
             <div className="bg-gray-200 animate-pulse px-6 py-2 rounded-2xl w-20 h-8"></div>
           ) : user ? (
-            // User is logged in - Show user dropdown
             <div className="relative" ref={userDropdownRef}>
               <button
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
                   setUserDropdownOpen(!userDropdownOpen);
-                  setDropdownOpen(false); // Close daftar dropdown
+                  setDropdownOpen(false);
                 }}
                 className="bg-blue-600 font-medium text-white px-4 py-2 rounded-2xl hover:bg-blue-700 ml-4 flex items-center space-x-2 focus:outline-none transition-colors"
               >
@@ -229,21 +240,27 @@ export default function Navbar() {
                   {formData.fullName.charAt(0).toUpperCase()}
                 </span>
                 <span className="max-w-24 truncate">{formData.fullName}</span>
-                <span className={`text-xs transition-transform duration-200 ${userDropdownOpen ? 'rotate-180' : ''}`}>▼</span>
+                <span
+                  className={`text-xs transition-transform duration-200 ${
+                    userDropdownOpen ? "rotate-180" : ""
+                  }`}
+                >
+                  ▼
+                </span>
               </button>
-              
+
               {userDropdownOpen && (
                 <div className="absolute bg-white border shadow-lg rounded-md mt-2 w-48 right-0 z-[60]">
                   <div className="px-4 py-2 border-b bg-gray-50">
                     <p className="text-sm font-medium text-gray-900 truncate">
-                     {formData.fullName}
+                      {formData.fullName}
                     </p>
                     <p className="text-xs text-gray-500 truncate">
                       {user.email}
                     </p>
                   </div>
 
-                  {formData?.role === 'ADMIN' && (
+                  {formData?.role === "ADMIN" && (
                     <Link
                       href="/admin-page/users"
                       className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center space-x-2 transition-colors"
@@ -253,7 +270,7 @@ export default function Navbar() {
                       <span>Dashboard</span>
                     </Link>
                   )}
-                  
+
                   <Link
                     href="/profile-settings"
                     className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center space-x-2 transition-colors"
@@ -262,24 +279,23 @@ export default function Navbar() {
                     <CircleUserRound></CircleUserRound>
                     <span>Akun</span>
                   </Link>
-                  
+
                   <a href="/">
-                  <button
-                    onClick={() => {
-                      handleLogout();
-                      setUserDropdownOpen(false);
-                    }}
-                    className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 flex items-center space-x-2 transition-colors"
-                  >
-                    <LogOut></LogOut>
-                    <span>Logout</span>
-                  </button>
+                    <button
+                      onClick={() => {
+                        handleLogout();
+                        setUserDropdownOpen(false);
+                      }}
+                      className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 flex items-center space-x-2 transition-colors"
+                    >
+                      <LogOut></LogOut>
+                      <span>Logout</span>
+                    </button>
                   </a>
                 </div>
               )}
             </div>
           ) : (
-            // User is not logged in - Show login button
             <Link
               href="/auth/login"
               className="bg-blue-600 font-medium text-white px-6 py-2 rounded-2xl hover:bg-blue-700 ml-4 transition-colors"

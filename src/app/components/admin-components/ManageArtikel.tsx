@@ -1,10 +1,20 @@
-'use client';
+"use client";
 
-import { useState, useEffect, useCallback } from 'react';
-import { Search, Filter, Edit, Trash2, Plus, Eye, Calendar, Save, X, AlertCircle } from 'lucide-react';
-import { supabase } from '@/lib/supabase';
+import { useState, useEffect } from "react";
+import {
+  Search,
+  Filter,
+  Edit,
+  Trash2,
+  Plus,
+  Eye,
+  Calendar,
+  Save,
+  X,
+  AlertCircle,
+} from "lucide-react";
+import { supabase } from "@/lib/supabase";
 
-// Define types
 interface Article {
   id: string;
   judul: string;
@@ -26,14 +36,16 @@ interface ArticleFormProps {
     deskripsiSingkat: string;
     isPublished: boolean;
   };
-  setFormData: React.Dispatch<React.SetStateAction<{
-    judul: string;
-    content: string;
-    author: string;
-    imageUrl: string;
-    deskripsiSingkat: string;
-    isPublished: boolean;
-  }>>;
+  setFormData: React.Dispatch<
+    React.SetStateAction<{
+      judul: string;
+      content: string;
+      author: string;
+      imageUrl: string;
+      deskripsiSingkat: string;
+      isPublished: boolean;
+    }>
+  >;
   handleSubmit: () => Promise<void>;
   resetForm: () => void;
   error: string;
@@ -42,22 +54,20 @@ interface ArticleFormProps {
   handleImageUpload: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
 }
 
-// Pindahkan ArticleForm ke luar komponen utama
-const ArticleForm = ({ 
-  formData, 
-  setFormData, 
-  handleSubmit, 
-  resetForm, 
-  error, 
-  editingArticle, 
-  isUploading, 
-  handleImageUpload 
+const ArticleForm = ({
+  formData,
+  setFormData,
+  handleSubmit,
+  resetForm,
+  error,
+  editingArticle,
+  isUploading,
+  handleImageUpload,
 }: ArticleFormProps) => {
-  // Handle form change langsung tanpa useCallback
   const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [field]: value
+      [field]: value,
     }));
   };
 
@@ -65,7 +75,7 @@ const ArticleForm = ({
     <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 space-y-4">
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-semibold text-gray-800">
-          {editingArticle ? 'Edit Artikel' : 'Tambah Artikel Baru'}
+          {editingArticle ? "Edit Artikel" : "Tambah Artikel Baru"}
         </h3>
         <button
           onClick={resetForm}
@@ -91,7 +101,7 @@ const ArticleForm = ({
             <input
               type="text"
               value={formData.judul}
-              onChange={(e) => handleInputChange('judul', e.target.value)}
+              onChange={(e) => handleInputChange("judul", e.target.value)}
               className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
               placeholder="Masukkan judul artikel..."
               required
@@ -104,7 +114,7 @@ const ArticleForm = ({
             <input
               type="text"
               value={formData.author}
-              onChange={(e) => handleInputChange('author', e.target.value)}
+              onChange={(e) => handleInputChange("author", e.target.value)}
               className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
               placeholder="Nama penulis..."
               required
@@ -119,7 +129,9 @@ const ArticleForm = ({
           <textarea
             rows={2}
             value={formData.deskripsiSingkat}
-            onChange={(e) => handleInputChange('deskripsiSingkat', e.target.value)}
+            onChange={(e) =>
+              handleInputChange("deskripsiSingkat", e.target.value)
+            }
             className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
             placeholder="Deskripsi singkat artikel..."
           />
@@ -132,7 +144,7 @@ const ArticleForm = ({
           <textarea
             rows={8}
             value={formData.content}
-            onChange={(e) => handleInputChange('content', e.target.value)}
+            onChange={(e) => handleInputChange("content", e.target.value)}
             className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
             placeholder="Tulis konten artikel di sini..."
             required
@@ -153,14 +165,16 @@ const ArticleForm = ({
           {isUploading && (
             <div className="mt-2 flex items-center space-x-2">
               <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-500"></div>
-              <span className="text-sm text-gray-600">Mengupload gambar...</span>
+              <span className="text-sm text-gray-600">
+                Mengupload gambar...
+              </span>
             </div>
           )}
           {formData.imageUrl && (
             <div className="mt-3">
-              <img 
-                src={formData.imageUrl} 
-                alt="Preview" 
+              <img
+                src={formData.imageUrl}
+                alt="Preview"
                 className="w-32 h-32 object-cover rounded-lg border border-gray-200"
               />
             </div>
@@ -175,7 +189,7 @@ const ArticleForm = ({
             className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors flex items-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <Save className="w-4 h-4" />
-            <span>{editingArticle ? 'Update' : 'Simpan'}</span>
+            <span>{editingArticle ? "Update" : "Simpan"}</span>
           </button>
           <button
             type="button"
@@ -191,190 +205,188 @@ const ArticleForm = ({
 };
 
 const ManageArtikel = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [statusFilter, setStatusFilter] = useState('all');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
   const [showForm, setShowForm] = useState(false);
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
   const [isUploading, setIsUploading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [editingArticle, setEditingArticle] = useState<Article | null>(null);
   const [formData, setFormData] = useState({
-    judul: '',
-    content: '',
-    author: '',
-    imageUrl: '',
-    deskripsiSingkat: '',
-    isPublished: false
+    judul: "",
+    content: "",
+    author: "",
+    imageUrl: "",
+    deskripsiSingkat: "",
+    isPublished: false,
   });
 
-  // Fetch articles from API
   const fetchArticles = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/artikel');
+      const response = await fetch("/api/artikel");
       if (!response.ok) {
-        throw new Error('Gagal mengambil data artikel');
+        throw new Error("Gagal mengambil data artikel");
       }
       const data: Article[] = await response.json();
       setArticles(data);
-      setError('');
+      setError("");
     } catch (err: any) {
       setError(err.message);
-      console.error('Error fetching articles:', err);
+      console.error("Error fetching articles:", err);
     } finally {
       setLoading(false);
     }
   };
 
-  // Update article status API function
-  const updateArticleStatus = async (articleId: string, isPublished: boolean) => {
+  const updateArticleStatus = async (
+    articleId: string,
+    isPublished: boolean
+  ) => {
     const response = await fetch(`/api/artikel?id=${articleId}`, {
-      method: 'PUT',
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ isPublished }),
     });
-    
+
     if (!response.ok) {
-      throw new Error('Failed to update status');
+      throw new Error("Failed to update status");
     }
-    
+
     return response.json();
   };
 
-  // Handle status change with proper error handling
-  const handleStatusChange = async (articleId: string, isPublished: boolean) => {
+  const handleStatusChange = async (
+    articleId: string,
+    isPublished: boolean
+  ) => {
     try {
       if (isPublished) {
-        const confirmed = confirm('Apakah Anda yakin ingin mem-publish artikel ini?');
+        const confirmed = confirm(
+          "Apakah Anda yakin ingin mem-publish artikel ini?"
+        );
         if (!confirmed) {
-          return; // Batalkan jika user tidak konfirmasi
+          return;
         }
       }
-      // Update ke backend
       await updateArticleStatus(articleId, isPublished);
-      
-      // Update state lokal
-      setArticles(prevArticles => 
-        prevArticles.map(article => 
-          article.id === articleId 
-            ? { ...article, isPublished }
-            : article
+
+      setArticles((prevArticles) =>
+        prevArticles.map((article) =>
+          article.id === articleId ? { ...article, isPublished } : article
         )
       );
-      
-      // Clear any previous errors
-      setError('');
+
+      setError("");
     } catch (err: any) {
-      setError(err.message || 'Gagal mengubah status artikel');
-      console.error('Error updating status:', err);
+      setError(err.message || "Gagal mengubah status artikel");
+      console.error("Error updating status:", err);
     }
   };
 
-  // Submit form (create or update)
   const handleSubmit = async () => {
     if (!formData.judul || !formData.content || !formData.author) {
-      setError('Judul, konten, dan penulis wajib diisi');
+      setError("Judul, konten, dan penulis wajib diisi");
       return;
     }
 
     try {
-      const method = editingArticle ? 'PUT' : 'POST';
-      const url = editingArticle ? `/api/artikel?id=${editingArticle.id}` : '/api/artikel';
-      
+      const method = editingArticle ? "PUT" : "POST";
+      const url = editingArticle
+        ? `/api/artikel?id=${editingArticle.id}`
+        : "/api/artikel";
+
       const response = await fetch(url, {
         method,
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || 'Gagal menyimpan artikel');
+        throw new Error(errorData.error || "Gagal menyimpan artikel");
       }
 
       await fetchArticles();
       resetForm();
-      setError('');
+      setError("");
     } catch (err: any) {
       setError(err.message);
-      console.error('Error saving article:', err);
+      console.error("Error saving article:", err);
     }
   };
 
-  // Delete article
+  // DELETE Artikel
   const handleDelete = async (id: string) => {
-    if (!confirm('Apakah Anda yakin ingin menghapus artikel ini?')) {
+    if (!confirm("Apakah Anda yakin ingin menghapus artikel ini?")) {
       return;
     }
 
     try {
       const response = await fetch(`/api/artikel?id=${id}`, {
-        method: 'DELETE',
+        method: "DELETE",
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || 'Gagal menghapus artikel');
+        throw new Error(errorData.error || "Gagal menghapus artikel");
       }
 
       await fetchArticles();
-      setError('');
+      setError("");
     } catch (err: any) {
       setError(err.message);
-      console.error('Error deleting article:', err);
+      console.error("Error deleting article:", err);
     }
   };
 
-  // Edit article
+  // EDIT Artikel
   const handleEdit = (article: Article) => {
     setEditingArticle(article);
     setFormData({
       judul: article.judul,
       content: article.content,
       author: article.author,
-      imageUrl: article.imageUrl || '',
-      deskripsiSingkat: article.deskripsiSingkat || '',
-      isPublished: false
+      imageUrl: article.imageUrl || "",
+      deskripsiSingkat: article.deskripsiSingkat || "",
+      isPublished: false,
     });
     setShowForm(true);
   };
 
-  // Reset form
   const resetForm = () => {
     setFormData({
-      judul: '',
-      content: '',
-      author: '',
-      imageUrl: '',
-      deskripsiSingkat: '',
-      isPublished: false
+      judul: "",
+      content: "",
+      author: "",
+      imageUrl: "",
+      deskripsiSingkat: "",
+      isPublished: false,
     });
     setEditingArticle(null);
     setShowForm(false);
-    setError('');
+    setError("");
   };
 
-  // Format date
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('id-ID');
+    return new Date(dateString).toLocaleDateString("id-ID");
   };
 
-  // Get status label
   const getStatusLabel = (article: Article) => {
-    return article.isPublished ? 'published' : 'draft';
+    return article.isPublished ? "published" : "draft";
   };
 
-  // Filter articles
-  const filteredArticles = articles.filter(article => {
-    const matchesSearch = article.judul.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         article.author.toLowerCase().includes(searchTerm.toLowerCase());
+  const filteredArticles = articles.filter((article) => {
+    const matchesSearch =
+      article.judul.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      article.author.toLowerCase().includes(searchTerm.toLowerCase());
     const status = getStatusLabel(article);
-    const matchesStatus = statusFilter === 'all' || status === statusFilter;
+    const matchesStatus = statusFilter === "all" || status === statusFilter;
     return matchesSearch && matchesStatus;
   });
 
@@ -382,55 +394,57 @@ const ManageArtikel = () => {
     fetchArticles();
   }, []);
 
-  // Enhanced image upload with validation
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    // Validasi tipe file
-    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/jpg'];
+    const allowedTypes = [
+      "image/jpeg",
+      "image/png",
+      "image/gif",
+      "image/webp",
+      "image/jpg",
+    ];
     if (!allowedTypes.includes(file.type)) {
-      setError('Format file tidak didukung. Gunakan JPG, PNG, GIF, atau WebP.');
+      setError("Format file tidak didukung. Gunakan JPG, PNG, GIF, atau WebP.");
       return;
     }
 
-    // Validasi ukuran file (max 5MB)
     if (file.size > 5 * 1024 * 1024) {
-      setError('Ukuran file terlalu besar. Maksimal 5MB.');
+      setError("Ukuran file terlalu besar. Maksimal 5MB.");
       return;
     }
 
-    const fileExt = file.name.split('.').pop();
+    const fileExt = file.name.split(".").pop();
     const fileName = `${Date.now()}.${fileExt}`;
     const filePath = `images/${fileName}`;
 
     setIsUploading(true);
     try {
       const { data, error } = await supabase.storage
-        .from('images')
+        .from("images")
         .upload(filePath, file);
 
       if (error) {
-        console.error('Upload error:', error.message);
-        setError('Gagal mengupload gambar: ' + error.message);
+        console.error("Upload error:", error.message);
+        setError("Gagal mengupload gambar: " + error.message);
         return;
       }
 
-      const { data: publicUrlData } = supabase
-        .storage
-        .from('images')
+      const { data: publicUrlData } = supabase.storage
+        .from("images")
         .getPublicUrl(filePath);
 
       if (publicUrlData?.publicUrl) {
-        setFormData(prev => ({
+        setFormData((prev) => ({
           ...prev,
-          imageUrl: publicUrlData.publicUrl
+          imageUrl: publicUrlData.publicUrl,
         }));
-        setError(''); // Clear error jika berhasil
+        setError("");
       }
     } catch (err: any) {
-      console.error('Unexpected upload error:', err);
-      setError('Terjadi kesalahan tidak terduga saat upload gambar.');
+      console.error("Unexpected upload error:", err);
+      setError("Terjadi kesalahan tidak terduga saat upload gambar.");
     } finally {
       setIsUploading(false);
     }
@@ -457,7 +471,7 @@ const ManageArtikel = () => {
       )}
 
       {showForm && (
-        <ArticleForm 
+        <ArticleForm
           formData={formData}
           setFormData={setFormData}
           handleSubmit={handleSubmit}
@@ -529,18 +543,26 @@ const ManageArtikel = () => {
               <tbody className="bg-white divide-y divide-gray-200">
                 {filteredArticles.length === 0 ? (
                   <tr>
-                    <td colSpan={5} className="px-6 py-8 text-center text-gray-500">
-                      {articles.length === 0 ? 'Belum ada artikel' : 'Tidak ada artikel yang sesuai filter'}
+                    <td
+                      colSpan={5}
+                      className="px-6 py-8 text-center text-gray-500"
+                    >
+                      {articles.length === 0
+                        ? "Belum ada artikel"
+                        : "Tidak ada artikel yang sesuai filter"}
                     </td>
                   </tr>
                 ) : (
                   filteredArticles.map((article) => (
-                    <tr key={article.id} className="hover:bg-gray-50 transition-colors">
+                    <tr
+                      key={article.id}
+                      className="hover:bg-gray-50 transition-colors"
+                    >
                       <td className="px-6 py-4">
                         <div className="flex items-start space-x-3">
                           {article.imageUrl && (
-                            <img 
-                              src={article.imageUrl} 
+                            <img
+                              src={article.imageUrl}
                               alt={article.judul}
                               className="w-12 h-12 object-cover rounded-lg"
                             />
@@ -560,11 +582,16 @@ const ManageArtikel = () => {
                       <td className="px-6 py-4 whitespace-nowrap">
                         <select
                           value={article.isPublished ? "published" : "draft"}
-                          onChange={(e) => handleStatusChange(article.id, e.target.value === "published")}
+                          onChange={(e) =>
+                            handleStatusChange(
+                              article.id,
+                              e.target.value === "published"
+                            )
+                          }
                           className={`text-xs font-semibold rounded-full px-2 py-1 focus:ring-2 focus:ring-blue-500 ${
-                            article.isPublished 
-                              ? 'bg-green-100 text-green-800' 
-                              : 'bg-red-300 text-red-500'
+                            article.isPublished
+                              ? "bg-green-100 text-green-800"
+                              : "bg-red-300 text-red-500"
                           }`}
                         >
                           <option value="draft">Draft</option>
@@ -582,14 +609,14 @@ const ManageArtikel = () => {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                         <div className="flex space-x-2">
-                          <button 
+                          <button
                             onClick={() => handleEdit(article)}
                             className="text-green-600 hover:text-green-900 p-1 rounded hover:bg-green-50"
                             title="Edit artikel"
                           >
                             <Edit className="w-4 h-4" />
                           </button>
-                          <button 
+                          <button
                             onClick={() => handleDelete(article.id)}
                             className="text-red-600 hover:text-red-900 p-1 rounded hover:bg-red-50"
                             title="Hapus artikel"

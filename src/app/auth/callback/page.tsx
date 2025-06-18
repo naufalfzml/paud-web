@@ -15,13 +15,14 @@ export default function AuthCallbackPage() {
     const refresh_token = params.get("refresh_token");
 
     if (access_token && refresh_token) {
-      supabase.auth.setSession({
-        access_token,
-        refresh_token,
-      }).then(() => {
-        // Arahkan user ke halaman setelah login
-        router.replace("/dashboard");
-      });
+      supabase.auth
+        .setSession({
+          access_token,
+          refresh_token,
+        })
+        .then(() => {
+          router.replace("/dashboard");
+        });
     } else {
       console.error("Token tidak ditemukan di URL");
       router.replace("/login");

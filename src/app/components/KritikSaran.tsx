@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { useAuth } from "@/lib/AuthContext"; // pastikan path ini sesuai
+import { useAuth } from "@/lib/AuthContext";
 
 export default function FormKritikSaran() {
   const { user } = useAuth();
@@ -11,13 +11,11 @@ export default function FormKritikSaran() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // ✅ Cek apakah sudah login
     if (!user) {
       alert("Silakan login terlebih dahulu untuk mengirim kritik atau saran.");
       return;
     }
 
-    // ✅ Minimal salah satu harus diisi
     if (!kritik.trim() && !saran.trim()) {
       alert("Silakan isi kritik atau saran terlebih dahulu.");
       return;
@@ -55,11 +53,15 @@ export default function FormKritikSaran() {
           Kritik & Saran
         </h2>
         <p className="text-center text-gray-600 mb-8">
-          Pendapat Anda sangat berarti bagi kami. Silakan tuliskan kritik atau saran Anda di bawah ini untuk PAUD Cahya Indria.
+          Pendapat Anda sangat berarti bagi kami. Silakan tuliskan kritik atau
+          saran Anda di bawah ini untuk PAUD Cahya Indria.
         </p>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label htmlFor="kritik" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="kritik"
+              className="block text-sm font-medium text-gray-700"
+            >
               Kritik
             </label>
             <textarea
@@ -72,7 +74,10 @@ export default function FormKritikSaran() {
             />
           </div>
           <div>
-            <label htmlFor="saran" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="saran"
+              className="block text-sm font-medium text-gray-700"
+            >
               Saran
             </label>
             <textarea
